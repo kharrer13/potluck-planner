@@ -5,9 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     eventLocation: DataTypes.STRING,
     eventDate: DataTypes.DATE,
     privateEvent: DataTypes.BOOLEAN
-  }, {});
+  }, {
+    timestamps: false
+  });
   Event.associate = function(models) {
     // associations can be defined here
+    models.Event.belongsTo(models.User);
+    models.Event.hasMany(models.Item);
   };
   return Event;
 };

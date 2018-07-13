@@ -2,9 +2,13 @@
 module.exports = (sequelize, DataTypes) => {
   var Item = sequelize.define('Item', {
     itemName: DataTypes.STRING
-  }, {});
-  Item.associate = function(models) {
+  }, {
+    timestamps: false
+  });
+  Item.associate = function (models) {
     // associations can be defined here
+    models.Item.belongsTo(models.User);
+    models.Item.belongsTo(models.Event);
   };
   return Item;
 };
