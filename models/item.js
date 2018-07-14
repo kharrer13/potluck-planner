@@ -1,10 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Item = sequelize.define('Item', {
-    itemName: DataTypes.STRING
+    itemName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
-    timestamps: false
-  });
+      timestamps: false
+    });
   Item.associate = function (models) {
     // associations can be defined here
     models.Item.belongsTo(models.User);
