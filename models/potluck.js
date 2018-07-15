@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Event = sequelize.define('Event', {
+  var Potluck = sequelize.define('Potluck', {
     eventName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
       timestamps: false
     });
-  Event.associate = function (models) {
+  Potluck.associate = function (models) {
     // associations can be defined here
-    models.Event.belongsTo(models.User);
-    models.Event.hasMany(models.Item);
+    models.Potluck.belongsTo(models.User);
+    models.Potluck.hasMany(models.Item);
   };
-  return Event;
+  return Potluck;
 };
