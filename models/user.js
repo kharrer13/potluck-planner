@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    timestamps: false
-  });
-  User.associate = function(models) {
+      timestamps: false
+    });
+  User.associate = function (models) {
     // associations can be defined here
-    models.User.hasMany(models.Potluck);
+    models.User.belongsToMany(models.Potluck, { through: models.UserPotluck });
     models.User.hasMany(models.Item);
   };
   return User;
