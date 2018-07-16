@@ -11,7 +11,7 @@ db.sequelize.sync()
 
     db.Potluck.create(newPotluck)
       .then((dbPotluck) => {
-        dbPotluck.setOwner(2)
+        dbPotluck.setOwner(1)
         console.log(JSON.stringify(dbPotluck, '', 2))
       })
       // .then(() => db.sequelize.close());
