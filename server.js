@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
-db.sequelize.sync({ force: true })
+db.sequelize.sync({ force: false })
   .then(function () {
 
     // Start the API server
