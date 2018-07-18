@@ -1,16 +1,21 @@
 const router = require("express").Router();
 const db = require('../../models');
 
-console.log('routes/api called');
+// all routes are prefixed by /api
 
-
+// start dummy routes for testing
 router.get('/ok', function (req, res) {
   res.send('ok')
+})
+
+router.get('/search', function (req, res) {
+  res.json(req.query)
 })
 
 router.all('/echo', function (req, res) {
   res.json(req.body)
 })
+// end dummy routes for testing
 
 router.get('/users', function (req, res) {
   db.User.findAll()
@@ -39,6 +44,14 @@ router.get('/potluck/:potluckId', function (req, res) {
     .then(dbPotluck => res.json(dbPotluck))
 })
 
+router.get('/items', function (req, res) {
+  // db.Item.findAll({ where: req.query, include: [{ all: true }] })
+  // need to validate req.query, e.g. copy just the parameters that make sense and make sure they are ok
+  db.Item.findAll({ include: [{ all: true }] })
+    .then(dbItem => {
+      return res.json(dbItem)
+    })
+})
 
 
 module.exports = router;
