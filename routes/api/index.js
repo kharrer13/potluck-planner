@@ -18,31 +18,58 @@ router.all('/echo', function (req, res) {
 // end dummy routes for testing
 
 router.get('/users', function (req, res) {
-  db.User.findAll()
+  let query = {};
+  if (req.query.user_id) {
+    query.id = req.query.user_id;
+  }
+
+  db.User.findAll({
+    where: query,
+    include: [db.Potluck]
+    // include: [{ all: true }]
+  })
     .then(dbUsers => res.json(dbUsers))
 })
 
 router.post('/users', function (req, res) {
-  newUser = { ...req.body }
+  let newUser = { ...req.body }
   db.User.create(newUser)
     .then(dbUser => res.json(dbUser))
 })
 
 router.get('/potluck', function (req, res) {
+  let query = {};
+  if (req.query.potluck_id) {
+    query.id = req.query.potluck_id;
+  }
+
   // db.Potluck.findAll({ include: [{ all: true }] })
-  db.Potluck.findAll({ include: ['Attendee'] })
+  db.Potluck.findAll({ include: ['Attendee', 'Items'] })
     .then(dbPotluck => res.json(dbPotluck))
 })
 
 router.post('/potluck', function (req, res) {
-  newPotluck = { ...req.body }
+  let newPotluck = { ...req.body }
+
+  // later get this from req.user
+  let newOwner = 8;
   db.Potluck.create(newPotluck)
-    .then(dbPotluck => res.json(dbPotluck))
+    .then(dbPotluck => {
+      dbPotluck.setOwner(newOwner)
+      res.json(dbPotluck)
+    })
 })
 
 router.get('/potluck/:potluckId', function (req, res) {
   // db.Potluck.findAll({ where: { id: req.params.potluckId }, include: [{ all: true }] })
-  db.Potluck.findAll({ where: { id: req.params.potluckId }, include: ['Attendee'] })
+  db.Potluck.findAll({ where: { id: req.params.potluckId }, include: ['Attendee', 'Items'] })
+    .then(dbPotluck => res.json(dbPotluck))
+})
+
+router.put('/potluck/:potluckId', function (req, res) {
+  // db.Potluck.findAll({ where: { id: req.params.potluckId }, include: [{ all: true }] })
+  // this actually returns the array of rows updated
+  db.Potluck.update(req.body, { where: { id: req.params.potluckId }})
     .then(dbPotluck => res.json(dbPotluck))
 })
 
