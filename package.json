@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/kharrer13/potluck-planner#readme",
   "devDependencies": {
-    "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "concurrently": "^3.6.0",
+    "nodemon": "^1.18.1"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",

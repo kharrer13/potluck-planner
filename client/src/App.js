@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
+import Events from "./Pages/Events/Events";
+// import EventView from "./pages/EventView";
+// import Profile from "./pages/Profile";
+// import ClaimItem from "./pages/ClaimItem";
+// import CreateEvent from "./pages/CreateEvent";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+		    <div>
+			    <Switch>
+				    <Route exact path="/" component={Events} />
+				    <Route exact path="/events" component={Events} />
+				    <Route exact path="/events/:event_id" component={EventView} />
+				    {/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/create_event" component={CreateEvent} />
+			    </Switch>
+		    </div>
+	    </Router>
     );
   }
 }
