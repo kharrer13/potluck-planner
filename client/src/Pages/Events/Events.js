@@ -20,7 +20,10 @@ class Events extends Component {
     };
     
     loadEvents = () => {
-
+		API.getPotlucks()
+		.then(res => 
+			this.setState({events: res.data, potluckName: "", potluckDate: '', potluckLocation: ''})
+		)
     };
 
     handleInputChange = event => {
@@ -33,10 +36,10 @@ class Events extends Component {
   handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
-			API.saveEvent({
-				potluckName: this.state.potluckName,
-				potluckDate: this.state.potluckDate,
-				potluckLocation: this.state.potluckLocation
+			API.savePotluck({
+				eventName: this.state.potluckName,
+				eventDate: this.state.potluckDate,
+				eventLocation: this.state.potluckLocation
 			})
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
@@ -56,17 +59,9 @@ class Events extends Component {
 							<h1>Available Potlucks</h1>
 						</Jumbotron>
 							{this.state.events.length ? (
-							<List>
-								{this.state.events.map(event => (
-									<ListItem key={event._id}>
-										<ClickyThing to={`/events/${event._id}`}>
-											<strong>
-												{event.potluckName}
-											</strong>
-										</ClickyThing>
-									</ListItem>
-								))}
-							</List>
+								this.state.events.map(potluck => (
+									<div>{potluck.eventName}</div>
+								))
 						) : (
 							<h3>No Results to Display</h3>
 						)}
