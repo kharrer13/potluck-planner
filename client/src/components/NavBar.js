@@ -4,6 +4,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 // import {Tabs, Tab} from '@material-ui/core'
+import { Link } from 'react-router-dom';
+
 
 const NavBar = () => {
     return(
@@ -13,8 +15,15 @@ const NavBar = () => {
               <Typography variant="title" color="inherit">
               Potluck Planner
               </Typography>
-              <Button>My Events</Button>
-              <Button>My Profile</Button>
+              <Link to="/">
+                <Button>My Events</Button>
+              </Link>
+              <Link to="/create_event">
+                <Button>Create Event</Button>
+              </Link>
+              <Link to="/profile">
+                <Button>My Profile</Button>
+              </Link>
             </Toolbar>
           </AppBar>
         {/* <AppBar position="static">
