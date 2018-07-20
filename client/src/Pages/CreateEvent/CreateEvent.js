@@ -81,13 +81,6 @@ class CreateEvent extends Component {
 									)}
 								</select>
 							</div>
-							{/* <Select
-								value={this.state.currentUser}
-								onChange={this.handleInputChange}
-								selectLabel="Pick current user"
-								selectName="currentUser"
-								selectData={this.state.userData}
-							/> */}
 							<Input
 								value={this.state.potluckName}
 								onChange={this.handleInputChange}
@@ -123,5 +116,6 @@ class CreateEvent extends Component {
 // TODO fix select value per https://reactjs.org/docs/forms.html#the-select-tag
 // or the hacky way is to just have another text input to input user id or username
 // and if username, then add to the backend to handle adding user, or look up in frontend.
+// TODO add conditional rendering to user selector
 
 export default CreateEvent;
