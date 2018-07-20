@@ -5,6 +5,7 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
+import Navbar from '../../components/NavBar'
 
 class Events extends Component {
     state = {
@@ -19,7 +20,10 @@ class Events extends Component {
     };
     
     loadEvents = () => {
-
+		API.getPotlucks()
+		.then(res => 
+			this.setState({events: res.data, potluckName: "", potluckDate: '', potluckLocation: ''})
+		)
     };
 
     handleInputChange = event => {
@@ -32,10 +36,10 @@ class Events extends Component {
   handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
-			API.saveEvent({
-				potluckName: this.state.potluckName,
-				potluckDate: this.state.potluckDate,
-				potluckLocation: this.state.potluckLocation
+			API.savePotluck({
+				eventName: this.state.potluckName,
+				eventDate: this.state.potluckDate,
+				eventLocation: this.state.potluckLocation
 			})
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
@@ -44,61 +48,27 @@ class Events extends Component {
   
   render() {
 		return (
+			<div>
+			<Navbar />
+			<br/>
+			<br/>
 			<Container fluid>
 				<Row>
-					<Col size="md-6">
-						<Jumbotron>
-							<h1>Create a Potluck</h1>
-						</Jumbotron>
-						<form>
-							<Input
-								value={this.state.potluckName}
-								onChange={this.handleInputChange}
-								name="Potluck Name"
-								placeholder="Name (required)"
-							/>
-							<Input
-								value={this.state.potluckDate}
-								onChange={this.handleInputChange}
-								name="Potluck Date"
-								placeholder="Date (required)"
-							/>
-							<TextArea
-								value={this.state.potluckLocation}
-								onChange={this.handleInputChange}
-								name="Potluck Location"
-								placeholder="Location (required)"
-							/>
-							<FormBtn
-								disabled={!(this.state.potluckName && this.state.potluckDate && this.state.potluckLocation)}
-								onClick={this.handleFormSubmit}
-							>
-								Submit Potluck
-							</FormBtn>
-						</form>
-					</Col>
-					<Col size="md-6 sm-12">
+					<Col size="md-12 sm-12">
 						<Jumbotron>
 							<h1>Available Potlucks</h1>
 						</Jumbotron>
 							{this.state.events.length ? (
-							<List>
-								{this.state.events.map(event => (
-									<ListItem key={event._id}>
-										<ClickyThing to={`/events/${event._id}`}>
-											<strong>
-												{event.potluckName}
-											</strong>
-										</ClickyThing>
-									</ListItem>
-								))}
-							</List>
+								this.state.events.map(potluck => (
+									<div>{potluck.eventName}</div>
+								))
 						) : (
 							<h3>No Results to Display</h3>
 						)}
 					</Col>
 				</Row>
 			</Container>
+			</div>
 		);
 	}
 }

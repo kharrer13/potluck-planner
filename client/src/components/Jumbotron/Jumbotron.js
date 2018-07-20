@@ -3,9 +3,9 @@ import React from "react";
 const Jumbotron = ({ children }) => (
 	<div
 		style={
-			{ height: 300,
+			{ height: 100,
 				clear: "both",
-				paddingTop: 120,
+				paddingTop: 30,
 				textAlign: "center"
 			}
 		}
