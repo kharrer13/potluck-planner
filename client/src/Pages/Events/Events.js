@@ -6,6 +6,7 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
+import Moment from 'react-moment';
 
 class Events extends Component {
     state = {
@@ -63,8 +64,7 @@ class Events extends Component {
 								{this.state.events.map(potluck => (
 									<ListItem
 										key={potluck.id}
-									>{potluck.id} {potluck.eventName}
-									{potluck.eventDate && potluck.eventDate } 
+									>{potluck.id} {potluck.eventName} on {potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment> } 
 									</ListItem>
 								))}
 								</List>
