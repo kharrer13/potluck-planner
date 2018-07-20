@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Jumbotron from '../../components/Jumbotron'
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn, Select } from "../../components/Form";
+import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
@@ -44,8 +44,8 @@ class CreateEvent extends Component {
     handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
-			// API.savePotluck({
-			API.echo({
+			API.savePotluck({
+			// API.echo({
 				OwnerId: +this.state.currentUser,
 				eventName: this.state.potluckName,
 				eventDate: this.state.potluckDate,
@@ -68,13 +68,26 @@ class CreateEvent extends Component {
 							<h1>Create a Potluck</h1>
 						</Jumbotron>
 						<form>
-						<Select
+							<div className="form-group">
+								<label for="currentUser">Pick current user</label>
+								<select
+								className="form-control"
+								name="currentUser"
+								id="currentUser"
+								onChange={this.handleInputChange}
+								>
+									{this.state.userData.map(user =>
+										<option value={user.id}>{user.firstName} {user.lastName}</option>
+									)}
+								</select>
+							</div>
+							{/* <Select
 								value={this.state.currentUser}
 								onChange={this.handleInputChange}
 								selectLabel="Pick current user"
 								selectName="currentUser"
 								selectData={this.state.userData}
-							/>
+							/> */}
 							<Input
 								value={this.state.potluckName}
 								onChange={this.handleInputChange}
