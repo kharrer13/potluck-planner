@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import Events from "./Pages/Events/Events";
+import Events from "./Pages/Events";
 // import EventView from "./Pages/EventView/EventView";
-import Profile from "./Pages/Profile/Profile";
+import Profile from "./Pages/Profile";
 // import ClaimItem from "./Pages/ClaimItem";
 import CreateEvent from "./Pages/CreateEvent";
 

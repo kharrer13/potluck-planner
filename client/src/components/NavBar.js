@@ -38,4 +38,6 @@ const NavBar = () => {
         </div>
     )
 }
+// My profile is actually all users right now
+
 export default NavBar;

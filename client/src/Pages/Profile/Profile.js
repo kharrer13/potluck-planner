@@ -55,7 +55,19 @@ class Profile extends Component {
 						<Jumbotron>
 							<h1>My profile</h1>
 						</Jumbotron>
-              Profile goes here: {JSON.stringify(this.state.userData)}
+            {this.state.userData.length ? (
+								<List>
+								{this.state.userData.map(userOne => (
+									<ListItem
+										key={userOne.id}
+                  >
+                  {userOne.id} {userOne.firstName} {userOne.lastName}
+									</ListItem>
+								))}
+								</List>
+						) : (
+							<h3>No Users to Display</h3>
+						)}
 					</Col>
 				</Row>
 			</Container>
