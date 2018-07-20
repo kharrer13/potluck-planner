@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Jumbotron from '../../components/Jumbotron'
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
@@ -11,6 +11,8 @@ class CreateEvent extends Component {
 
     state = {
         events: [],
+				userData: [],
+				currentUser: "",
         potluckName: "",
         potluckDate: "",
         potluckLocation: ""
@@ -18,16 +20,33 @@ class CreateEvent extends Component {
 
     handleInputChange = event => {
         const { name, value } = event.target;
-        console.log(name, value)
+        
 		this.setState({
 			[name]: value
 		});
-    };
+		};
+		
+		// handleSelectChange(event) {
+		// 	this.setState({currentUser: event.target.value});
+		// }
 
+		componentDidMount() {
+			this.loadEvents();
+			};
+	
+    loadEvents = () => {
+			API.getUsers()
+			.then(res => 
+				this.setState({userData: res.data})
+			)
+			};
+	
     handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
-			API.savePotluck({
+			// API.savePotluck({
+			API.echo({
+				OwnerId: +this.state.currentUser,
 				eventName: this.state.potluckName,
 				eventDate: this.state.potluckDate,
 				eventLocation: this.state.potluckLocation
@@ -49,11 +68,18 @@ class CreateEvent extends Component {
 							<h1>Create a Potluck</h1>
 						</Jumbotron>
 						<form>
+						<Select
+								value={this.state.currentUser}
+								onChange={this.handleInputChange}
+								selectLabel="Pick current user"
+								selectName="currentUser"
+								selectData={this.state.userData}
+							/>
 							<Input
 								value={this.state.potluckName}
 								onChange={this.handleInputChange}
 								name="potluckName"
-								placeholder="Name (required)"
+								placeholder="Event name (required)"
 							/>
 							<Input
 								value={this.state.potluckDate}
@@ -81,5 +107,8 @@ class CreateEvent extends Component {
 	}
 
 }
+// TODO fix select value per https://reactjs.org/docs/forms.html#the-select-tag
+// or the hacky way is to just have another text input to input user id or username
+// and if username, then add to the backend to handle adding user, or look up in frontend.
 
 export default CreateEvent;
