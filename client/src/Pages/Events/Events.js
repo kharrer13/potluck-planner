@@ -6,6 +6,7 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
+import Moment from 'react-moment';
 
 class Events extends Component {
     state = {
@@ -59,9 +60,14 @@ class Events extends Component {
 							<h1>Available Potlucks</h1>
 						</Jumbotron>
 							{this.state.events.length ? (
-								this.state.events.map(potluck => (
-									<div>{potluck.eventName}</div>
-								))
+								<List>
+								{this.state.events.map(potluck => (
+									<ListItem
+										key={potluck.id}
+									>{potluck.id} {potluck.eventName} on {potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment> } 
+									</ListItem>
+								))}
+								</List>
 						) : (
 							<h3>No Results to Display</h3>
 						)}
@@ -72,5 +78,7 @@ class Events extends Component {
 		);
 	}
 }
+// TODO: fix key in ListItem
+
 
 export default Events;

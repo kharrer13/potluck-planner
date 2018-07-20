@@ -13,6 +13,7 @@ router.get('/search', function (req, res) {
 })
 
 router.all('/echo', function (req, res) {
+  console.log(req.body)
   res.json(req.body)
 })
 // end dummy routes for testing

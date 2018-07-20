@@ -11,6 +11,8 @@ class CreateEvent extends Component {
 
     state = {
         events: [],
+				userData: [],
+				currentUser: "",
         potluckName: "",
         potluckDate: "",
         potluckLocation: ""
@@ -18,16 +20,33 @@ class CreateEvent extends Component {
 
     handleInputChange = event => {
         const { name, value } = event.target;
-        console.log(name, value)
+        
 		this.setState({
 			[name]: value
 		});
-    };
+		};
+		
+		// handleSelectChange(event) {
+		// 	this.setState({currentUser: event.target.value});
+		// }
 
+		componentDidMount() {
+			this.loadEvents();
+			};
+	
+    loadEvents = () => {
+			API.getUsers()
+			.then(res => 
+				this.setState({userData: res.data})
+			)
+			};
+	
     handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
 			API.savePotluck({
+			// API.echo({
+				OwnerId: +this.state.currentUser,
 				eventName: this.state.potluckName,
 				eventDate: this.state.potluckDate,
 				eventLocation: this.state.potluckLocation
@@ -49,11 +68,24 @@ class CreateEvent extends Component {
 							<h1>Create a Potluck</h1>
 						</Jumbotron>
 						<form>
+							<div className="form-group">
+								<label for="currentUser">Pick current user</label>
+								<select
+								className="form-control"
+								name="currentUser"
+								id="currentUser"
+								onChange={this.handleInputChange}
+								>
+									{this.state.userData.map(user =>
+										<option value={user.id}>{user.firstName} {user.lastName}</option>
+									)}
+								</select>
+							</div>
 							<Input
 								value={this.state.potluckName}
 								onChange={this.handleInputChange}
 								name="potluckName"
-								placeholder="Name (required)"
+								placeholder="Event name (required)"
 							/>
 							<Input
 								value={this.state.potluckDate}
@@ -81,5 +113,9 @@ class CreateEvent extends Component {
 	}
 
 }
+// TODO fix select value per https://reactjs.org/docs/forms.html#the-select-tag
+// or the hacky way is to just have another text input to input user id or username
+// and if username, then add to the backend to handle adding user, or look up in frontend.
+// TODO add conditional rendering to user selector
 
 export default CreateEvent;
