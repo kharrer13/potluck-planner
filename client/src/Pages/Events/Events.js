@@ -59,9 +59,15 @@ class Events extends Component {
 							<h1>Available Potlucks</h1>
 						</Jumbotron>
 							{this.state.events.length ? (
-								this.state.events.map(potluck => (
-									<div>{potluck.eventName}</div>
-								))
+								<List>
+								{this.state.events.map(potluck => (
+									<ListItem
+										key={potluck.id}
+									>{potluck.id} {potluck.eventName}
+									{potluck.eventDate && potluck.eventDate } 
+									</ListItem>
+								))}
+								</List>
 						) : (
 							<h3>No Results to Display</h3>
 						)}
@@ -72,5 +78,7 @@ class Events extends Component {
 		);
 	}
 }
+// TODO: fix key in ListItem
+
 
 export default Events;
