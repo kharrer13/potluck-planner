@@ -16,6 +16,27 @@ class CreateEvent extends Component {
         potluckLocation: ""
     };
 
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        console.log(name, value)
+		this.setState({
+			[name]: value
+		});
+    };
+
+    handleFormSubmit = event => {
+		event.preventDefault();
+		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
+			API.savePotluck({
+				eventName: this.state.potluckName,
+				eventDate: this.state.potluckDate,
+				eventLocation: this.state.potluckLocation
+			})
+				.then(res => this.loadEvents())
+				.catch(err => console.log(err));
+		}
+    };
+
     render() {
 		return (
 			<div>
@@ -31,19 +52,19 @@ class CreateEvent extends Component {
 							<Input
 								value={this.state.potluckName}
 								onChange={this.handleInputChange}
-								name="Potluck Name"
+								name="potluckName"
 								placeholder="Name (required)"
 							/>
 							<Input
 								value={this.state.potluckDate}
 								onChange={this.handleInputChange}
-								name="Potluck Date"
+								name="potluckDate"
 								placeholder="Date (required)"
 							/>
-							<TextArea
+							<Input
 								value={this.state.potluckLocation}
 								onChange={this.handleInputChange}
-								name="Potluck Location"
+								name="potluckLocation"
 								placeholder="Location (required)"
 							/>
 							<FormBtn
