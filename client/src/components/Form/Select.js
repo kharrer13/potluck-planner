@@ -3,7 +3,7 @@ import React from "react";
 export const Select = (props) => {
   return (
     <div className="form-group">
-      <label for={props.selectName}>{props.selectLabel}</label>
+      <label htmlFor={props.selectName}>{props.selectLabel}</label>
       <select
         className="form-control"
         name={props.selectName}
@@ -11,7 +11,7 @@ export const Select = (props) => {
         onChange={props.onChange}
       >
         {props.selectData.map(user =>
-          <option value={user.id}>{user.firstName} {user.lastName}</option>
+          <option value={user.id} key={user.id}>{user.firstName} {user.lastName}</option>
         )}
       </select>
     </div>
