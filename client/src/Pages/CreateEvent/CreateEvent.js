@@ -59,10 +59,10 @@ class CreateEvent extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar />
-				<br />
-				<br />
-				<Container fluid>
+                    <Col size='md-3'>
+                    <div>
+                    </div>
+                    </Col>
 					<Col size="md-6">
 						<Jumbotron>
 							<h1>Create a Potluck</h1>
@@ -101,7 +101,6 @@ class CreateEvent extends Component {
 							</FormBtn>
 						</form>
 					</Col>
-				</Container>
 			</div>
 		);
 	}

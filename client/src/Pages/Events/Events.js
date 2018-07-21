@@ -32,9 +32,9 @@ class Events extends Component {
 		this.setState({
 			[name]: value
 		});
-  };
+    };
   
-  handleFormSubmit = event => {
+    handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
 			API.savePotluck({
@@ -45,15 +45,11 @@ class Events extends Component {
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
 		}
-  };
+    };
   
-  render() {
+    render() {
 		return (
 			<div>
-			<Navbar />
-			<br/>
-			<br/>
-			<Container fluid>
 				<Row>
 					<Col size="md-12 sm-12">
 						<Jumbotron>
@@ -62,9 +58,10 @@ class Events extends Component {
 							{this.state.events.length ? (
 								<List>
 								{this.state.events.map(potluck => (
-									<ListItem
-										key={potluck.id}
-									>{potluck.id} {potluck.eventName} on {potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment> } 
+									<ListItem key={potluck.id}> 
+									<ClickyThing to={`/events/${potluck.id}`}>
+										{potluck.id} {potluck.eventName} on {potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment> }
+									</ClickyThing> 
 									</ListItem>
 								))}
 								</List>
@@ -73,7 +70,6 @@ class Events extends Component {
 						)}
 					</Col>
 				</Row>
-			</Container>
 			</div>
 		);
 	}
