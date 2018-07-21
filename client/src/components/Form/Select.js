@@ -10,8 +10,8 @@ export const Select = (props) => {
         id={props.selectName}
         onChange={props.onChange}
       >
-        {props.selectData.map(user =>
-          <option value={user.id} key={user.id}>{user.firstName} {user.lastName}</option>
+        {props.selectData.map(element =>
+          <option value={element.id} key={element.id}>{element[props.selectKey]}</option>
         )}
       </select>
     </div>

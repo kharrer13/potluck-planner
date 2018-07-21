@@ -73,7 +73,8 @@ class CreateEvent extends Component {
 								onChange={this.handleInputChange}
 								selectLabel="Pick current user"
 								selectName="currentUser"
-								selectData={this.state.userData}
+                                selectData={this.state.userData}
+                                selectKey='firstName'
 							/>
 							<Input
 								value={this.state.potluckName}
