@@ -107,4 +107,9 @@ router.post('/items', function (req, res) {
     })
 })
 
+router.post('/items/:itemid', function (req, res) {
+  
+})
+
+
 module.exports = router;
