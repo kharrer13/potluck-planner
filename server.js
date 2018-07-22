@@ -10,25 +10,28 @@ const PORT = process.env.PORT || 3001;
 const db = require("./models");
 
 // Define middleware here
-passport.use(new Strategy(
-  function(username, password, cb) {
+passport.use(new Strategy({
+  // allows us to pass back the entire request to the callback
+  // passReqToCallback: true
+},
+  function (username, password, cb) {
     console.log('finding user with username', username);
-    
+
     db.User.findOne({
-      where: {
-        username: username
-      }
+      where: { username: username }
     })
       .then((dbUser) => {
-        if (dbUser.password != password) {
-          return cb(null, false);
-        }
+        console.log(dbUser.get());
 
-        return cb(null, dbUser);
+        // if (dbUser.password != password) {
+        //   return cb(null, false);
+        // }
+
+        return cb(null, dbUser.get());
 
       })
       .catch(err => cb(err))
-    
+
     // findByUsername(username, function(err, user) {
     //   if (err) { return cb(err); }
     //   if (!user) { return cb(null, false); }
@@ -47,17 +50,17 @@ passport.use(new Strategy(
 // deserializing.
 passport.serializeUser(function (user, cb) {
   console.log('serializeUser', user);
-  
+
   cb(null, user.id);
 });
 
 passport.deserializeUser(function (id, cb) {
   console.log('deserializeUser', id);
   db.User.findOne(id)
-  .then(dbuser => {
-    cb(null, dbUser);
-  })
-  .catch(err => cb(err))
+    .then(dbuser => {
+      cb(null, dbUser);
+    })
+    .catch(err => cb(err))
 });
 
 
