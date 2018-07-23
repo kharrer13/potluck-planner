@@ -112,4 +112,12 @@ router.post('/items/:itemid', function (req, res) {
 })
 
 
+router.get('/whoami',  function (req, res) {
+  if (req.user) {
+    res.json(req.user)
+  } else {
+    res.send('nobody')
+  }
+})
+
 module.exports = router;
