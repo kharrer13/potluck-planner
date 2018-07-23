@@ -46,9 +46,6 @@ class Profile extends Component {
   render() {
 		return (
 			<div>
-			<Navbar />
-			<br/>
-			<br/>
 			<Container fluid>
 				<Row>
 					<Col size="md-12 sm-12">
