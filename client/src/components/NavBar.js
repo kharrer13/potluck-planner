@@ -24,6 +24,9 @@ const NavBar = () => {
               <Link to="/profile">
                 <Button>My Profile</Button>
               </Link>
+              <Link to="/login">
+                <Button>Log in</Button>
+              </Link>
             </Toolbar>
           </AppBar>
         {/* <AppBar position="static">

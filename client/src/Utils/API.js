@@ -42,6 +42,10 @@ export default {
   
   echo: function(whateverdata) {
     return axios.post("/api/echo", whateverdata);
+  },  
+  login: function(loginData) {
+    console.log(loginData)
+    return axios.post("/api/echo", loginData);
   }  
 
 

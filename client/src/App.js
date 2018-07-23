@@ -6,6 +6,7 @@ import EventView from "./Pages/EventView/EventView";
 import Profile from "./Pages/Profile";
 // import ClaimItem from "./Pages/ClaimItem";
 import CreateEvent from "./Pages/CreateEvent";
+import Login from "./Pages/Login";
 import NavBar from './components/NavBar';
 import { Container } from './components/Grid';
 
@@ -27,6 +28,7 @@ class App extends Component {
 								<Route exact path="/events/:event_id" component={EventView} />
 								{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
 								<Route exact path="/profile" component={Profile} />
+								<Route exact path="/login" component={Login} />
 								<Route exact path="/create_event" component={CreateEvent} />
 							</Switch>
 						</div>
