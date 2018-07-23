@@ -62,7 +62,9 @@ class EventView extends Component {
                         <div>
                             What: {this.state.event.eventName} 
                             <br/>
-                            When: {this.state.event.eventDate}
+                            When: {this.state.event.eventDate ? 
+                            <Moment format="LLL">{this.state.event.eventDate}</Moment> : 
+                            '[No date given]'}
                             <br/>
                             Where: {this.state.event.eventLocation}
                         </div>
