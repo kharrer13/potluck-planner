@@ -46,7 +46,7 @@ class CreateEvent extends Component {
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
 			API.savePotluck({
 				// API.echo({
-				OwnerId: +this.state.currentUser,
+				// OwnerId: +this.state.currentUser,
 				eventName: this.state.potluckName,
 				eventDate: this.state.potluckDate,
 				eventLocation: this.state.potluckLocation

@@ -9,11 +9,13 @@ import Navbar from '../../components/NavBar'
 
 class Profile extends Component {
     state = {
-        userData: [],
+				userData: [],
+				currentUser: {}
     };
 
     componentDidMount() {
 		this.loadEvents();
+		this.loadCurrentUser();
     };
     
     loadEvents = () => {
@@ -21,7 +23,15 @@ class Profile extends Component {
 		.then(res => 
 			this.setState({userData: res.data})
 		)
-    };
+
+	};
+
+	// probably need to move this up to App
+	loadCurrentUser = () => {
+			API.whoami()
+			.then(res => this.setState({ currentUser: res.data }))
+
+	};
 
     handleInputChange = event => {
 		const { name, value } = event.target;
@@ -52,6 +62,12 @@ class Profile extends Component {
 						<Jumbotron>
 							<h1>My profile</h1>
 						</Jumbotron>
+						<h4>
+						{this.state.currentUser.id ? (
+							this.state.currentUser.firstName + ' ' + this.state.currentUser.lastName
+						)
+						: ( 'not logged in' )}
+						</h4>
             {this.state.userData.length ? (
 								<List>
 								{this.state.userData.map(userOne => (

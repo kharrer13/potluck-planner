@@ -9,32 +9,32 @@ import Navbar from '../../components/NavBar'
 import Moment from 'react-moment';
 
 class Events extends Component {
-    state = {
-        events: [],
-        potluckName: "",
-        potluckDate: "",
-        potluckLocation: ""
-    };
+	state = {
+		events: [],
+		potluckName: "",
+		potluckDate: "",
+		potluckLocation: ""
+	};
 
-    componentDidMount() {
+	componentDidMount() {
 		this.loadEvents();
-    };
-    
-    loadEvents = () => {
-		API.getPotlucks()
-		.then(res => 
-			this.setState({events: res.data, potluckName: "", potluckDate: '', potluckLocation: ''})
-		)
-    };
+	};
 
-    handleInputChange = event => {
+	loadEvents = () => {
+		API.getPotlucks()
+			.then(res =>
+				this.setState({ events: res.data, potluckName: "", potluckDate: '', potluckLocation: '' })
+			)
+	};
+
+	handleInputChange = event => {
 		const { name, value } = event.target;
 		this.setState({
 			[name]: value
 		});
-    };
-  
-    handleFormSubmit = event => {
+	};
+
+	handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
 			API.savePotluck({
@@ -45,9 +45,9 @@ class Events extends Component {
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
 		}
-    };
-  
-    render() {
+	};
+
+	render() {
 		return (
 			<div>
 				<Row>
@@ -55,19 +55,19 @@ class Events extends Component {
 						<Jumbotron>
 							<h1>Available Potlucks</h1>
 						</Jumbotron>
-							{this.state.events.length ? (
-								<List>
+						{this.state.events.length ? (
+							<List>
 								{this.state.events.map(potluck => (
-									<ListItem key={potluck.id}> 
-									<ClickyThing to={`/events/${potluck.id}`}>
-										{potluck.id} {potluck.eventName} on {potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment> }
-									</ClickyThing> 
+									<ListItem key={potluck.id}>
+										<ClickyThing to={`/events/${potluck.id}`}>
+											{potluck.id} {potluck.eventName} {potluck.eventDate && (<span> on <Moment format="LLL">{potluck.eventDate}</Moment> </span>)}
+										</ClickyThing>
 									</ListItem>
 								))}
-								</List>
+							</List>
 						) : (
-							<h3>No Results to Display</h3>
-						)}
+								<h3>No Results to Display</h3>
+							)}
 					</Col>
 				</Row>
 			</div>
