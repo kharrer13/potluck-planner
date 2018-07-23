@@ -45,8 +45,11 @@ export default {
   },  
   login: function(loginData) {
     console.log(loginData)
-    return axios.post("/api/echo", loginData);
-  }  
+    return axios.post("/login", loginData);
+  },
+  whoami: function() {
+    return axios.get("/api/whoami");
+  }
 
 
 };
