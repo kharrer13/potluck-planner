@@ -7,15 +7,13 @@ import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
 
-class CreateEvent extends Component {
+class Login extends Component {
 
 	state = {
 		events: [],
 		userData: [],
-		currentUser: "",
-		potluckName: "",
-		potluckDate: "",
-		potluckLocation: ""
+		username: "",
+		password: ""
 	};
 
 	handleInputChange = event => {
@@ -30,26 +28,24 @@ class CreateEvent extends Component {
 	// 	this.setState({currentUser: event.target.value});
 	// }
 
-	componentDidMount() {
-		this.loadEvents();
-	};
+	// componentDidMount() {
+	// 	this.loadEvents();
+	// };
 
-	loadEvents = () => {
-		API.getUsers()
-			.then(res =>
-				this.setState({ userData: res.data })
-			)
-	};
+	// loadEvents = () => {
+	// 	API.getUsers()
+	// 		.then(res =>
+	// 			this.setState({ userData: res.data })
+	// 		)
+	// };
 
 	handleFormSubmit = event => {
 		event.preventDefault();
-		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
-			API.savePotluck({
+		if (this.state.username && this.state.password) {
+			API.login({
 				// API.echo({
-				// OwnerId: +this.state.currentUser,
-				eventName: this.state.potluckName,
-				eventDate: this.state.potluckDate,
-				eventLocation: this.state.potluckLocation
+				username: this.state.username,
+				password: this.state.password
 			})
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
@@ -65,40 +61,27 @@ class CreateEvent extends Component {
                     </Col>
 					<Col size="md-6">
 						<Jumbotron>
-							<h1>Create a Potluck</h1>
+							<h1>Log in</h1>
 						</Jumbotron>
 						<form>
-							<Select
-								value={this.state.currentUser}
+							<Input
+								value={this.state.username}
 								onChange={this.handleInputChange}
-								selectLabel="Pick current user"
-								selectName="currentUser"
-                                selectData={this.state.userData}
-                                selectKey='firstName'
+								name="username"
+								placeholder="Username"
 							/>
 							<Input
-								value={this.state.potluckName}
+                type="password"
+								value={this.state.password}
 								onChange={this.handleInputChange}
-								name="potluckName"
-								placeholder="Event name (required)"
-							/>
-							<Input
-								value={this.state.potluckDate}
-								onChange={this.handleInputChange}
-								name="potluckDate"
-								placeholder="Date (required)"
-							/>
-							<Input
-								value={this.state.potluckLocation}
-								onChange={this.handleInputChange}
-								name="potluckLocation"
-								placeholder="Location (required)"
+								name="password"
+								placeholder="Password"
 							/>
 							<FormBtn
-								disabled={!(this.state.potluckName && this.state.potluckDate && this.state.potluckLocation)}
+								disabled={!(this.state.username && this.state.password)}
 								onClick={this.handleFormSubmit}
 							>
-								Submit Potluck
+								Log in
 							</FormBtn>
 						</form>
 					</Col>
@@ -112,4 +95,4 @@ class CreateEvent extends Component {
 // and if username, then add to the backend to handle adding user, or look up in frontend.
 // TODO add conditional rendering to user selector
 
-export default CreateEvent;
+export default Login;

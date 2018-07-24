@@ -38,8 +38,18 @@ export default {
   // Saves a item to the database
   saveItem: function(itemData) {
     return axios.post("/api/items", itemData);
-  }  
-
+  },
+  
+  echo: function(whateverdata) {
+    return axios.post("/api/echo", whateverdata);
+  },  
+  login: function(loginData) {
+    console.log(loginData)
+    return axios.post("/login", loginData);
+  },
+  whoami: function() {
+    return axios.get("/api/whoami");
+  }
 
 
 };

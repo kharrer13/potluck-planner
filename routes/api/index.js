@@ -13,6 +13,7 @@ router.get('/search', function (req, res) {
 })
 
 router.all('/echo', function (req, res) {
+  console.log(req.body)
   res.json(req.body)
 })
 // end dummy routes for testing
@@ -55,10 +56,13 @@ router.post('/potluck', function (req, res) {
   let newPotluck = { ...req.body }
 
   // later get this from req.user
-  let newOwner = 8;
+  let newOwner
+
+  (req.user) ? newOwner = req.user.id : newOwner = false;  
+  
   db.Potluck.create(newPotluck)
     .then(dbPotluck => {
-      dbPotluck.setOwner(newOwner)
+      newOwner && (dbPotluck.setOwner(newOwner))
       res.json(dbPotluck)
     })
 })
@@ -104,6 +108,19 @@ router.post('/items', function (req, res) {
     .then(dbItem => {
       res.json(dbItem)
     })
+})
+
+router.post('/items/:itemid', function (req, res) {
+  
+})
+
+
+router.get('/whoami',  function (req, res) {
+  if (req.user) {
+    res.json(req.user)
+  } else {
+    res.send('nobody')
+  }
 })
 
 module.exports = router;
