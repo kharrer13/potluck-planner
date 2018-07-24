@@ -6,6 +6,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
+const bcrypt = require('bcryptjs');
+
 
 const routes = require("./routes");
 const app = express();
@@ -25,7 +27,7 @@ passport.use(
         if (!dbUser) {
           return cb(null, false);
         }
-        if (dbUser.password != password) {
+        if (!bcrypt.compareSync(password, dbUser.get('password'))) {
           return cb(null, false);
         }
 
