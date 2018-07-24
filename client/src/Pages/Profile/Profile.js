@@ -3,14 +3,15 @@ import Jumbotron from '../../components/Jumbotron'
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
-import { Link as ClickyThing } from "react-router-dom";
+import { Link as ClickyThing, Redirect } from "react-router-dom";
 import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
 
 class Profile extends Component {
     state = {
-				userData: [],
-				currentUser: {}
+			userData: [],
+			currentUser: {},
+			redirectToReferrer: false
     };
 
     componentDidMount() {
@@ -60,6 +61,7 @@ class Profile extends Component {
 				console.log(res)
 				if (res.data.redirectTo) {
 					console.log(res.data.redirectTo)
+					this.setState({ redirectToReferrer: true })
 				}
 			})
 			.catch(err => console.log(err));
@@ -67,6 +69,15 @@ class Profile extends Component {
 
   
   render() {
+		const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+			console.log('redirecting to from:', from)
+      return <Redirect to={from} />;
+    }
+
+
 		return (
 			<div>
 			<Container fluid>
