@@ -51,7 +51,20 @@ class Profile extends Component {
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
 		}
-  };
+	};
+	
+	handleLogout = event => {
+		event.preventDefault();
+		API.logout()
+			.then(res => {
+				console.log(res)
+				if (res.data.redirectTo) {
+					console.log(res.data.redirectTo)
+				}
+			})
+			.catch(err => console.log(err));
+	}
+
   
   render() {
 		return (
@@ -64,7 +77,13 @@ class Profile extends Component {
 						</Jumbotron>
 						<h4>
 						{this.state.currentUser.id ? (
-							this.state.currentUser.firstName + ' ' + this.state.currentUser.lastName
+							<span>
+							{this.state.currentUser.firstName + ' ' + this.state.currentUser.lastName}
+							<FormBtn 
+								color="secondary"
+								onClick={this.handleLogout}
+								>Logout</FormBtn>
+							</span>
 						)
 						: ( 'not logged in' )}
 						</h4>

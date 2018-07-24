@@ -8,16 +8,18 @@ const passport = require("passport")
 // API Routes
 router.use("/api", apiRoutes);
 
-router.post("/login", passport.authenticate("local", { failureRedirect: "/login" }),
+router.post("/login", passport.authenticate("local", { /* failureRedirect: "/login" */ }),
   function (req, res) {
     console.log('/login called, authenticate run');
-    res.redirect("/");
+    // res.redirect("/");
+
+    res.json({ redirectTo: '/profile'})
   }
 );
 
 router.get("/logout", function (req, res) {
   req.logout();
-  res.redirect("/");
+  res.json({ redirectTo: '/'})
 });
 
 // router.post('/login',

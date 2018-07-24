@@ -47,7 +47,12 @@ class Login extends Component {
 				username: this.state.username,
 				password: this.state.password
 			})
-				.then(res => this.loadEvents())
+				.then(res => {
+					console.log(res)
+					if (res.data.redirectTo) {
+						console.log(res.data.redirectTo)
+					}
+				})
 				.catch(err => console.log(err));
 		}
 	};
