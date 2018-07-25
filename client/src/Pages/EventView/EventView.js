@@ -19,7 +19,6 @@ class EventView extends Component {
         potluckName: "",
         potluckDate: "",
         potluckLocation: "",
-        itemId: '',
         itemName: '',
         currentItem: ''
     }
@@ -44,13 +43,19 @@ class EventView extends Component {
     handleFormSubmit = event => {
 		event.preventDefault();
 			API.saveItemToPotluck({
-                ItemId: this.state.itemId,
-                PotluckId: this.state.potluckId
+                PotluckId: this.props.match.params.event_id,
+                ItemId: this.state.currentItem
 			})
-				.then(res => this.loadEvents())
+				.then(res => this.loadItems())
 				.catch(err => console.log(err));
 		
     };
+
+    loadItems = () => {
+		API.getPotluck(this.props.match.params.event_id)
+			.then(res => this.setState({ event: res.data[0] }))
+            .catch(err => console.log(err));
+    }
 
     render () {
         return(
