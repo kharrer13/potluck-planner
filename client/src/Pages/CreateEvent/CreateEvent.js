@@ -53,6 +53,8 @@ class CreateEvent extends Component {
 			})
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
+
+				this.props.history.push('/events');
 		}
 	};
 
