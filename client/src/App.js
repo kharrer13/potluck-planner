@@ -10,8 +10,26 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import NavBar from './components/NavBar';
 import { Container } from './components/Grid';
+import API from './Utils/API'
 
 class App extends Component {
+	state = {
+		currentUser: {}
+	}
+
+	loadCurrentUser = () => {
+		API.whoami()
+			.then(res => this.setState({ currentUser: res.data }))
+
+	};
+
+	handleUserChange = (theUser) => {
+		console.log('app.handleUserChange called with ' + theUser)
+		this.setState({
+			currentUser: theUser
+		})
+	}
+
   render() {
     return (
 			<div>
@@ -29,7 +47,7 @@ class App extends Component {
 								<Route exact path="/events/:event_id" component={EventView} />
 								{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
 								<Route exact path="/profile" component={Profile} />
-								<Route exact path="/login" component={Login} />
+								<Route exact path="/login" component={Login} handleUserChange={this.handleUserChange} tonyStark="build this in a cave"/>
 								<Route exact path="/signup" component={Signup} />
 								<Route exact path="/create_event" component={CreateEvent} />
 							</Switch>
@@ -38,6 +56,7 @@ class App extends Component {
 				</Container>
 				</div>
 				</Router>
+				{JSON.stringify(this.state.currentUser)}
 			</div>
     );
   }

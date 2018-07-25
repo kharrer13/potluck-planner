@@ -10,7 +10,7 @@ import Navbar from '../../components/NavBar'
 class Profile extends Component {
     state = {
 			userData: [],
-			currentUser: {},
+			// currentUser: {},
 			redirectToReferrer: false
     };
 
@@ -28,11 +28,11 @@ class Profile extends Component {
 	};
 
 	// probably need to move this up to App
-	loadCurrentUser = () => {
-			API.whoami()
-			.then(res => this.setState({ currentUser: res.data }))
+	// loadCurrentUser = () => {
+	// 		API.whoami()
+	// 		.then(res => this.setState({ currentUser: res.data }))
 
-	};
+	// };
 
     handleInputChange = event => {
 		const { name, value } = event.target;
