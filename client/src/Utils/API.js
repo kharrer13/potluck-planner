@@ -47,6 +47,9 @@ export default {
     console.log(loginData)
     return axios.post("/login", loginData);
   },
+  logout: function() {
+    return axios.get("/logout");
+  },
   whoami: function() {
     return axios.get("/api/whoami");
   }

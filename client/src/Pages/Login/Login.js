@@ -3,7 +3,7 @@ import Jumbotron from '../../components/Jumbotron'
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn, Select } from "../../components/Form";
-import { Link as ClickyThing } from "react-router-dom";
+import { Link as ClickyThing, Redirect } from "react-router-dom";
 import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
 
@@ -13,7 +13,8 @@ class Login extends Component {
 		events: [],
 		userData: [],
 		username: "",
-		password: ""
+		password: "",
+		redirectToReferrer: false
 	};
 
 	handleInputChange = event => {
@@ -47,12 +48,26 @@ class Login extends Component {
 				username: this.state.username,
 				password: this.state.password
 			})
-				.then(res => this.loadEvents())
+				.then(res => {
+					console.log(res)
+					if (res.data.redirectTo) {
+						console.log(res.data.redirectTo)
+						this.setState({ redirectToReferrer: true })
+					}
+				})
 				.catch(err => console.log(err));
 		}
 	};
 
 	render() {
+		const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+			console.log('redirecting to from:', from)
+      return <Redirect to={from} />;
+    }
+
 		return (
 			<div>
                     <Col size='md-3'>
