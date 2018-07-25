@@ -96,21 +96,9 @@ class Profile extends Component {
 								>Logout</FormBtn>
 							</span>
 						)
-						: ( 'not logged in' )}
+						: ( <ClickyThing to="/login">Log in</ClickyThing> )}
 						</h4>
-            {this.state.userData.length ? (
-								<List>
-								{this.state.userData.map(userOne => (
-									<ListItem
-										key={userOne.id}
-                  >
-                  {userOne.id} {userOne.firstName} {userOne.lastName}
-									</ListItem>
-								))}
-								</List>
-						) : (
-							<h3>No Users to Display</h3>
-						)}
+
 					</Col>
 				</Row>
 			</Container>

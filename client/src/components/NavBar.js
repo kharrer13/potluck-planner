@@ -15,8 +15,8 @@ const NavBar = () => {
               <Typography variant="title" color="inherit">
               Potluck Planner
               </Typography>
-              <Link to="/">
-                <Button>My Events</Button>
+              <Link to="/events">
+                <Button>Potluck List</Button>
               </Link>
               <Link to="/create_event">
                 <Button>Create Event</Button>
@@ -26,6 +26,9 @@ const NavBar = () => {
               </Link>
               <Link to="/login">
                 <Button>Log in</Button>
+              </Link>
+              <Link to="/signup">
+                <Button>Sign up</Button>
               </Link>
             </Toolbar>
           </AppBar>
@@ -41,6 +44,5 @@ const NavBar = () => {
         </div>
     )
 }
-// My profile is actually all users right now
 
 export default NavBar;
