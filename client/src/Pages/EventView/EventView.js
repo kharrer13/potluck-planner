@@ -43,8 +43,9 @@ class EventView extends Component {
 
     handleFormSubmit = event => {
 		event.preventDefault();
-			API.echo({
-				itemName: this.state.itemName,
+			API.saveItemToPotluck({
+                ItemId: this.state.itemId,
+                PotluckId: this.state.potluckId
 			})
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
