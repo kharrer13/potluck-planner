@@ -52,6 +52,10 @@ export default {
   },
   whoami: function() {
     return axios.get("/api/whoami");
+  },
+  //Save item to potluck
+  saveItemToPotluck: function(itemData) {
+    return axios.post('/api/potluck-item', itemData)
   }
 
 

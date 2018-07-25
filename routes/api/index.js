@@ -110,7 +110,25 @@ router.post('/items', function (req, res) {
     })
 })
 
-router.post('/items/:itemid', function (req, res) {
+router.post('/potluck-item', function (req, res) {
+  // const { potluckId, itemId } = req.body
+
+  db.Potluck.findById(req.body.PotluckId)
+    .then((dbPotluck) => {
+      db.Item.findById(req.body.ItemId)
+        .then(dbItem => {
+          console.log(JSON.stringify(dbPotluck, '', 2))
+          dbPotluck.addItem(dbItem)
+            .then(result => res.json(result))
+          
+          console.log(JSON.stringify(dbPotluck, '', 2))
+        })
+    })
+    .catch(e => res.json(e))
+
+  // db.PotluckItem.create(req.body)
+  //   .then(result => res.json(result))
+  //   .catch(e => res.json(err))
   
 })
 
