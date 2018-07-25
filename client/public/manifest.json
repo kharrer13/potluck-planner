@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Potluck Planner",
+  "name": "Potluck Planner",
   "icons": [
     {
       "src": "favicon.ico",
