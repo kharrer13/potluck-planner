@@ -89,6 +89,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(express.static("public"));
 }
+// TODO go back in history and see blame for the public line
 
 // Add routes, both API and view
 app.use(routes);

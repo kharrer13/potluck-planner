@@ -35,7 +35,11 @@ router.get('/users', function (req, res) {
 router.post('/users', function (req, res) {
   let newUser = { ...req.body }
   db.User.create(newUser)
-    .then(dbUser => res.json(dbUser))
+    .then(dbUser => {
+      let {password, ...tempUser} = dbUser.get()
+      tempUser.redirectTo = '/login'
+      res.json(tempUser)
+    })
 })
 
 router.get('/potluck', function (req, res) {
