@@ -22,6 +22,13 @@ export default {
   getPotluck: function(id) {
     return axios.get("/api/potluck/?potluck_id=" + id);
   },
+  getUsersPotluck: function(id) {
+    return axios.get("/api/potluck/?OwnerId=" + id);
+  },
+  getMyPotlucks: function() {
+    return axios.get("/api/mypotlucks");
+  },
+
   // Saves a potluck to the database
   savePotluck: function(potluckData) {
     return axios.post("/api/potluck", potluckData);

@@ -5,21 +5,29 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link as ClickyThing, Redirect } from "react-router-dom";
 import API from '../../Utils/API'
+import Moment from 'react-moment';
 
 class Profile extends Component {
 	state = {
 		userData: [],
+		events: [],
 		redirectToReferrer: false
 	};
 
 	componentDidMount() {
 		this.loadEvents();
+		this.loadUsers();
 		// this.loadCurrentUser();
 	};
 
-	loadEvents = () => {
+	loadUsers = () => {
 		API.getUsers()
-			.then(res => this.setState({ userData: res.data }))
+			.then(res => this.setState({ userData: res.data }));
+	};
+
+	loadEvents = () => {
+		API.getMyPotlucks()
+			.then(res => this.setState({ events: res.data }));
 	};
 
     handleInputChange = event => {
@@ -74,6 +82,20 @@ class Profile extends Component {
 						)
 						: ( <ClickyThing to="/login">Log in</ClickyThing> )}
 						</h4>
+						{this.state.events.length ? (
+							<List>
+								{this.state.events.map(potluck => (
+									<ListItem key={potluck.id}>
+										<ClickyThing to={`/events/${potluck.id}`}>
+											{potluck.id} {potluck.eventName} {potluck.eventDate && (<span> on <Moment format="LLL">{potluck.eventDate}</Moment> </span>)}
+										</ClickyThing>
+									</ListItem>
+								))}
+							</List>
+						) : (
+								<h3>No Results to Display</h3>
+							)}
+
 					</Col>
 				</Row>
 			</Container>

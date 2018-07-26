@@ -49,6 +49,24 @@ router.get('/potluck', function (req, res) {
   if (req.query.potluck_id) {
     query.id = req.query.potluck_id;
     include = [{ all: true }];
+  } else if (req.user.id) {
+    query.id = req.user.id;
+  } else {
+    include = ['Attendee', 'Items']
+  }
+  // db.Potluck.findAll({ include: [{ all: true }] })
+  db.Potluck.findAll({
+    where: query,
+    include
+  })
+    .then(dbPotluck => res.json(dbPotluck))
+})
+router.get('/mypotlucks', function (req, res) {
+  let query = {};
+  let include;
+  
+  if (req.user) {
+    query.id = req.user.id;
   } else {
     include = ['Attendee', 'Items']
   }
