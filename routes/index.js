@@ -12,14 +12,16 @@ router.post("/login", passport.authenticate("local", { /* failureRedirect: "/log
   function (req, res) {
     console.log('/login called, authenticate run');
     // res.redirect("/");
-
-    res.json({ redirectTo: '/profile'})
+    const {password, ...tempUser} =req.user.get();
+    
+    
+    res.json({ ...tempUser, loggedIn: true, redirectTo: '/profile'})
   }
 );
 
 router.get("/logout", function (req, res) {
   req.logout();
-  res.json({ redirectTo: '/'})
+  res.json({ id: null, username: null, loggedIn: false, redirectTo: '/'})
 });
 
 // router.post('/login',

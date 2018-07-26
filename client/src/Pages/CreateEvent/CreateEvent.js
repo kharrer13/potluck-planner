@@ -5,17 +5,20 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
-import Navbar from '../../components/NavBar'
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 class CreateEvent extends Component {
 
 	state = {
 		events: [],
 		userData: [],
-		currentUser: "",
 		potluckName: "",
 		potluckDate: "",
-		potluckLocation: ""
+		potluckLocation: "",
+		startDate: ''
 	};
 
 	handleInputChange = event => {
@@ -25,10 +28,6 @@ class CreateEvent extends Component {
 			[name]: value
 		});
 	};
-
-	// handleSelectChange(event) {
-	// 	this.setState({currentUser: event.target.value});
-	// }
 
 	componentDidMount() {
 		this.loadEvents();
@@ -40,13 +39,16 @@ class CreateEvent extends Component {
 				this.setState({ userData: res.data })
 			)
 	};
-
+	handleChange = (date) => {
+    this.setState({
+      potluckDate: date
+    });
+  }
 	handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
 			API.savePotluck({
 				// API.echo({
-				// OwnerId: +this.state.currentUser,
 				eventName: this.state.potluckName,
 				eventDate: this.state.potluckDate,
 				eventLocation: this.state.potluckLocation
@@ -70,26 +72,19 @@ class CreateEvent extends Component {
 							<h1>Create a Potluck</h1>
 						</Jumbotron>
 						<form>
-							<Select
-								value={this.state.currentUser}
-								onChange={this.handleInputChange}
-								selectLabel="Pick current user"
-								selectName="currentUser"
-                                selectData={this.state.userData}
-                                selectKey='firstName'
-							/>
 							<Input
 								value={this.state.potluckName}
 								onChange={this.handleInputChange}
 								name="potluckName"
 								placeholder="Event name (required)"
 							/>
-							<Input
-								value={this.state.potluckDate}
-								onChange={this.handleInputChange}
-								name="potluckDate"
-								placeholder="Date (required)"
-							/>
+						<DatePicker
+							selected={this.state.potluckDate}
+							onChange={this.handleChange}
+							name="potluckDate"
+							isClearable={true}
+						/>
+							
 							<Input
 								value={this.state.potluckLocation}
 								onChange={this.handleInputChange}
@@ -103,6 +98,8 @@ class CreateEvent extends Component {
 								Submit Potluck
 							</FormBtn>
 						</form>
+						<h4>Acting as {this.props.currentUser.username}</h4>
+
 					</Col>
 			</div>
 		);

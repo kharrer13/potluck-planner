@@ -5,10 +5,8 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import { Link as ClickyThing, Redirect } from "react-router-dom";
 import API from '../../Utils/API'
-import Navbar from '../../components/NavBar'
 
 class Login extends Component {
-
 	state = {
 		events: [],
 		userData: [],
@@ -19,26 +17,10 @@ class Login extends Component {
 
 	handleInputChange = event => {
 		const { name, value } = event.target;
-
 		this.setState({
 			[name]: value
 		});
 	};
-
-	// handleSelectChange(event) {
-	// 	this.setState({currentUser: event.target.value});
-	// }
-
-	// componentDidMount() {
-	// 	this.loadEvents();
-	// };
-
-	// loadEvents = () => {
-	// 	API.getUsers()
-	// 		.then(res =>
-	// 			this.setState({ userData: res.data })
-	// 		)
-	// };
 
 	handleFormSubmit = event => {
 		event.preventDefault();
@@ -49,9 +31,10 @@ class Login extends Component {
 				password: this.state.password
 			})
 				.then(res => {
-					console.log(res)
+					// console.log(res)
+					this.props.handleUserChange(res.data)
 					if (res.data.redirectTo) {
-						console.log(res.data.redirectTo)
+						console.log('redirectTo', res.data.redirectTo)
 						this.setState({ redirectToReferrer: true })
 					}
 				})
@@ -60,46 +43,46 @@ class Login extends Component {
 	};
 
 	render() {
-		const { from } = this.props.location.state || { from: { pathname: "/" } };
-    const { redirectToReferrer } = this.state;
+		const { from } = this.props.location.state || { from: { pathname: "/profile" } };
+		const { redirectToReferrer } = this.state;
 
-    if (redirectToReferrer) {
+		if (redirectToReferrer) {
 			console.log('redirecting to from:', from)
-      return <Redirect to={from} />;
-    }
+			return <Redirect to={from} />;
+		}
 
 		return (
 			<div>
-                    <Col size='md-3'>
-                    <div>
-                    </div>
-                    </Col>
-					<Col size="md-6">
-						<Jumbotron>
-							<h1>Log in</h1>
-						</Jumbotron>
-						<form>
-							<Input
-								value={this.state.username}
-								onChange={this.handleInputChange}
-								name="username"
-								placeholder="Username"
-							/>
-							<Input
-                type="password"
-								value={this.state.password}
-								onChange={this.handleInputChange}
-								name="password"
-								placeholder="Password"
-							/>
-							<FormBtn
-								disabled={!(this.state.username && this.state.password)}
-								onClick={this.handleFormSubmit}
-							>
-								Log in
+				<Col size='md-3'>
+					<div>
+					</div>
+				</Col>
+				<Col size="md-6">
+					<Jumbotron>
+						<h1>Log in</h1>
+					</Jumbotron>
+					<form>
+						<Input
+							value={this.state.username}
+							onChange={this.handleInputChange}
+							name="username"
+							placeholder="Username"
+						/>
+						<Input
+							type="password"
+							value={this.state.password}
+							onChange={this.handleInputChange}
+							name="password"
+							placeholder="Password"
+						/>
+						<FormBtn
+							disabled={!(this.state.username && this.state.password)}
+							onClick={this.handleFormSubmit}
+						>
+							Log in
 							</FormBtn>
-						</form>
-					</Col>
+					</form>
+				</Col>
 			</div>
 		);
 	}

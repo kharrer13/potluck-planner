@@ -7,29 +7,43 @@ import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom';
 
 
-const NavBar = () => {
-    return(
-        <div>
-          <AppBar position="static" color="default">
-            <Toolbar>
-              <Typography variant="title" color="inherit">
-              Potluck Planner
+const NavBar = (props) => {
+  return (
+    <div>
+      <AppBar position="static" color="default">
+        <Toolbar>
+          <Typography variant="title" color="inherit">
+            Potluck Planner
               </Typography>
-              <Link to="/">
-                <Button>My Events</Button>
+
+          {(props.loggedIn) ? (
+            <React.Fragment>
+              <Link to="/events">
+                <Button>Potluck List</Button>
               </Link>
               <Link to="/create_event">
                 <Button>Create Event</Button>
               </Link>
               <Link to="/profile">
-                <Button>My Profile</Button>
+                <Button>Profile for {props.currentUser.firstName + ' ' + props.currentUser.lastName}</Button>
               </Link>
-              <Link to="/login">
-                <Button>Log in</Button>
-              </Link>
-            </Toolbar>
-          </AppBar>
-        {/* <AppBar position="static">
+            </React.Fragment>
+          ) : (
+              <React.Fragment>
+                <Link to="/login">
+                  <Button>Log in</Button>
+                </Link>
+                <Link to="/signup">
+                  <Button>Sign up</Button>
+                </Link>
+              </React.Fragment>
+            )}
+
+
+          {/* {JSON.stringify(props.currentUser)} */}
+        </Toolbar>
+      </AppBar>
+      {/* <AppBar position="static">
             <Toolbar>
                 <Typography variant="title" color="inherit">
                 Potluck Planner
@@ -38,9 +52,8 @@ const NavBar = () => {
                 <Button color="contrast" >My Profile</Button>
             </Toolbar>
         </AppBar> */}
-        </div>
-    )
+    </div>
+  )
 }
-// My profile is actually all users right now
 
 export default NavBar;

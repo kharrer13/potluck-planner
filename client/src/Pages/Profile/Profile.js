@@ -5,33 +5,21 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link as ClickyThing, Redirect } from "react-router-dom";
 import API from '../../Utils/API'
-import Navbar from '../../components/NavBar'
 
 class Profile extends Component {
-    state = {
-			userData: [],
-			currentUser: {},
-			redirectToReferrer: false
-    };
-
-    componentDidMount() {
-		this.loadEvents();
-		this.loadCurrentUser();
-    };
-    
-    loadEvents = () => {
-		API.getUsers()
-		.then(res => 
-			this.setState({userData: res.data})
-		)
-
+	state = {
+		userData: [],
+		redirectToReferrer: false
 	};
 
-	// probably need to move this up to App
-	loadCurrentUser = () => {
-			API.whoami()
-			.then(res => this.setState({ currentUser: res.data }))
+	componentDidMount() {
+		this.loadEvents();
+		// this.loadCurrentUser();
+	};
 
+	loadEvents = () => {
+		API.getUsers()
+			.then(res => this.setState({ userData: res.data }))
 	};
 
     handleInputChange = event => {
@@ -41,24 +29,12 @@ class Profile extends Component {
 		});
   };
   
-  handleFormSubmit = event => {
-		event.preventDefault();
-		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
-			API.savePotluck({
-				eventName: this.state.potluckName,
-				eventDate: this.state.potluckDate,
-				eventLocation: this.state.potluckLocation
-			})
-				.then(res => this.loadEvents())
-				.catch(err => console.log(err));
-		}
-	};
-	
 	handleLogout = event => {
 		event.preventDefault();
 		API.logout()
 			.then(res => {
 				console.log(res)
+				this.props.handleUserChange(res.data)
 				if (res.data.redirectTo) {
 					console.log(res.data.redirectTo)
 					this.setState({ redirectToReferrer: true })
@@ -68,8 +44,8 @@ class Profile extends Component {
 	}
 
   
-  render() {
-		const { from } = this.props.location.state || { from: { pathname: "/" } };
+  render(props) {
+		const { from } = this.props.location.state || { from: { pathname: "/login" } };
     const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer) {
@@ -87,30 +63,17 @@ class Profile extends Component {
 							<h1>My profile</h1>
 						</Jumbotron>
 						<h4>
-						{this.state.currentUser.id ? (
+						{this.props.currentUser.id ? (
 							<span>
-							{this.state.currentUser.firstName + ' ' + this.state.currentUser.lastName}
+							{this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName}
 							<FormBtn 
 								color="secondary"
 								onClick={this.handleLogout}
 								>Logout</FormBtn>
 							</span>
 						)
-						: ( 'not logged in' )}
+						: ( <ClickyThing to="/login">Log in</ClickyThing> )}
 						</h4>
-            {this.state.userData.length ? (
-								<List>
-								{this.state.userData.map(userOne => (
-									<ListItem
-										key={userOne.id}
-                  >
-                  {userOne.id} {userOne.firstName} {userOne.lastName}
-									</ListItem>
-								))}
-								</List>
-						) : (
-							<h3>No Users to Display</h3>
-						)}
 					</Col>
 				</Row>
 			</Container>

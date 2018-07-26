@@ -47,7 +47,8 @@ passport.use(
 // deserializing.
 passport.serializeUser(function (user, cb) {
   console.log("serializeUser called for");
-  console.log(user.get());
+  const { password, ...tempUser } = user.get();
+  console.log(tempUser);
   cb(null, user.id);
 });
 
@@ -89,6 +90,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(express.static("public"));
 }
+// TODO go back in history and see blame for the public line
 
 // Add routes, both API and view
 app.use(routes);

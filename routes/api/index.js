@@ -35,19 +35,27 @@ router.get('/users', function (req, res) {
 router.post('/users', function (req, res) {
   let newUser = { ...req.body }
   db.User.create(newUser)
-    .then(dbUser => res.json(dbUser))
+    .then(dbUser => {
+      let {password, ...tempUser} = dbUser.get()
+      tempUser.redirectTo = '/login'
+      res.json(tempUser)
+    })
 })
 
 router.get('/potluck', function (req, res) {
   let query = {};
+  let include;
+  
   if (req.query.potluck_id) {
     query.id = req.query.potluck_id;
+    include = [{ all: true }];
+  } else {
+    include = ['Attendee', 'Items']
   }
-
   // db.Potluck.findAll({ include: [{ all: true }] })
   db.Potluck.findAll({
     where: query,
-    include: ['Attendee', 'Items']
+    include
   })
     .then(dbPotluck => res.json(dbPotluck))
 })
@@ -67,6 +75,7 @@ router.post('/potluck', function (req, res) {
     })
 })
 
+// DRY this up and/or roll it into the query one above
 router.get('/potluck/:potluckId', function (req, res) {
   // db.Potluck.findAll({ where: { id: req.params.potluckId }, include: [{ all: true }] })
   db.Potluck.findAll({
@@ -137,7 +146,7 @@ router.get('/whoami',  function (req, res) {
   if (req.user) {
     res.json(req.user)
   } else {
-    res.send('nobody')
+    res.json({id: null, username: null})
   }
 })
 
