@@ -32,10 +32,10 @@ class Login extends Component {
 				password: this.state.password
 			})
 				.then(res => {
-					console.log(res)
+					// console.log(res)
 					this.props.handleUserChange(res.data)
 					if (res.data.redirectTo) {
-						console.log(res.data.redirectTo)
+						console.log('redirectTo', res.data.redirectTo)
 						this.setState({ redirectToReferrer: true })
 					}
 				})

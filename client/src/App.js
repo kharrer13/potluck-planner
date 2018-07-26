@@ -31,13 +31,13 @@ class App extends Component {
 	};
 
 	handleUserChange = (theUser) => {
-		console.log('app.handleUserChange called with ' + JSON.stringify(theUser, '', 2))
+		// console.log('app.handleUserChange called with ' + JSON.stringify(theUser, '', 2))
 		const { loggedIn, redirectTo, ...tempUser } = theUser;
 		this.setState({
 			currentUser: tempUser,
-			loggedIn,
-			redirectTo
+			loggedIn
 		})
+		// console.log('app.setState called with ' + JSON.stringify({ loggedIn, ...tempUser }, '', 2))
 	}
 
   render() {

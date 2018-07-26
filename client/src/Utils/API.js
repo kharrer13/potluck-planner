@@ -44,7 +44,7 @@ export default {
     return axios.post("/api/echo", whateverdata);
   },  
   login: function(loginData) {
-    console.log(loginData)
+    // console.log(loginData)
     return axios.post("/login", loginData);
   },
   logout: function() {
