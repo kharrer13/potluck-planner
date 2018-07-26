@@ -5,7 +5,6 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link as ClickyThing, Redirect } from "react-router-dom";
 import API from '../../Utils/API'
-import Navbar from '../../components/NavBar'
 
 class Profile extends Component {
 	state = {
