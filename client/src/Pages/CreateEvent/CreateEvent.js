@@ -5,6 +5,10 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 class CreateEvent extends Component {
 
@@ -13,7 +17,8 @@ class CreateEvent extends Component {
 		userData: [],
 		potluckName: "",
 		potluckDate: "",
-		potluckLocation: ""
+		potluckLocation: "",
+		startDate: ''
 	};
 
 	handleInputChange = event => {
@@ -34,7 +39,11 @@ class CreateEvent extends Component {
 				this.setState({ userData: res.data })
 			)
 	};
-
+	handleChange = (date) => {
+    this.setState({
+      potluckDate: date
+    });
+  }
 	handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
@@ -69,12 +78,13 @@ class CreateEvent extends Component {
 								name="potluckName"
 								placeholder="Event name (required)"
 							/>
-							<Input
-								value={this.state.potluckDate}
-								onChange={this.handleInputChange}
-								name="potluckDate"
-								placeholder="Date (required)"
-							/>
+						<DatePicker
+							selected={this.state.potluckDate}
+							onChange={this.handleChange}
+							name="potluckDate"
+							isClearable={true}
+						/>
+							
 							<Input
 								value={this.state.potluckLocation}
 								onChange={this.handleInputChange}
