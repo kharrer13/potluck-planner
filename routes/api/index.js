@@ -141,7 +141,7 @@ router.get('/whoami',  function (req, res) {
   if (req.user) {
     res.json(req.user)
   } else {
-    res.send('nobody')
+    res.json({id: null, username: null})
   }
 })
 

@@ -8,11 +8,16 @@ import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
 
 class Profile extends Component {
-    state = {
+	constructor(props) {
+		console.log(props)
+	
+		super(props);
+
+    this.state = {
 			userData: [],
-			// currentUser: {},
 			redirectToReferrer: false
     };
+	}
 
     componentDidMount() {
 		this.loadEvents();
@@ -28,11 +33,11 @@ class Profile extends Component {
 	};
 
 	// probably need to move this up to App
-	// loadCurrentUser = () => {
-	// 		API.whoami()
-	// 		.then(res => this.setState({ currentUser: res.data }))
+	loadCurrentUser = () => {
+			API.whoami()
+			.then(res => this.setState({ currentUser: res.data }))
 
-	// };
+	};
 
     handleInputChange = event => {
 		const { name, value } = event.target;
@@ -68,7 +73,7 @@ class Profile extends Component {
 	}
 
   
-  render() {
+  render(props) {
 		const { from } = this.props.location.state || { from: { pathname: "/" } };
     const { redirectToReferrer } = this.state;
 
@@ -87,9 +92,9 @@ class Profile extends Component {
 							<h1>My profile</h1>
 						</Jumbotron>
 						<h4>
-						{this.state.currentUser.id ? (
+						{this.props.currentUser.id ? (
 							<span>
-							{this.state.currentUser.firstName + ' ' + this.state.currentUser.lastName}
+							{this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName}
 							<FormBtn 
 								color="secondary"
 								onClick={this.handleLogout}
@@ -98,6 +103,7 @@ class Profile extends Component {
 						)
 						: ( <ClickyThing to="/login">Log in</ClickyThing> )}
 						</h4>
+			{JSON.stringify({props})}
 
 					</Col>
 				</Row>

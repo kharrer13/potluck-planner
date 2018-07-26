@@ -16,7 +16,10 @@ class App extends Component {
 	state = {
 		currentUser: {}
 	}
-
+	componentDidMount() {
+		
+		this.loadCurrentUser();
+    };
 	loadCurrentUser = () => {
 		API.whoami()
 			.then(res => this.setState({ currentUser: res.data }))
@@ -46,8 +49,15 @@ class App extends Component {
 								<Route exact path="/events" component={Events} />
 								<Route exact path="/events/:event_id" component={EventView} />
 								{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
-								<Route exact path="/profile" component={Profile} />
-								<Route exact path="/login" component={Login} handleUserChange={this.handleUserChange} tonyStark="build this in a cave"/>
+								{/* <Route exact path="/profile" component={Profile} /> */}
+								<Route exact path="/profile" render={(props) => <Profile {...props} currentUser={this.state.currentUser} />} />
+								
+								{/* <Route exact path="/login">
+									<Login {...rest} handleUserChange={this.handleUserChange} tonyStark="built this in a cave"/>
+								</Route> */}
+								<Route exact path="/login" render={(props) => <Login {...props} currentUser={this.state.currentUser} handleUserChange={this.handleUserChange} tonyStark="built this in a cave" />} />
+
+
 								<Route exact path="/signup" component={Signup} />
 								<Route exact path="/create_event" component={CreateEvent} />
 							</Switch>
@@ -61,5 +71,5 @@ class App extends Component {
     );
   }
 }
-
+// render={(props) => <Dashboard {...props} isAuthed={true} />}
 export default App;
