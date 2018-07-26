@@ -86,10 +86,9 @@ class App extends Component {
 				</Container>
 				</div>
 				</Router>
-				{JSON.stringify(this.state.currentUser)}
 			</div>
     );
   }
 }
-// render={(props) => <Dashboard {...props} isAuthed={true} />}
+
 export default App;

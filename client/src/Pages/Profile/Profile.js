@@ -13,26 +13,15 @@ class Profile extends Component {
 		redirectToReferrer: false
 	};
 
-
-    componentDidMount() {
+	componentDidMount() {
 		this.loadEvents();
 		// this.loadCurrentUser();
-    };
-    
-    loadEvents = () => {
-		API.getUsers()
-		.then(res => 
-			this.setState({userData: res.data})
-		)
-
 	};
 
-	// probably need to move this up to App
-	// loadCurrentUser = () => {
-	// 		API.whoami()
-	// 		.then(res => this.setState({ currentUser: res.data }))
-
-	// };
+	loadEvents = () => {
+		API.getUsers()
+			.then(res => this.setState({ userData: res.data }))
+	};
 
     handleInputChange = event => {
 		const { name, value } = event.target;
@@ -40,7 +29,6 @@ class Profile extends Component {
 			[name]: value
 		});
   };
-  
   
 	handleLogout = event => {
 		event.preventDefault();
@@ -87,8 +75,6 @@ class Profile extends Component {
 						)
 						: ( <ClickyThing to="/login">Log in</ClickyThing> )}
 						</h4>
-			{JSON.stringify({props})}
-
 					</Col>
 				</Row>
 			</Container>
