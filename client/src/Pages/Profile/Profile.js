@@ -8,20 +8,15 @@ import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
 
 class Profile extends Component {
-	constructor(props) {
-		console.log(props)
-	
-		super(props);
+	state = {
+		userData: [],
+		redirectToReferrer: false
+	};
 
-    this.state = {
-			userData: [],
-			redirectToReferrer: false
-    };
-	}
 
     componentDidMount() {
 		this.loadEvents();
-		this.loadCurrentUser();
+		// this.loadCurrentUser();
     };
     
     loadEvents = () => {
@@ -33,11 +28,11 @@ class Profile extends Component {
 	};
 
 	// probably need to move this up to App
-	loadCurrentUser = () => {
-			API.whoami()
-			.then(res => this.setState({ currentUser: res.data }))
+	// loadCurrentUser = () => {
+	// 		API.whoami()
+	// 		.then(res => this.setState({ currentUser: res.data }))
 
-	};
+	// };
 
     handleInputChange = event => {
 		const { name, value } = event.target;
@@ -46,24 +41,13 @@ class Profile extends Component {
 		});
   };
   
-  handleFormSubmit = event => {
-		event.preventDefault();
-		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
-			API.savePotluck({
-				eventName: this.state.potluckName,
-				eventDate: this.state.potluckDate,
-				eventLocation: this.state.potluckLocation
-			})
-				.then(res => this.loadEvents())
-				.catch(err => console.log(err));
-		}
-	};
-	
+  
 	handleLogout = event => {
 		event.preventDefault();
 		API.logout()
 			.then(res => {
 				console.log(res)
+				this.props.handleUserChange(res.data)
 				if (res.data.redirectTo) {
 					console.log(res.data.redirectTo)
 					this.setState({ redirectToReferrer: true })
@@ -74,7 +58,7 @@ class Profile extends Component {
 
   
   render(props) {
-		const { from } = this.props.location.state || { from: { pathname: "/" } };
+		const { from } = this.props.location.state || { from: { pathname: "/login" } };
     const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer) {

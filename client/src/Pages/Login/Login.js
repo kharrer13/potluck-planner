@@ -8,19 +8,13 @@ import API from '../../Utils/API'
 import Navbar from '../../components/NavBar'
 
 class Login extends Component {
-	constructor(props) {
-		super(props);
-		console.log(props)
-		this.state = {
-			events: [],
-			userData: [],
-			username: "",
-			password: "",
-			redirectToReferrer: false
-		};
-	}
-
-	
+	state = {
+		events: [],
+		userData: [],
+		username: "",
+		password: "",
+		redirectToReferrer: false
+	};
 
 	handleInputChange = event => {
 		const { name, value } = event.target;
@@ -66,7 +60,7 @@ class Login extends Component {
 	};
 
 	render() {
-		const { from } = this.props.location.state || { from: { pathname: "/" } };
+		const { from } = this.props.location.state || { from: { pathname: "/profile" } };
     const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer) {

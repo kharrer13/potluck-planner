@@ -47,7 +47,8 @@ passport.use(
 // deserializing.
 passport.serializeUser(function (user, cb) {
   console.log("serializeUser called for");
-  console.log(user.get());
+  const { password, ...tempUser } = user.get();
+  console.log(tempUser);
   cb(null, user.id);
 });
 

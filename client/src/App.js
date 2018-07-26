@@ -14,7 +14,8 @@ import API from './Utils/API'
 
 class App extends Component {
 	state = {
-		currentUser: {}
+		currentUser: {},
+		loggedIn: false
 	}
 	componentDidMount() {
 		
@@ -22,14 +23,20 @@ class App extends Component {
     };
 	loadCurrentUser = () => {
 		API.whoami()
-			.then(res => this.setState({ currentUser: res.data }))
+			.then(res => {
+				this.setState({ currentUser: res.data });
+				(res.data.id) ? this.setState({ loggedIn: true }) : this.setState({ loggedIn: false })
+			})
 
 	};
 
 	handleUserChange = (theUser) => {
-		console.log('app.handleUserChange called with ' + theUser)
+		console.log('app.handleUserChange called with ' + JSON.stringify(theUser, '', 2))
+		const { loggedIn, redirectTo, ...tempUser } = theUser;
 		this.setState({
-			currentUser: theUser
+			currentUser: tempUser,
+			loggedIn,
+			redirectTo
 		})
 	}
 
@@ -50,12 +57,25 @@ class App extends Component {
 								<Route exact path="/events/:event_id" component={EventView} />
 								{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
 								{/* <Route exact path="/profile" component={Profile} /> */}
-								<Route exact path="/profile" render={(props) => <Profile {...props} currentUser={this.state.currentUser} />} />
-								
+								<Route exact path="/profile"
+									render={(props) =>
+										<Profile {...props}
+											currentUser={this.state.currentUser}
+											handleUserChange={this.handleUserChange}
+										/>}
+								/>
+
 								{/* <Route exact path="/login">
 									<Login {...rest} handleUserChange={this.handleUserChange} tonyStark="built this in a cave"/>
 								</Route> */}
-								<Route exact path="/login" render={(props) => <Login {...props} currentUser={this.state.currentUser} handleUserChange={this.handleUserChange} tonyStark="built this in a cave" />} />
+									<Route exact path="/login"
+										render={(props) =>
+											<Login
+												{...props}
+												currentUser={this.state.currentUser}
+												handleUserChange={this.handleUserChange}
+											/>}
+									/>
 
 
 								<Route exact path="/signup" component={Signup} />
