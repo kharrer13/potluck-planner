@@ -45,7 +45,10 @@ class App extends Component {
 			<div>
 				<Router>
 					<div>
-				<NavBar />
+				<NavBar 
+					currentUser={this.state.currentUser} 
+					loggedIn={this.state.loggedIn}
+				/>
 				<br/>
 				<br/>
 				<Container fluid>
