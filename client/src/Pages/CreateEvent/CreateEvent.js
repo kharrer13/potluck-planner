@@ -12,7 +12,6 @@ class CreateEvent extends Component {
 	state = {
 		events: [],
 		userData: [],
-		currentUser: "",
 		potluckName: "",
 		potluckDate: "",
 		potluckLocation: ""
@@ -25,10 +24,6 @@ class CreateEvent extends Component {
 			[name]: value
 		});
 	};
-
-	// handleSelectChange(event) {
-	// 	this.setState({currentUser: event.target.value});
-	// }
 
 	componentDidMount() {
 		this.loadEvents();
@@ -46,7 +41,6 @@ class CreateEvent extends Component {
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
 			API.savePotluck({
 				// API.echo({
-				// OwnerId: +this.state.currentUser,
 				eventName: this.state.potluckName,
 				eventDate: this.state.potluckDate,
 				eventLocation: this.state.potluckLocation
@@ -70,14 +64,6 @@ class CreateEvent extends Component {
 							<h1>Create a Potluck</h1>
 						</Jumbotron>
 						<form>
-							<Select
-								value={this.state.currentUser}
-								onChange={this.handleInputChange}
-								selectLabel="Pick current user"
-								selectName="currentUser"
-                                selectData={this.state.userData}
-                                selectKey='firstName'
-							/>
 							<Input
 								value={this.state.potluckName}
 								onChange={this.handleInputChange}
@@ -103,6 +89,8 @@ class CreateEvent extends Component {
 								Submit Potluck
 							</FormBtn>
 						</form>
+						<h4>Acting as {this.props.currentUser.username}</h4>
+
 					</Col>
 			</div>
 		);

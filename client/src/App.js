@@ -18,9 +18,9 @@ class App extends Component {
 		loggedIn: false
 	}
 	componentDidMount() {
-		
+
 		this.loadCurrentUser();
-    };
+	};
 	loadCurrentUser = () => {
 		API.whoami()
 			.then(res => {
@@ -40,35 +40,35 @@ class App extends Component {
 		// console.log('app.setState called with ' + JSON.stringify({ loggedIn, ...tempUser }, '', 2))
 	}
 
-  render() {
-    return (
+	render() {
+		return (
 			<div>
 				<Router>
 					<div>
-				<NavBar 
-					currentUser={this.state.currentUser} 
-					loggedIn={this.state.loggedIn}
-				/>
-				<br/>
-				<br/>
-				<Container fluid>
+						<NavBar
+							currentUser={this.state.currentUser}
+							loggedIn={this.state.loggedIn}
+						/>
+						<br />
+						<br />
+						<Container fluid>
 
-						<div>
-							<Switch>
-								<Route exact path="/" component={Events} />
-								<Route exact path="/events" component={Events} />
-								<Route exact path="/events/:event_id" component={EventView} />
-								{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
-								{/* <Route exact path="/profile" component={Profile} /> */}
-								<Route exact path="/profile"
-									render={(props) =>
-										<Profile {...props}
-											currentUser={this.state.currentUser}
-											handleUserChange={this.handleUserChange}
-										/>}
-								/>
+							<div>
+								<Switch>
+									<Route exact path="/" component={Events} />
+									<Route exact path="/events" component={Events} />
+									<Route exact path="/events/:event_id" component={EventView} />
+									{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
+									{/* <Route exact path="/profile" component={Profile} /> */}
+									<Route exact path="/profile"
+										render={(props) =>
+											<Profile {...props}
+												currentUser={this.state.currentUser}
+												handleUserChange={this.handleUserChange}
+											/>}
+									/>
 
-								{/* <Route exact path="/login">
+									{/* <Route exact path="/login">
 									<Login {...rest} handleUserChange={this.handleUserChange} tonyStark="built this in a cave"/>
 								</Route> */}
 									<Route exact path="/login"
@@ -79,19 +79,23 @@ class App extends Component {
 												handleUserChange={this.handleUserChange}
 											/>}
 									/>
+									<Route exact path="/signup" component={Signup} />
+									<Route exact path="/create_event"
+										render={(props) =>
+											<CreateEvent
+												{...props}
+												currentUser={this.state.currentUser}
+											/>}
+									/>
+								</Switch>
+							</div>
 
-
-								<Route exact path="/signup" component={Signup} />
-								<Route exact path="/create_event" component={CreateEvent} />
-							</Switch>
-						</div>
-
-				</Container>
-				</div>
+						</Container>
+					</div>
 				</Router>
 			</div>
-    );
-  }
+		);
+	}
 }
 
 export default App;

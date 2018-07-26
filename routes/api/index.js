@@ -44,14 +44,18 @@ router.post('/users', function (req, res) {
 
 router.get('/potluck', function (req, res) {
   let query = {};
+  let include;
+  
   if (req.query.potluck_id) {
     query.id = req.query.potluck_id;
+    include = [{ all: true }];
+  } else {
+    include = ['Attendee', 'Items']
   }
-
   // db.Potluck.findAll({ include: [{ all: true }] })
   db.Potluck.findAll({
     where: query,
-    include: ['Attendee', 'Items']
+    include
   })
     .then(dbPotluck => res.json(dbPotluck))
 })
@@ -71,6 +75,7 @@ router.post('/potluck', function (req, res) {
     })
 })
 
+// DRY this up and/or roll it into the query one above
 router.get('/potluck/:potluckId', function (req, res) {
   // db.Potluck.findAll({ where: { id: req.params.potluckId }, include: [{ all: true }] })
   db.Potluck.findAll({
