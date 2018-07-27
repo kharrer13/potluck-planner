@@ -58,12 +58,19 @@ class App extends Component {
 								<Switch>
 									<Route exact path="/" component={Events} />
 									<Route exact path="/events" component={Events} />
-									<Route exact path="/events/:event_id" component={EventView} />
+									<Route exact path="/events/:event_id"
+										render={(props) =>
+											<EventView
+												{...props}
+												currentUser={this.state.currentUser}
+											/>}
+									/>
 									{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
 									{/* <Route exact path="/profile" component={Profile} /> */}
 									<Route exact path="/profile"
 										render={(props) =>
-											<Profile {...props}
+											<Profile
+												{...props}
 												currentUser={this.state.currentUser}
 												handleUserChange={this.handleUserChange}
 											/>}

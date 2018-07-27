@@ -50,7 +50,13 @@ router.get('/potluck', function (req, res) {
 
   if (req.query.potluck_id) {
     query.id = req.query.potluck_id;
-    include = [{ all: true }];
+    // include = [{ all: true }];
+    include = [
+      {
+        association: 'Attendee',
+        attributes: ['id', 'fullName', 'username']
+      },
+      'Items'];
   } else {
     include = ['Attendee', 'Items']
   }
@@ -161,11 +167,19 @@ router.post('/potluck-item', function (req, res) {
 
 router.post('/attend', function (req, res) {
 
+  
+
   db.Potluck.findById(req.body.PotluckId)
     .then((dbPotluck) => {
       console.log(JSON.stringify(dbPotluck, '', 2))
-      dbPotluck.addAttendee(req.user.id)
+      if (!req.body.attending) {
+        dbPotluck.removeAttendee(req.user.id)
         .then(result => res.json(result))
+      } else {
+        dbPotluck.addAttendee(req.user.id)
+        .then(result => res.json(result))
+      }
+
     })
     .catch(e => res.json(e))
 
