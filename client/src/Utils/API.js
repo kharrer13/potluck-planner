@@ -63,6 +63,10 @@ export default {
   //Save item to potluck
   saveItemToPotluck: function(itemData) {
     return axios.post('/api/potluck-item', itemData)
+  },
+  //Set status to attending
+  attendPotluck: function(potluckData) {
+    return axios.post('/api/attend', potluckData)
   }
 
 

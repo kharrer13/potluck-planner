@@ -167,8 +167,6 @@ router.post('/potluck-item', function (req, res) {
 
 router.post('/attend', function (req, res) {
 
-  
-
   db.Potluck.findById(req.body.PotluckId)
     .then((dbPotluck) => {
       console.log(JSON.stringify(dbPotluck, '', 2))
