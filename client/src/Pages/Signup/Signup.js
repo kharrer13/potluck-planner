@@ -14,8 +14,7 @@ class Signup extends Component {
 		username: "",
 		password: "",
 		email: "",
-		firstName: "",
-		lastName: "",
+		fullName: "",
 		redirectToReferrer: false,
 		redirectTo: false
 	};
@@ -25,8 +24,7 @@ class Signup extends Component {
 			username: this.state.username,
 			password: this.state.password,
 			email: this.state.email,
-			firstName: this.state.firstName,
-			lastName: this.state.lastName
+			fullName: this.state.fullName,
 		}
 
 	}
@@ -60,8 +58,7 @@ class Signup extends Component {
 		let isValid = [
 			validator.isAlphanumeric(this.state.username),
 			validator.isEmail(this.state.email),
-			validator.isAlpha(this.state.firstName),
-			validator.isAlpha(this.state.lastName),
+			validator.isAlpha(this.state.fullName)
 
 		]
 
@@ -75,8 +72,7 @@ class Signup extends Component {
 				username: this.state.username,
 				password: this.state.password,
 				email: this.state.email,
-				firstName: this.state.firstName,
-				lastName: this.state.lastName
+				fullName: this.state.fullName
 			})
 				.then(res => {
 					console.log(res)
@@ -113,16 +109,10 @@ class Signup extends Component {
 						</Jumbotron>
 						<form>
 						<Input
-								value={this.state.firstName}
+								value={this.state.fullName}
 								onChange={this.handleInputChange}
-								name="firstName"
+								name="fullName"
 								placeholder="First Name"
-							/>
-							<Input
-								value={this.state.lastName}
-								onChange={this.handleInputChange}
-								name="lastName"
-								placeholder="Last Name"
 							/>
 							<Input
 								value={this.state.email}

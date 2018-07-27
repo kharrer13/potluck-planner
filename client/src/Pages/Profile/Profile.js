@@ -73,7 +73,7 @@ class Profile extends Component {
 						<h4>
 						{this.props.currentUser.id ? (
 							<span>
-							{this.props.currentUser.firstName + ' ' + this.props.currentUser.lastName}
+							{this.props.currentUser.fullName}
 							<FormBtn 
 								color="secondary"
 								onClick={this.handleLogout}

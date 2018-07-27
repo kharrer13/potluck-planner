@@ -56,7 +56,7 @@ passport.deserializeUser(function (id, cb) {
   console.log("deserializeUser called id", id);
 
   db.User.findById(id, {
-    attributes: ['id', 'username', 'firstName', 'lastName', 'email']
+    attributes: ['id', 'username', 'fullName', 'email']
   })
     .then(dbUser => {
       return cb(null, dbUser.get());

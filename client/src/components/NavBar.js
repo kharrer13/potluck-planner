@@ -25,7 +25,7 @@ const NavBar = (props) => {
                 <Button>Create Event</Button>
               </Link>
               <Link to="/profile">
-                <Button>Profile for {props.currentUser.firstName + ' ' + props.currentUser.lastName}</Button>
+                <Button>Profile for {props.currentUser.fullName}</Button>
               </Link>
             </React.Fragment>
           ) : (
