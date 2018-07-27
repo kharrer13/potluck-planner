@@ -20,15 +20,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: ""
     },
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
+    fullName: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false
     }
   }, {
-      timestamps: false,
+      // timestamps: false,
       hooks: {
         beforeCreate: hashPassword,
         beforeUpdate: hashPassword

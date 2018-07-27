@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false
     }
   }, {
-      timestamps: false
+      // timestamps: false
     });
   Potluck.associate = function (models) {
     // associations can be defined here
