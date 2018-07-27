@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const db = require('../../models');
 
+const Op = db.Sequelize.Op;
+
 // all routes are prefixed by /api
 
 // start dummy routes for testing
@@ -127,7 +129,7 @@ router.post('/items', function (req, res) {
   let newItem = { ...req.body }
 
   // later get this from req.user
-  let newOwner = 11;
+  let newOwner = req.user.id;
   newItem.UserId = newOwner;
   db.Item.create(newItem)
     .then(dbItem => {

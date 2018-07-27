@@ -70,7 +70,7 @@ class Profile extends Component {
 						<Jumbotron>
 							<h1>My profile</h1>
 						</Jumbotron>
-						<h4>
+						<h3>
 						{this.props.currentUser.id ? (
 							<span>
 							{this.props.currentUser.fullName}
@@ -81,7 +81,8 @@ class Profile extends Component {
 							</span>
 						)
 						: ( <ClickyThing to="/login">Log in</ClickyThing> )}
-						</h4>
+						</h3>
+						<h4>Events you are hosting</h4>
 						{this.state.events.length ? (
 							<List>
 								{this.state.events.map(potluck => (
