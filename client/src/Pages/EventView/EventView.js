@@ -76,6 +76,8 @@ class EventView extends Component {
                             Where: {this.state.event.eventLocation}
                             <br/>
                             Hosted by: {this.state.event.Owner ?  this.state.event.Owner.fullName : 'nobody' }
+                            <br/>
+                            Event privacy: {this.state.event.privateEvent ? 'Private' : 'Public'}
                         </div>
                         <br/>
                         <List>

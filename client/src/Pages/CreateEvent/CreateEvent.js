@@ -18,11 +18,14 @@ class CreateEvent extends Component {
 		potluckName: "",
 		potluckDate: "",
 		potluckLocation: "",
-		startDate: ''
+		startDate: '',
+		privateEvent: false
 	};
 
 	handleInputChange = event => {
-		const { name, value } = event.target;
+		const target = event.target;
+		const value = target.type === 'checkbox' ? target.checked : target.value;
+		const name = target.name;
 
 		this.setState({
 			[name]: value
@@ -51,7 +54,8 @@ class CreateEvent extends Component {
 				// API.echo({
 				eventName: this.state.potluckName,
 				eventDate: this.state.potluckDate,
-				eventLocation: this.state.potluckLocation
+				eventLocation: this.state.potluckLocation,
+				privateEvent: this.state.privateEvent
 			})
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
@@ -101,6 +105,17 @@ class CreateEvent extends Component {
 							name="potluckLocation"
 							placeholder="Location (required)"
 						/>
+
+						<label htmlFor="privateEvent">
+							Mark event private?
+						<input
+								id="privateEvent"
+								name="privateEvent"
+								type="checkbox"
+								checked={this.state.privateEvent}
+								onChange={this.handleInputChange}
+							/>
+						</label>
 						<FormBtn
 							disabled={!(this.state.potluckName && this.state.potluckDate && this.state.potluckLocation)}
 							onClick={this.handleFormSubmit}
