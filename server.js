@@ -64,8 +64,13 @@ passport.deserializeUser(function (id, cb) {
     .catch(err => cb(err));
 });
 
+if (process.env.NODE_ENV === "production") {
+  app.use(require('morgan')('common'));
+} else {
+  app.use(require('morgan')('dev'));
+}
 
-app.use(require('morgan')('dev'));
+
 app.use(require('cookie-parser')());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
