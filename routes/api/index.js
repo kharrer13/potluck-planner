@@ -56,7 +56,7 @@ router.get('/potluck', function (req, res) {
         association: 'Attendee',
         attributes: ['id', 'fullName', 'username']
       },
-      'Items'];
+      'Items', 'Owner'];
   } else {
     include = ['Attendee', 'Items']
   }
