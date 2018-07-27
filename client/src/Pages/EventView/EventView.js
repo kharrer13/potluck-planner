@@ -13,7 +13,8 @@ class EventView extends Component {
 
     state = {
         event: {
-            Items: []
+            Items: [],
+            Owner: {}
         },
         items: [],
         potluckName: "",
@@ -73,6 +74,8 @@ class EventView extends Component {
                             '[No date given]'}
                             <br/>
                             Where: {this.state.event.eventLocation}
+                            <br/>
+                            Hosted by: {this.state.event.Owner ?  this.state.event.Owner.fullName : 'nobody' }
                         </div>
                         <br/>
                         <List>

@@ -12,7 +12,8 @@ class Login extends Component {
 		userData: [],
 		username: "",
 		password: "",
-		redirectToReferrer: false
+		redirectToReferrer: false,
+		loginFailed: false
 	};
 
 	handleInputChange = event => {
@@ -31,14 +32,18 @@ class Login extends Component {
 				password: this.state.password
 			})
 				.then(res => {
+				
 					// console.log(res)
 					this.props.handleUserChange(res.data)
 					if (res.data.redirectTo) {
 						console.log('redirectTo', res.data.redirectTo)
-						this.setState({ redirectToReferrer: true })
+						this.setState({ loginFailed: false, redirectToReferrer: true })
 					}
 				})
-				.catch(err => console.log(err));
+				.catch(err => {
+					console.error(err)
+					this.setState({ loginFailed: true })
+				});
 		}
 	};
 
@@ -81,6 +86,7 @@ class Login extends Component {
 						>
 							Log in
 							</FormBtn>
+						{this.state.loginFailed && 'Login failed'}
 					</form>
 				</Col>
 			</div>

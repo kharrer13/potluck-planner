@@ -48,6 +48,7 @@ class App extends Component {
 						<NavBar
 							currentUser={this.state.currentUser}
 							loggedIn={this.state.loggedIn}
+							handleUserChange={this.handleUserChange}
 						/>
 						<br />
 						<br />

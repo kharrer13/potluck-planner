@@ -40,10 +40,10 @@ class CreateEvent extends Component {
 			)
 	};
 	handleChange = (date) => {
-    this.setState({
-      potluckDate: date
-    });
-  }
+		this.setState({
+			potluckDate: date
+		});
+	}
 	handleFormSubmit = event => {
 		event.preventDefault();
 		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
@@ -56,51 +56,61 @@ class CreateEvent extends Component {
 				.then(res => this.loadEvents())
 				.catch(err => console.log(err));
 
-				this.props.history.push('/events');
+			this.props.history.push('/events');
 		}
 	};
 
 	render() {
 		return (
 			<div>
-                    <Col size='md-3'>
-                    <div>
-                    </div>
-                    </Col>
-					<Col size="md-6">
-						<Jumbotron>
-							<h1>Create a Potluck</h1>
-						</Jumbotron>
-						<form>
-							<Input
-								value={this.state.potluckName}
-								onChange={this.handleInputChange}
-								name="potluckName"
-								placeholder="Event name (required)"
-							/>
-						<DatePicker
-							selected={this.state.potluckDate}
-							onChange={this.handleChange}
-							name="potluckDate"
-							isClearable={true}
+				<Col size='md-3'>
+					<div>
+					</div>
+				</Col>
+				<Col size="md-6">
+					<Jumbotron>
+						<h1>Create a Potluck</h1>
+					</Jumbotron>
+					<form>
+						<Input
+							value={this.state.potluckName}
+							onChange={this.handleInputChange}
+							name="potluckName"
+							placeholder="Event name (required)"
 						/>
-							
-							<Input
-								value={this.state.potluckLocation}
-								onChange={this.handleInputChange}
-								name="potluckLocation"
-								placeholder="Location (required)"
+						<div className="form-group">
+							<DatePicker
+								className="form-control"
+								selected={this.state.potluckDate}
+								onChange={this.handleChange}
+								name="potluckDate"
+								isClearable={true}
+								showTimeSelect
+								timeFormat="HH:mm"
+								timeIntervals={15}
+								dateFormat="LLL"
+								timeCaption="time"
+								todayButton={"Today"}
+								minDate={moment()}
 							/>
-							<FormBtn
-								disabled={!(this.state.potluckName && this.state.potluckDate && this.state.potluckLocation)}
-								onClick={this.handleFormSubmit}
-							>
-								Submit Potluck
-							</FormBtn>
-						</form>
-						<h4>Acting as {this.props.currentUser.username}</h4>
+						</div>
 
-					</Col>
+						<Input
+							value={this.state.potluckLocation}
+							onChange={this.handleInputChange}
+							name="potluckLocation"
+							placeholder="Location (required)"
+						/>
+						<FormBtn
+							disabled={!(this.state.potluckName && this.state.potluckDate && this.state.potluckLocation)}
+							onClick={this.handleFormSubmit}
+						>
+							Submit Potluck
+							</FormBtn>
+					</form>
+					<h4>Acting as {this.props.currentUser.username}</h4>
+
+				</Col>
 			</div>
 		);
 	}
