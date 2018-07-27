@@ -75,7 +75,7 @@ router.get('/mypotlucks', function (req, res) {
   let include;
 
   if (req.user) {
-    query.id = req.user.id;
+    query.OwnerId = req.user.id;
   } else {
     include = ['Attendee', 'Items']
   }
