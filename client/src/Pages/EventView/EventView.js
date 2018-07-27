@@ -59,6 +59,28 @@ class EventView extends Component {
       .catch(err => console.log(err));
   }
 
+  attendingSubmit = event => {
+    event.preventDefault();
+    API.attendPotluck({
+      PotluckId: this.props.match.params.event_id, 
+      UserId: this.props.currentUser.id,
+      attending: true
+    })
+      .then(res => this.loadItems())
+      .catch(err => console.log(err));
+  }
+
+  notAttendingSubmit = event => {
+    event.preventDefault();
+    API.attendPotluck({
+      PotluckId: this.props.match.params.event_id, 
+      UserId: this.props.currentUser.id,
+      attending: false
+    })
+      .then(res => this.loadItems())
+      .catch(err => console.log(err));
+  }
+
   render() {
     return (
       <div>
@@ -130,6 +152,21 @@ class EventView extends Component {
                 Submit Item
 							</FormBtn>
             </form>
+            <br/>
+            <br/>
+            <Jumbotron>
+              <h1>Attendance</h1>
+            </Jumbotron>
+              <FormBtn
+                onClick={this.notAttendingSubmit}
+              >
+                Not Attending
+              </FormBtn>
+              <FormBtn
+                onClick={this.attendingSubmit}
+              >
+                Attending
+              </FormBtn>
           </Col>
         </Row>
       </div>
