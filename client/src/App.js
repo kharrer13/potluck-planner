@@ -6,6 +6,7 @@ import EventView from "./Pages/EventView";
 import Profile from "./Pages/Profile";
 // import ClaimItem from "./Pages/ClaimItem";
 import CreateEvent from "./Pages/CreateEvent";
+import CreateItem from "./Pages/CreateItem";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import NavBar from './components/NavBar';
@@ -66,7 +67,6 @@ class App extends Component {
 											/>}
 									/>
 									{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
-									{/* <Route exact path="/profile" component={Profile} /> */}
 									<Route exact path="/profile"
 										render={(props) =>
 											<Profile
@@ -75,10 +75,6 @@ class App extends Component {
 												handleUserChange={this.handleUserChange}
 											/>}
 									/>
-
-									{/* <Route exact path="/login">
-									<Login {...rest} handleUserChange={this.handleUserChange} tonyStark="built this in a cave"/>
-								</Route> */}
 									<Route exact path="/login"
 										render={(props) =>
 											<Login
@@ -91,6 +87,13 @@ class App extends Component {
 									<Route exact path="/create_event"
 										render={(props) =>
 											<CreateEvent
+												{...props}
+												currentUser={this.state.currentUser}
+											/>}
+									/>
+									<Route exact path="/create_item"
+										render={(props) =>
+											<CreateItem
 												{...props}
 												currentUser={this.state.currentUser}
 											/>}
