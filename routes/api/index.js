@@ -135,7 +135,7 @@ router.post('/items', function (req, res) {
   let newItem = { ...req.body }
 
   // later get this from req.user
-  let newOwner = req.user.id;
+  let newOwner = (req.user) ? req.user.id : null;
   newItem.UserId = newOwner;
   db.Item.create(newItem)
     .then(dbItem => {
