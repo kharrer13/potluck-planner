@@ -57,8 +57,8 @@ class Signup extends Component {
 		// validate all inputs here
 		let isValid = [
 			validator.isAlphanumeric(this.state.username),
-			validator.isEmail(this.state.email),
-			validator.isAlpha(this.state.fullName)
+			validator.isEmail(this.state.email)
+			// validator.isAlpha(this.state.fullName)
 
 		]
 
@@ -112,7 +112,7 @@ class Signup extends Component {
 								value={this.state.fullName}
 								onChange={this.handleInputChange}
 								name="fullName"
-								placeholder="First Name"
+								placeholder="Name"
 							/>
 							<Input
 								value={this.state.email}
