@@ -11,42 +11,16 @@ router.use("/api", apiRoutes);
 router.post("/login", passport.authenticate("local", { /* failureRedirect: "/login" */ }),
   function (req, res) {
     console.log('/login called, authenticate run');
-    // res.redirect("/");
-    const {password, ...tempUser} =req.user.get();
-    
-    
-    res.json({ ...tempUser, loggedIn: true, redirectTo: '/profile'})
+    const { password, createdAt, updatedAt, ...tempUser } = req.user.get();
+
+    res.json({ ...tempUser, loggedIn: true, redirectTo: '/profile' })
   }
 );
 
 router.get("/logout", function (req, res) {
   req.logout();
-  res.json({ id: null, username: null, loggedIn: false, redirectTo: '/'})
+  res.json({ id: null, username: null, loggedIn: false, redirectTo: '/' })
 });
-
-// router.post('/login',
-//   passport.authenticate('local',
-//     {
-//       successRedirect: '/',
-//       failureRedirect: '/login.html'
-//     }),
-//   function (req, res) {
-//     console.log('/login called, authenticate run');
-//     console.log(req.body);
-
-//     res.json(req.body)
-//   }
-// );
-
-// router.get('/login', function (req, res) {
-//   res.send('login'+ req.user)
-// })
-
-// router.get('/', function (req, res) {
-//   res.send('root' + req.user)
-// })
-
-
 
 // If no API routes are hit, send the React app
 router.use(function (req, res) {
