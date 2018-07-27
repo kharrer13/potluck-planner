@@ -7,16 +7,16 @@ import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
 
 class ClaimItem extends Component {
-    state = {
-        
-    }
+  state = {
 
-    render() {
-        return(
-            <div>
-            </div>
-        )
-    }
+  }
+
+  render() {
+    return (
+      <div>
+      </div>
+    )
+  }
 }
 
 export default ClaimItem;

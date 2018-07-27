@@ -1,1 +1,1 @@
-export { default } from './CreateEvent'
+export { default } from './CreateEvent';
