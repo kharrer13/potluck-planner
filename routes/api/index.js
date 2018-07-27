@@ -38,7 +38,7 @@ router.post('/users', function (req, res) {
   let newUser = { ...req.body }
   db.User.create(newUser)
     .then(dbUser => {
-      let {password, ...tempUser} = dbUser.get()
+      let { password, ...tempUser } = dbUser.get()
       tempUser.redirectTo = '/login'
       res.json(tempUser)
     })
@@ -47,7 +47,7 @@ router.post('/users', function (req, res) {
 router.get('/potluck', function (req, res) {
   let query = {};
   let include;
-  
+
   if (req.query.potluck_id) {
     query.id = req.query.potluck_id;
     include = [{ all: true }];
@@ -64,7 +64,7 @@ router.get('/potluck', function (req, res) {
 router.get('/mypotlucks', function (req, res) {
   let query = {};
   let include;
-  
+
   if (req.user) {
     query.id = req.user.id;
   } else {
@@ -84,8 +84,8 @@ router.post('/potluck', function (req, res) {
   // later get this from req.user
   let newOwner
 
-  (req.user) ? newOwner = req.user.id : newOwner = false;  
-  
+  (req.user) ? newOwner = req.user.id : newOwner = false;
+
   db.Potluck.create(newPotluck)
     .then(dbPotluck => {
       newOwner && (dbPotluck.setOwner(newOwner))
@@ -147,7 +147,7 @@ router.post('/potluck-item', function (req, res) {
           console.log(JSON.stringify(dbPotluck, '', 2))
           dbPotluck.addItem(dbItem)
             .then(result => res.json(result))
-          
+
           console.log(JSON.stringify(dbPotluck, '', 2))
         })
     })
@@ -156,15 +156,26 @@ router.post('/potluck-item', function (req, res) {
   // db.PotluckItem.create(req.body)
   //   .then(result => res.json(result))
   //   .catch(e => res.json(err))
-  
+
 })
 
+router.post('/attend', function (req, res) {
 
-router.get('/whoami',  function (req, res) {
+  db.Potluck.findById(req.body.PotluckId)
+    .then((dbPotluck) => {
+      console.log(JSON.stringify(dbPotluck, '', 2))
+      dbPotluck.addAttendee(req.user.id)
+        .then(result => res.json(result))
+    })
+    .catch(e => res.json(e))
+
+})
+
+router.get('/whoami', function (req, res) {
   if (req.user) {
     res.json(req.user)
   } else {
-    res.json({id: null, username: null})
+    res.json({ id: null, username: null })
   }
 })
 
