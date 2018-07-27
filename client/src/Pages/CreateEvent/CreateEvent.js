@@ -67,65 +67,67 @@ class CreateEvent extends Component {
 	render() {
 		return (
 			<div>
-				<Col size='md-3'>
-					<div>
-					</div>
-				</Col>
-				<Col size="md-6">
-					<Jumbotron>
-						<h1>Create a Potluck</h1>
-					</Jumbotron>
-					<form>
-						<Input
-							value={this.state.potluckName}
-							onChange={this.handleInputChange}
-							name="potluckName"
-							placeholder="Event name (required)"
-						/>
-						<div className="form-group">
-							<DatePicker
-								className="form-control"
-								selected={this.state.potluckDate}
-								onChange={this.handleChange}
-								name="potluckDate"
-								isClearable={true}
-								showTimeSelect
-								timeFormat="HH:mm"
-								timeIntervals={15}
-								dateFormat="LLL"
-								timeCaption="time"
-								todayButton={"Today"}
-								minDate={moment()}
-							/>
+				<Row>
+					<Col size='md-3'>
+						<div>
 						</div>
-
-						<Input
-							value={this.state.potluckLocation}
-							onChange={this.handleInputChange}
-							name="potluckLocation"
-							placeholder="Location (required)"
-						/>
-
-						<label htmlFor="privateEvent">
-							Mark event private?
-						<input
-								id="privateEvent"
-								name="privateEvent"
-								type="checkbox"
-								checked={this.state.privateEvent}
+					</Col>
+					<Col size="md-6">
+						<Jumbotron>
+							<h1>Create a Potluck</h1>
+						</Jumbotron>
+						<form>
+							<Input
+								value={this.state.potluckName}
 								onChange={this.handleInputChange}
+								name="potluckName"
+								placeholder="Event name (required)"
 							/>
-						</label>
-						<FormBtn
-							disabled={!(this.state.potluckName && this.state.potluckDate && this.state.potluckLocation)}
-							onClick={this.handleFormSubmit}
-						>
-							Submit Potluck
-							</FormBtn>
-					</form>
-					<h4>Acting as {this.props.currentUser.username}</h4>
+							<div className="form-group">
+								<DatePicker
+									className="form-control"
+									selected={this.state.potluckDate}
+									onChange={this.handleChange}
+									name="potluckDate"
+									isClearable={true}
+									showTimeSelect
+									timeFormat="HH:mm"
+									timeIntervals={15}
+									dateFormat="LLL"
+									timeCaption="time"
+									todayButton={"Today"}
+									minDate={moment()}
+								/>
+							</div>
 
-				</Col>
+							<Input
+								value={this.state.potluckLocation}
+								onChange={this.handleInputChange}
+								name="potluckLocation"
+								placeholder="Location (required)"
+							/>
+
+							<label htmlFor="privateEvent">
+								Mark event private?
+						<input
+									id="privateEvent"
+									name="privateEvent"
+									type="checkbox"
+									checked={this.state.privateEvent}
+									onChange={this.handleInputChange}
+								/>
+							</label>
+							<FormBtn
+								disabled={!(this.state.potluckName && this.state.potluckDate && this.state.potluckLocation)}
+								onClick={this.handleFormSubmit}
+							>
+								Submit Potluck
+							</FormBtn>
+						</form>
+						<h4>Acting as {this.props.currentUser.username}</h4>
+
+					</Col>
+				</Row>
 			</div>
 		);
 	}

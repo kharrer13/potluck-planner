@@ -32,7 +32,7 @@ class Login extends Component {
 				password: this.state.password
 			})
 				.then(res => {
-				
+
 					// console.log(res)
 					this.props.handleUserChange(res.data)
 					if (res.data.redirectTo) {
@@ -58,37 +58,39 @@ class Login extends Component {
 
 		return (
 			<div>
-				<Col size='md-3'>
-					<div>
-					</div>
-				</Col>
-				<Col size="md-6">
-					<Jumbotron>
-						<h1>Log in</h1>
-					</Jumbotron>
-					<form>
-						<Input
-							value={this.state.username}
-							onChange={this.handleInputChange}
-							name="username"
-							placeholder="Username"
-						/>
-						<Input
-							type="password"
-							value={this.state.password}
-							onChange={this.handleInputChange}
-							name="password"
-							placeholder="Password"
-						/>
-						<FormBtn
-							disabled={!(this.state.username && this.state.password)}
-							onClick={this.handleFormSubmit}
-						>
-							Log in
+				<Row>
+					<Col size='md-3'>
+						<div>
+						</div>
+					</Col>
+					<Col size="md-6">
+						<Jumbotron>
+							<h1>Log in</h1>
+						</Jumbotron>
+						<form>
+							<Input
+								value={this.state.username}
+								onChange={this.handleInputChange}
+								name="username"
+								placeholder="Username"
+							/>
+							<Input
+								type="password"
+								value={this.state.password}
+								onChange={this.handleInputChange}
+								name="password"
+								placeholder="Password"
+							/>
+							<FormBtn
+								disabled={!(this.state.username && this.state.password)}
+								onClick={this.handleFormSubmit}
+							>
+								Log in
 							</FormBtn>
-						{this.state.loginFailed && 'Login failed'}
-					</form>
-				</Col>
+							{this.state.loginFailed && 'Login failed'}
+						</form>
+					</Col>
+				</Row>
 			</div>
 		);
 	}

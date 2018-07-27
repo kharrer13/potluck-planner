@@ -19,16 +19,16 @@ class Signup extends Component {
 		redirectTo: false
 	};
 
-/* 	validateFormInput = () => {
-		let newUserData = {
-			username: this.state.username,
-			password: this.state.password,
-			email: this.state.email,
-			fullName: this.state.fullName,
+	/* 	validateFormInput = () => {
+			let newUserData = {
+				username: this.state.username,
+				password: this.state.password,
+				email: this.state.email,
+				fullName: this.state.fullName,
+			}
+	
 		}
-
-	}
- */
+	 */
 	handleInputChange = event => {
 		const { name, value } = event.target;
 
@@ -63,10 +63,10 @@ class Signup extends Component {
 		]
 
 		console.log('isValid', isValid)
-		console.log('isValid.every', isValid.every(x=>x))
-		
+		console.log('isValid.every', isValid.every(x => x))
 
-		if (isValid.every(x=>x)) {
+
+		if (isValid.every(x => x)) {
 			// API.login({
 			API.saveUser({
 				username: this.state.username,
@@ -78,8 +78,10 @@ class Signup extends Component {
 					console.log(res)
 					if (res.data.redirectTo) {
 						console.log(res.data.redirectTo)
-						this.setState({ redirectToReferrer: true,
-						redirectTo: res.data.redirectTo })
+						this.setState({
+							redirectToReferrer: true,
+							redirectTo: res.data.redirectTo
+						})
 					}
 				})
 				.catch(err => console.log(err));
@@ -90,25 +92,26 @@ class Signup extends Component {
 
 	render() {
 		const { from } = this.props.location.state || { from: { pathname: this.state.redirectTo } };
-    const { redirectToReferrer } = this.state;
+		const { redirectToReferrer } = this.state;
 
-    if (redirectToReferrer) {
+		if (redirectToReferrer) {
 			console.log('redirecting to from:', from)
-      return <Redirect to={from} />;
-    }
+			return <Redirect to={from} />;
+		}
 
 		return (
 			<div>
-                    <Col size='md-3'>
-                    <div>
-                    </div>
-                    </Col>
+				<Row>
+					<Col size='md-3'>
+						<div>
+						</div>
+					</Col>
 					<Col size="md-6">
 						<Jumbotron>
 							<h1>Sign up</h1>
 						</Jumbotron>
 						<form>
-						<Input
+							<Input
 								value={this.state.fullName}
 								onChange={this.handleInputChange}
 								name="fullName"
@@ -127,7 +130,7 @@ class Signup extends Component {
 								placeholder="Username"
 							/>
 							<Input
-                type="password"
+								type="password"
 								value={this.state.password}
 								onChange={this.handleInputChange}
 								name="password"
@@ -141,6 +144,7 @@ class Signup extends Component {
 							</FormBtn>
 						</form>
 					</Col>
+				</Row>
 			</div>
 		);
 	}

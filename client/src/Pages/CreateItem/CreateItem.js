@@ -51,31 +51,33 @@ class CreateItem extends Component {
 	render() {
 		return (
 			<div>
-				<Col size='md-3'>
-					<div>
-					</div>
-				</Col>
-				<Col size="md-6">
-					<Jumbotron>
-						<h1>Create an Item</h1>
-					</Jumbotron>
-					<form>
-						<Input
-							value={this.state.itemName}
-							onChange={this.handleInputChange}
-							name="itemName"
-							placeholder="Item name (required)"
-						/>
-						<FormBtn
-							disabled={!(this.state.itemName)}
-							onClick={this.handleFormSubmit}
-						>
-							Submit Item
+				<Row>
+					<Col size='md-3'>
+						<div>
+						</div>
+					</Col>
+					<Col size="md-6">
+						<Jumbotron>
+							<h1>Create an Item</h1>
+						</Jumbotron>
+						<form>
+							<Input
+								value={this.state.itemName}
+								onChange={this.handleInputChange}
+								name="itemName"
+								placeholder="Item name (required)"
+							/>
+							<FormBtn
+								disabled={!(this.state.itemName)}
+								onClick={this.handleFormSubmit}
+							>
+								Submit Item
 							</FormBtn>
-					</form>
-					<h4>Acting as {this.props.currentUser.username}</h4>
+						</form>
+						<h4>Acting as {this.props.currentUser.username}</h4>
 
-				</Col>
+					</Col>
+				</Row>
 			</div>
 		);
 	}
