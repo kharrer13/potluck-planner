@@ -6,10 +6,17 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
 
-class ClainItem extends Component {
+class ClaimItem extends Component {
     state = {
         
     }
+
+    render() {
+        return(
+            <div>
+            </div>
+        )
+    }
 }
 
-export default ClainItem;
+export default ClaimItem;
