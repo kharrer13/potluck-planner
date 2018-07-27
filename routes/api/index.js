@@ -49,8 +49,6 @@ router.get('/potluck', function (req, res) {
   if (req.query.potluck_id) {
     query.id = req.query.potluck_id;
     include = [{ all: true }];
-  } else if (req.user.id) {
-    query.id = req.user.id;
   } else {
     include = ['Attendee', 'Items']
   }

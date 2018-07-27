@@ -77,7 +77,7 @@ class EventView extends Component {
                         <br/>
                         <List>
                             {this.state.event.Items.map(item => (
-								<ListItem key={item.Itemid}> 
+								<ListItem key={item.id}> 
 									{item.itemName}
 								</ListItem>
                                 ))} 
