@@ -32,6 +32,7 @@ router.get('/users', function (req, res) {
     // include: [{ all: true }]
   })
     .then(dbUsers => res.json(dbUsers))
+    .catch(e => res.json(e))
 })
 
 router.post('/users', function (req, res) {
@@ -42,6 +43,7 @@ router.post('/users', function (req, res) {
       tempUser.redirectTo = '/login'
       res.json(tempUser)
     })
+    .catch(e => res.json(e))
 })
 
 router.get('/potluck', function (req, res) {
@@ -66,6 +68,7 @@ router.get('/potluck', function (req, res) {
     include
   })
     .then(dbPotluck => res.json(dbPotluck))
+    .catch(e => res.json(e))
 })
 router.get('/mypotlucks', function (req, res) {
   let query = {};
@@ -82,6 +85,7 @@ router.get('/mypotlucks', function (req, res) {
     include
   })
     .then(dbPotluck => res.json(dbPotluck))
+    .catch(e => res.json(e))
 })
 
 router.post('/potluck', function (req, res) {
@@ -97,6 +101,7 @@ router.post('/potluck', function (req, res) {
       newOwner && (dbPotluck.setOwner(newOwner))
       res.json(dbPotluck)
     })
+    .catch(e => res.json(e))
 })
 
 // DRY this up and/or roll it into the query one above
@@ -107,6 +112,7 @@ router.get('/potluck/:potluckId', function (req, res) {
     include: ['Attendee', 'Items']
   })
     .then(dbPotluck => res.json(dbPotluck))
+    .catch(e => res.json(e))
 })
 
 router.put('/potluck/:potluckId', function (req, res) {
@@ -114,6 +120,7 @@ router.put('/potluck/:potluckId', function (req, res) {
   // this actually returns the array of rows updated
   db.Potluck.update(req.body, { where: { id: req.params.potluckId } })
     .then(dbPotluck => res.json(dbPotluck))
+    .catch(e => res.json(e))
 })
 
 router.get('/items', function (req, res) {
@@ -129,6 +136,7 @@ router.get('/items', function (req, res) {
     .then(dbItem => {
       return res.json(dbItem)
     })
+    .catch(e => res.json(e))
 })
 
 router.post('/items', function (req, res) {
@@ -141,6 +149,7 @@ router.post('/items', function (req, res) {
     .then(dbItem => {
       res.json(dbItem)
     })
+    .catch(e => res.json(e))
 })
 
 router.post('/potluck-item', function (req, res) {
@@ -154,31 +163,22 @@ router.post('/potluck-item', function (req, res) {
 
           if (!req.body.bringing) {
             dbPotluck.removeItem(dbItem)
-            .then(result => {
-              dbPotluck.getItems()
-              .then((dbPotluckItems) => res.json({Items: dbPotluckItems, result}))
-                
-            })
+              .then(result => {
+                dbPotluck.getItems()
+                  .then((dbPotluckItems) => res.json({ Items: dbPotluckItems, result }))
+
+              })
           } else {
             dbPotluck.addItem(dbItem)
-            // .then(result => res.json(result))
-            .then(result => {
-              dbPotluck.getItems()
-              .then((dbPotluckItems) => res.json({Items: dbPotluckItems, result}))
-                
-            })
-            
+              // .then(result => res.json(result))
+              .then(result => {
+                dbPotluck.getItems()
+                  .then((dbPotluckItems) => res.json({ Items: dbPotluckItems, result }))
+              })
           }
-          
-          // console.log(JSON.stringify(dbPotluck, '', 2))
         })
     })
     .catch(e => res.json(e))
-
-  // db.PotluckItem.create(req.body)
-  //   .then(result => res.json(result))
-  //   .catch(e => res.json(err))
-
 })
 
 router.post('/attend', function (req, res) {
@@ -188,12 +188,11 @@ router.post('/attend', function (req, res) {
       console.log(JSON.stringify(dbPotluck, '', 2))
       if (!req.body.attending) {
         dbPotluck.removeAttendee(req.user.id)
-        .then(result => res.json(result))
+          .then(result => res.json(result))
       } else {
         dbPotluck.addAttendee(req.user.id)
-        .then(result => res.json(result))
+          .then(result => res.json(result))
       }
-
     })
     .catch(e => res.json(e))
 
