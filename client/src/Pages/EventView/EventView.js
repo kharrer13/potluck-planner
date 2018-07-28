@@ -46,7 +46,8 @@ class EventView extends Component {
     event.preventDefault();
     API.saveItemToPotluck({
       PotluckId: this.props.match.params.event_id,
-      ItemId: this.state.currentItem
+      ItemId: this.state.currentItem,
+      bringing: true
     })
       .then(res => this.loadItems())
       .catch(err => console.log(err));
@@ -61,9 +62,10 @@ class EventView extends Component {
 
   attendingSubmit = event => {
     event.preventDefault();
+    // API.echo({
     API.attendPotluck({
       PotluckId: this.props.match.params.event_id, 
-      UserId: this.props.currentUser.id,
+      // UserId: this.props.currentUser.id,
       attending: true
     })
       .then(res => this.loadItems())
@@ -74,7 +76,7 @@ class EventView extends Component {
     event.preventDefault();
     API.attendPotluck({
       PotluckId: this.props.match.params.event_id, 
-      UserId: this.props.currentUser.id,
+      // UserId: this.props.currentUser.id,
       attending: false
     })
       .then(res => this.loadItems())
