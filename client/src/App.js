@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Events from "./Pages/Events";
 import EventView from "./Pages/EventView";
+import ItemView from "./Pages/ItemView";
 import Profile from "./Pages/Profile";
 // import ClaimItem from "./Pages/ClaimItem";
 import CreateEvent from "./Pages/CreateEvent";
@@ -62,6 +63,13 @@ class App extends Component {
 									<Route exact path="/events/:event_id"
 										render={(props) =>
 											<EventView
+												{...props}
+												currentUser={this.state.currentUser}
+											/>}
+									/>
+									<Route exact path="/item/:item_id"
+										render={(props) =>
+											<ItemView
 												{...props}
 												currentUser={this.state.currentUser}
 											/>}
