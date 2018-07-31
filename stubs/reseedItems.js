@@ -1,36 +1,310 @@
-const db = require('../models');
+const db = require("../models");
 
-db.sequelize.sync()
-  .then(function () {
-    const newItems = [
-      { "itemName": "birthday cake" },
-      { "itemName": "treacle tart" },
-      { "itemName": "sherbert lemon" },
-      { "itemName": "Puking Pastilles" },
-      { "itemName": "fainting fancies" },
-      { "itemName": "chocolate" },
-      { "itemName": "steak and kidney pie" },
-      { "itemName": "cauldron cakes" },
-      { "itemName": "bouillabaisse" },
-      { "itemName": "pumpkin pasties" },
-      { "itemName": "chocolate frogs" },
-      { "itemName": "corned beef sandwich" },
-      { "itemName": "bertie bott's every flavor beans" },
-      { "itemName": "rock cake" },
-      { "itemName": "radish salad" },
-      { "itemName": "butterbeer" },
-      { "itemName": "pumpkin beer" },
-      { "itemName": "boiled potatoes" },
-      { "itemName": "lamb chops" },
-      { "itemName": "Yorkshire pudding" },
-      { "itemName": "bacon and steak" },
-      { "itemName": "roast beef" },
-      { "itemName": "bread" }
-    ]
-    db.Item.bulkCreate(newItems)
-      // .then(() => db.Item.findAll())
-      .then((dbItems) => console.log(JSON.stringify(dbItems, '', 2)))
+db.sequelize.sync().then(function() {
+  const newItems = [
+    {
+      itemName: "birthday cake",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    },
+    {
+      itemName: "treacle tart",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    },
+    {
+      itemName: "sherbert lemon",
+      isVegan: true,
+      isVegetarian: true,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "Puking Pastilles",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "fainting fancies",
+      isVegan: true,
+      isVegetarian: true,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "chocolate",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: false,
+      isEggFree: true,
+      isPeanutFree: false,
+      isTreenutFree: false,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "steak and kidney pie",
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    },
+    {
+      itemName: "cauldron cakes",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    },
+    {
+      itemName: "bouillabaisse",
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: false,
+      isShellfishFree: false,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "pumpkin pasties",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: false,
+      isTreenutFree: false,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    },
+    {
+      itemName: "chocolate frogs",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: false,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "corned beef sandwich",
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    },
+    {
+      itemName: "bertie bott's every flavor beans",
+      isVegan: true,
+      isVegetarian: true,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "rock cake",
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    },
+    {
+      itemName: "radish salad",
+      isVegan: true,
+      isVegetarian: true,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "butterbeer",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: false,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "pumpkin beer",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "boiled potatoes",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "lamb chops",
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "Yorkshire pudding",
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    },
+    {
+      itemName: "bacon and steak",
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: true
+    },
+    {
+      itemName: "roast beef",
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: true,
+      isEggFree: true,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: false,
+      isWheatFree: true
+    },
+    {
+      itemName: "bread",
+      isVegan: false,
+      isVegetarian: true,
+      isMilkFree: true,
+      isEggFree: false,
+      isPeanutFree: true,
+      isTreenutFree: true,
+      isFishFree: true,
+      isShellfishFree: true,
+      isSoyFree: true,
+      isWheatFree: false
+    }
+  ];
+  db.Item.bulkCreate(newItems)
+    // .then(() => db.Item.findAll())
+    .then(dbItems => console.log(JSON.stringify(dbItems, "", 2)))
     .then(() => db.sequelize.close())
-    .catch((err) => console.error(err.message));
-  })
-
+    .catch(err => console.error(err.message));
+});
