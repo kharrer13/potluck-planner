@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate: { isEmail: true }
     }
   }, {
       // timestamps: false,
@@ -36,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     // associations can be defined here
     models.User.belongsToMany(models.Potluck, { through: models.PotluckAttendee });
+    models.User.belongsToMany(models.Potluck, { through: models.PotluckInvitee });
     models.User.hasMany(models.Item);
   };
   return User;
