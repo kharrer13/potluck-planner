@@ -56,7 +56,17 @@ passport.deserializeUser(function (id, cb) {
   console.log("deserializeUser called id", id);
 
   db.User.findById(id, {
-    attributes: ['id', 'username', 'fullName', 'email']
+    attributes: ['id', 'username', 'fullName', 'email', "isVegan",
+      "isVegetarian",
+      "isMilkFree",
+      "isEggFree",
+      "isPeanutFree",
+      "isTreenutFree",
+      "isFishFree",
+      "isShellfishFree",
+      "isSoyFree",
+      "isWheatFree",
+      "isGlutenFree"]
   })
     .then(dbUser => {
       return cb(null, dbUser.get());

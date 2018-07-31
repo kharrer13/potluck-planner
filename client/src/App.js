@@ -17,7 +17,19 @@ import API from './Utils/API'
 
 class App extends Component {
 	state = {
-		currentUser: {},
+		currentUser: {
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: false,
+      isTreenutFree: false,
+      isFishFree: false,
+      isShellfishFree: false,
+      isSoyFree: false,
+      isWheatFree: false,
+      isGlutenFree: false
+		},
 		loggedIn: false
 	}
 	componentDidMount() {
