@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 // import {Tabs, Tab} from '@material-ui/core'
-import { Link, Redirect } from 'react-router-dom';
+import { Link, NavLink, Redirect } from 'react-router-dom';
 import API from '../Utils/API'
 import { withStyles } from '@material-ui/core/styles';
 
@@ -49,19 +49,11 @@ class NavBar extends Component {
 
             {(this.props.loggedIn) ? (
               <React.Fragment>
-                <Link to="/events">
-                  <Button color="default">Potluck List</Button>
-                </Link>
-                <Link to="/create_event">
-                  <Button color="default">Create Event</Button>
-                </Link>
-                <Link to="/create_item">
-                  <Button color="default">Create Item</Button>
-                </Link>
-                <Link to="/profile">
-                  <Button color="default">Profile for {this.props.currentUser.fullName}</Button>
-                </Link>
-                <Button color="default" onClick={event => {
+                  <Button component={NavLink} to="/events" color="default">Potluck List</Button>
+                  <Button component={NavLink} to="/create_event" color="default">Create Event</Button>
+                  <Button component={NavLink} to="/create_item" color="default">Create Item</Button>
+                  <Button component={NavLink} to="/profile"color="default">Profile for {this.props.currentUser.fullName}</Button>
+                  <Button color="default" onClick={event => {
                   event.preventDefault();
                   API.logout()
                     .then(res => {
@@ -78,12 +70,8 @@ class NavBar extends Component {
               </React.Fragment>
             ) : (
                 <React.Fragment>
-                  <Link to="/login">
-                    <Button color="default">Log in</Button>
-                  </Link>
-                  <Link to="/signup">
-                    <Button color="default">Sign up</Button>
-                  </Link>
+                  <Button component={NavLink} to="/login" color="default">Log in</Button>
+                  <Button component={NavLink} to="/signup" color="default">Sign up</Button>
                 </React.Fragment>
               )}
 
