@@ -124,12 +124,28 @@ router.get('/items', function (req, res) {
   // db.Item.findAll({ where: req.query, include: [{ all: true }] })
   // need to validate req.query, e.g. copy just the parameters that make sense and make sure they are ok
   db.Item.findAll({
-    where: query
+    where: query,
+    attributes: ["id",
+      "itemName",
+      "isVegan",
+      "isVegetarian",
+      "isMilkFree",
+      "isEggFree",
+      "isPeanutFree",
+      "isTreenutFree",
+      "isFishFree",
+      "isShellfishFree",
+      "isSoyFree",
+      "isWheatFree",
+      "isGlutenFree"]
   })
     .then(dbItem => {
       return res.json(dbItem)
     })
 })
+
+
+
 
 router.post('/items', function (req, res) {
   let newItem = { ...req.body }
