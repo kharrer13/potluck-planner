@@ -11,7 +11,16 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import NavBar from './components/NavBar';
 import { Container } from './components/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import withRoot from './withRoot';
 import API from './Utils/API'
+
+const styles = theme => ({
+  root: {
+    // textAlign: 'center'
+    // paddingTop: theme.spacing.unit * 20,
+  },
+});
 
 class App extends Component {
 	state = {
@@ -42,8 +51,11 @@ class App extends Component {
 	}
 
 	render() {
+
+		const { classes } = this.props;
+		const { open } = this.state;
 		return (
-			<div>
+			<div className={classes.root}>
 				<Router>
 					<div>
 						<NavBar
@@ -109,4 +121,5 @@ class App extends Component {
 	}
 }
 
-export default App;
+// export default App;
+export default withRoot(withStyles(styles)(App));

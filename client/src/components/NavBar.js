@@ -6,7 +6,21 @@ import Button from '@material-ui/core/Button'
 // import {Tabs, Tab} from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom';
 import API from '../Utils/API'
+import { withStyles } from '@material-ui/core/styles';
 
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 // const NavBar = (props) => {
 class NavBar extends Component {
@@ -14,10 +28,11 @@ class NavBar extends Component {
     redirectToReferrer: false
   }
 
-  render(props) {
+  render() {
 
     const { redirectToReferrer } = this.state;
-
+    const { classes } = this.props;
+    const { open } = this.state;
     if (redirectToReferrer) {
       this.setState({ redirectToReferrer: false })
       
@@ -25,28 +40,28 @@ class NavBar extends Component {
     }
     
     return (
-      <div>
-        <AppBar position="static" color="default">
+      <div className={classes.root}>
+        <AppBar position="static" color="primary">
           <Toolbar>
-            <Typography variant="title" color="inherit">
+            <Typography variant="title" color="inherit" className={classes.flex}>
               Potluck Planner
               </Typography>
 
             {(this.props.loggedIn) ? (
               <React.Fragment>
                 <Link to="/events">
-                  <Button>Potluck List</Button>
+                  <Button color="default">Potluck List</Button>
                 </Link>
                 <Link to="/create_event">
-                  <Button>Create Event</Button>
+                  <Button color="default">Create Event</Button>
                 </Link>
                 <Link to="/create_item">
-                  <Button>Create Item</Button>
+                  <Button color="default">Create Item</Button>
                 </Link>
                 <Link to="/profile">
-                  <Button>Profile for {this.props.currentUser.fullName}</Button>
+                  <Button color="default">Profile for {this.props.currentUser.fullName}</Button>
                 </Link>
-                <Button onClick={event => {
+                <Button color="default" onClick={event => {
                   event.preventDefault();
                   API.logout()
                     .then(res => {
@@ -64,30 +79,20 @@ class NavBar extends Component {
             ) : (
                 <React.Fragment>
                   <Link to="/login">
-                    <Button>Log in</Button>
+                    <Button color="default">Log in</Button>
                   </Link>
                   <Link to="/signup">
-                    <Button>Sign up</Button>
+                    <Button color="default">Sign up</Button>
                   </Link>
                 </React.Fragment>
               )}
 
-
-            {/* {JSON.stringify(props.currentUser)} */}
           </Toolbar>
         </AppBar>
-        {/* <AppBar position="static">
-            <Toolbar>
-                <Typography variant="title" color="inherit">
-                Potluck Planner
-                </Typography>
-                <Button color="contrast" >My Events</Button>
-                <Button color="contrast" >My Profile</Button>
-            </Toolbar>
-        </AppBar> */}
+
       </div>
     )
   }
 }
 
-export default NavBar;
+export default withStyles(styles)(NavBar);
