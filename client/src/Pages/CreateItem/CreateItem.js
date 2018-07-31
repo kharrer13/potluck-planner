@@ -103,7 +103,7 @@ class CreateItem extends Component {
 								name="itemName"
 								placeholder="Item name (required)"
 							/>
-							{dietary.map(e => (<label htmlFor={e}>
+							{dietary.map(e => (<label htmlFor={e} key={e}>
 								{e}
 						<input
 									id={e}

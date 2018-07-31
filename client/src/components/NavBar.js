@@ -40,6 +40,9 @@ class NavBar extends Component {
                 <Link to="/create_event">
                   <Button>Create Event</Button>
                 </Link>
+                <Link to="/items">
+                  <Button>Item List</Button>
+                </Link>
                 <Link to="/create_item">
                   <Button>Create Item</Button>
                 </Link>

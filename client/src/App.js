@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Events from "./Pages/Events";
+import Items from "./Pages/Items";
 import EventView from "./Pages/EventView";
 import ItemView from "./Pages/ItemView";
 import Profile from "./Pages/Profile";
@@ -67,6 +68,7 @@ class App extends Component {
 												currentUser={this.state.currentUser}
 											/>}
 									/>
+									<Route exact path="/items" component={Items} />
 									<Route exact path="/item/:item_id"
 										render={(props) =>
 											<ItemView
