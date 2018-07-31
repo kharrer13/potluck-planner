@@ -17,7 +17,7 @@
   },
   "engines": {
     "node": "^8.11.3",
-    "yarn": "1.7.0"
+    "yarn": "1.9.2"
   },
   "repository": {
     "type": "git",
@@ -45,7 +45,6 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "morgan": "^1.9.0",
-    "mysql": "^2.15.0",
     "mysql2": "^1.5.3",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
