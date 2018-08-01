@@ -44,7 +44,6 @@ class Signup extends Component {
     });
   };
 
-
   handleFormSubmit = event => {
     event.preventDefault();
 
@@ -109,6 +108,11 @@ class Signup extends Component {
             placeholder="Name"
             fullWidth
             margin="normal"
+            inputProps={{
+              autocomplete: 'off',
+              autocapitalize: 'words',
+              spellcheck: 'false'
+            }}
           />
           <TextField
             id="email"
@@ -117,6 +121,7 @@ class Signup extends Component {
             onChange={this.handleInputChange}
             className={classes.textField}
             name="email"
+            type="email"
             placeholder="Email"
             fullWidth
             margin="normal"
@@ -131,6 +136,12 @@ class Signup extends Component {
             placeholder="Username"
             fullWidth
             margin="normal"
+            inputProps={{
+              autocomplete: 'off',
+              autocorrect: 'off',
+              autocapitalize: 'none',
+              spellcheck: 'false'
+            }}
           />
           <TextField
             id="password"

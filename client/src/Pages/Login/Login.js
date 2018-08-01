@@ -80,7 +80,12 @@ class Login extends Component {
     return (
       <div className={classes.root}>
         <Typography variant="headline">Log in</Typography>
-        <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleFormSubmit}>
+        <form
+          className={classes.container}
+          noValidate
+          autoComplete="off"
+          onSubmit={this.handleFormSubmit}
+        >
           <TextField
             id="username"
             label="Username"
@@ -91,6 +96,12 @@ class Login extends Component {
             placeholder="Username"
             fullWidth
             margin="normal"
+            inputProps={{
+              autocomplete: 'off',
+              autocorrect: 'off',
+              autocapitalize: 'none',
+              spellcheck: 'false'
+            }}
           />
           <TextField
             id="password"
