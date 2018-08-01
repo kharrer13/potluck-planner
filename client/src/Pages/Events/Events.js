@@ -1,79 +1,82 @@
-import React, { Component } from "react";
-import Jumbotron from '../../components/Jumbotron'
-import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
-import { Link as ClickyThing } from "react-router-dom";
-import API from '../../Utils/API'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+import API from '../../Utils/API';
+
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import { withStyles } from '@material-ui/core/styles';
+
 import Moment from 'react-moment';
+import { ListItemText } from '../../../node_modules/@material-ui/core';
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper
+  }
+});
 
 class Events extends Component {
-	state = {
-		events: [],
-		potluckName: "",
-		potluckDate: "",
-		potluckLocation: ""
-	};
+  state = {
+    events: []
+  };
 
-	componentDidMount() {
-		this.loadEvents();
-	};
+  componentDidMount() {
+    this.loadEvents();
+  }
 
-	loadEvents = () => {
-		API.getPotlucks()
-			.then(res =>
-				this.setState({ events: res.data, potluckName: "", potluckDate: '', potluckLocation: '' })
-			)
-	};
+  loadEvents = () => {
+    API.getPotlucks().then(res =>
+      this.setState({
+        events: res.data
+      })
+    );
+  };
 
-	handleInputChange = event => {
-		const { name, value } = event.target;
-		this.setState({
-			[name]: value
-		});
-	};
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
-	handleFormSubmit = event => {
-		event.preventDefault();
-		if (this.state.potluckName && this.state.potluckDate && this.state.potluckLocation) {
-			API.savePotluck({
-				eventName: this.state.potluckName,
-				eventDate: this.state.potluckDate,
-				eventLocation: this.state.potluckLocation
-			})
-				.then(res => this.loadEvents())
-				.catch(err => console.log(err));
-		}
-	};
+  render() {
+    const { classes } = this.props;
 
-	render() {
-		return (
-			<div>
-				<Row>
-					<Col size="md-12 sm-12">
-						<Jumbotron>
-							<h1>Available Potlucks</h1>
-						</Jumbotron>
-						{this.state.events.length ? (
-							<List>
-								{this.state.events.map(potluck => (
-									<ListItem key={potluck.id}>
-										<ClickyThing to={`/events/${potluck.id}`}>
-											{potluck.id} {potluck.eventName} {potluck.eventDate && (<span> on <Moment format="LLL">{potluck.eventDate}</Moment> </span>)}
-										</ClickyThing>
-									</ListItem>
-								))}
-							</List>
-						) : (
-								<h3>No Results to Display</h3>
-							)}
-					</Col>
-				</Row>
-			</div>
-		);
-	}
+    return (
+      <div className={classes.root}>
+        <Typography variant="headline">Available Potlucks</Typography>
+
+        {this.state.events.length ? (
+          <List>
+            {this.state.events.map(potluck => (
+              <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
+                <ListItemText
+                  primary={potluck.eventName}
+                  secondary={
+                    potluck.eventDate && (
+                      <span>
+                        {' '}
+                        <Moment format="LLL">{potluck.eventDate}</Moment>{' '}
+                      </span>
+                    )
+                  }
+                />
+
+                {/* <ClickyThing to={`/events/${potluck.id}`}> */}
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <h3>No Results to Display</h3>
+        )}
+      </div>
+    );
+  }
 }
-// TODO: fix key in ListItem
 
-
-export default Events;
+// export default Events;
+export default withStyles(styles)(Events);

@@ -80,7 +80,7 @@ class Login extends Component {
     return (
       <div className={classes.root}>
         <Typography variant="headline">Log in</Typography>
-        <form className={classes.container} noValidate autoComplete="off">
+        <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleFormSubmit}>
           <TextField
             id="username"
             label="Username"
@@ -108,6 +108,7 @@ class Login extends Component {
           <Button
             variant="contained"
             color="primary"
+            type="submit"
             className={classes.button}
             disabled={!(this.state.username && this.state.password)}
             onClick={this.handleFormSubmit}
