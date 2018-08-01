@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 
 import API from '../../Utils/API';
 
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { ListItemText } from '../../../node_modules/@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import Moment from 'react-moment';
-import { ListItemText } from '../../../node_modules/@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -48,31 +49,38 @@ class Events extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography variant="headline">Available Potlucks</Typography>
+        <Grid container spacing={8} alignItems="center">
+          <Grid item md={12}>
+            <Typography variant="headline">Available Potlucks</Typography>
+          </Grid>
+          <Grid item md={12}>
+            {this.state.events.length ? (
+              <List>
+                {this.state.events.map(potluck => (
+                  <ListItem
+                    button
+                    component={Link}
+                    to={`/events/${potluck.id}`}
+                    key={potluck.id}
+                  >
+                    <ListItemText
+                      primary={potluck.eventName}
+                      secondary={
+                        potluck.eventDate && (
+                          <Moment format="LLL">{potluck.eventDate}</Moment>
+                        )
+                      }
+                    />
 
-        {this.state.events.length ? (
-          <List>
-            {this.state.events.map(potluck => (
-              <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
-                <ListItemText
-                  primary={potluck.eventName}
-                  secondary={
-                    potluck.eventDate && (
-                      <span>
-                        {' '}
-                        <Moment format="LLL">{potluck.eventDate}</Moment>{' '}
-                      </span>
-                    )
-                  }
-                />
-
-                {/* <ClickyThing to={`/events/${potluck.id}`}> */}
-              </ListItem>
-            ))}
-          </List>
-        ) : (
-          <h3>No Results to Display</h3>
-        )}
+                    {/* <ClickyThing to={`/events/${potluck.id}`}> */}
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+          </Grid>
+        </Grid>
       </div>
     );
   }

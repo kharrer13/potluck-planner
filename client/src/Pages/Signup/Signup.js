@@ -4,6 +4,7 @@ import { Link as ClickyThing, Redirect } from 'react-router-dom';
 import validator from 'validator';
 import API from '../../Utils/API';
 
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -96,76 +97,82 @@ class Signup extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography variant="headline">Sign up </Typography>
-        <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-            id="fullName"
-            label="Name"
-            value={this.state.fullName}
-            onChange={this.handleInputChange}
-            className={classes.textField}
-            name="fullName"
-            placeholder="Name"
-            fullWidth
-            margin="normal"
-            inputProps={{
-              autocomplete: 'off',
-              autocapitalize: 'words',
-              spellcheck: 'false'
-            }}
-          />
-          <TextField
-            id="email"
-            label="Email"
-            value={this.state.fullemailName}
-            onChange={this.handleInputChange}
-            className={classes.textField}
-            name="email"
-            type="email"
-            placeholder="Email"
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            id="username"
-            label="Username"
-            value={this.state.username}
-            onChange={this.handleInputChange}
-            className={classes.textField}
-            name="username"
-            placeholder="Username"
-            fullWidth
-            margin="normal"
-            inputProps={{
-              autocomplete: 'off',
-              autocorrect: 'off',
-              autocapitalize: 'none',
-              spellcheck: 'false'
-            }}
-          />
-          <TextField
-            id="password"
-            label="Password"
-            value={this.state.password}
-            onChange={this.handleInputChange}
-            name="password"
-            placeholder="Password"
-            className={classes.textField}
-            type="password"
-            fullWidth
-            // autoComplete="current-password"
-            margin="normal"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            disabled={!(this.state.username && this.state.password)}
-            onClick={this.handleFormSubmit}
-          >
-            Sign up
-          </Button>
-        </form>
+        <Grid container spacing={8} alignItems="center">
+          <Grid item md={12}>
+            <Typography variant="headline">Sign up </Typography>
+          </Grid>
+          <Grid item md={12}>
+            <form className={classes.container} noValidate autoComplete="off">
+              <TextField
+                id="fullName"
+                label="Name"
+                value={this.state.fullName}
+                onChange={this.handleInputChange}
+                className={classes.textField}
+                name="fullName"
+                placeholder="Name"
+                fullWidth
+                margin="normal"
+                inputProps={{
+                  autocomplete: 'off',
+                  autocapitalize: 'words',
+                  spellcheck: 'false'
+                }}
+              />
+              <TextField
+                id="email"
+                label="Email"
+                value={this.state.fullemailName}
+                onChange={this.handleInputChange}
+                className={classes.textField}
+                name="email"
+                type="email"
+                placeholder="Email"
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                id="username"
+                label="Username"
+                value={this.state.username}
+                onChange={this.handleInputChange}
+                className={classes.textField}
+                name="username"
+                placeholder="Username"
+                fullWidth
+                margin="normal"
+                inputProps={{
+                  autocomplete: 'off',
+                  autocorrect: 'off',
+                  autocapitalize: 'none',
+                  spellcheck: 'false'
+                }}
+              />
+              <TextField
+                id="password"
+                label="Password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                name="password"
+                placeholder="Password"
+                className={classes.textField}
+                type="password"
+                fullWidth
+                // autoComplete="current-password"
+                margin="normal"
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                disabled={!(this.state.username && this.state.password)}
+                onClick={this.handleFormSubmit}
+              >
+                Sign up
+              </Button>
+            </form>
+          </Grid>
+        </Grid>
       </div>
     );
   }

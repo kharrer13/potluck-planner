@@ -3,6 +3,7 @@ import { Link as ClickyThing, Redirect } from 'react-router-dom';
 
 import API from '../../Utils/API';
 
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -79,55 +80,61 @@ class Login extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography variant="headline">Log in</Typography>
-        <form
-          className={classes.container}
-          noValidate
-          autoComplete="off"
-          onSubmit={this.handleFormSubmit}
-        >
-          <TextField
-            id="username"
-            label="Username"
-            value={this.state.username}
-            onChange={this.handleInputChange}
-            className={classes.textField}
-            name="username"
-            placeholder="Username"
-            fullWidth
-            margin="normal"
-            inputProps={{
-              autocomplete: 'off',
-              autocorrect: 'off',
-              autocapitalize: 'none',
-              spellcheck: 'false'
-            }}
-          />
-          <TextField
-            id="password"
-            label="Password"
-            value={this.state.password}
-            onChange={this.handleInputChange}
-            name="password"
-            placeholder="Password"
-            className={classes.textField}
-            type="password"
-            fullWidth
-            // autoComplete="current-password"
-            margin="normal"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            className={classes.button}
-            disabled={!(this.state.username && this.state.password)}
-            onClick={this.handleFormSubmit}
-          >
-            Log in
-          </Button>
-          {this.state.loginFailed && 'Login failed'}
-        </form>
+        <Grid container spacing={8} alignItems="center">
+          <Grid item md={12}>
+            <Typography variant="headline">Log in</Typography>
+          </Grid>
+          <Grid item md={12}>
+            <form
+              className={classes.container}
+              noValidate
+              autoComplete="off"
+              onSubmit={this.handleFormSubmit}
+            >
+              <TextField
+                id="username"
+                label="Username"
+                value={this.state.username}
+                onChange={this.handleInputChange}
+                className={classes.textField}
+                name="username"
+                placeholder="Username"
+                fullWidth
+                margin="normal"
+                inputProps={{
+                  autocomplete: 'off',
+                  autocorrect: 'off',
+                  autocapitalize: 'none',
+                  spellcheck: 'false'
+                }}
+              />
+              <TextField
+                id="password"
+                label="Password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                name="password"
+                placeholder="Password"
+                className={classes.textField}
+                type="password"
+                fullWidth
+                // autoComplete="current-password"
+                margin="normal"
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                className={classes.button}
+                disabled={!(this.state.username && this.state.password)}
+                onClick={this.handleFormSubmit}
+              >
+                Log in
+              </Button>
+              {this.state.loginFailed && 'Login failed'}
+            </form>
+          </Grid>
+        </Grid>
       </div>
     );
   }
