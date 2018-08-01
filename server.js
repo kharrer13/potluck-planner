@@ -91,6 +91,14 @@ app.use(require('cookie-parser')());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+} else {
+  app.use(express.static("public"));
+}
+// TODO go back in history and see blame for the public line
+
 app.use(session({
   secret: 'draco dormiens nunquam titillandus',
   cookie: { maxAge: 120000 },
@@ -105,13 +113,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-} else {
-  app.use(express.static("public"));
-}
-// TODO go back in history and see blame for the public line
 
 // Add routes, both API and view
 app.use(routes);
