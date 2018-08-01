@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { ListItemText } from '../../../node_modules/@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 
 import Moment from 'react-moment';
@@ -77,7 +77,9 @@ class Events extends Component {
                 ))}
               </List>
             ) : (
-              <h3>No Results to Display</h3>
+              <Typography variant="subheading">
+                No Results to Display
+              </Typography>
             )}
           </Grid>
         </Grid>
