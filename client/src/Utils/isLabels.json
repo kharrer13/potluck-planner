@@ -1,0 +1,13 @@
+{
+  "isVegan": "Vegan",
+  "isVegetarian": "Vegetarian",
+  "isMilkFree": "Milk free",
+  "isEggFree": "Egg free",
+  "isPeanutFree": "Peanut free",
+  "isTreenutFree": "Tree nut free",
+  "isFishFree": "Fish free",
+  "isShellfishFree": "Shellfish free",
+  "isSoyFree": "Soy free",
+  "isWheatFree": "Wheat free",
+  "isGlutenFree": "Gluten free"
+}

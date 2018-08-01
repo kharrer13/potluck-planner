@@ -15,7 +15,7 @@ import Moment from 'react-moment';
 const styles = theme => ({
   root: {
     width: '100%',
-    maxWidth: 360,
+    // maxWidth: 360,
     backgroundColor: theme.palette.background.paper
   }
 });
@@ -30,11 +30,13 @@ class Events extends Component {
   }
 
   loadEvents = () => {
-    API.getPotlucks().then(res =>
-      this.setState({
-        events: res.data
-      })
-    );
+    API.getPotlucks()
+      .then(res =>
+        this.setState({
+          events: res.data
+        })
+      )
+      .catch(err => console.log(err));
   };
 
   handleInputChange = event => {
