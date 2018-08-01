@@ -12,6 +12,9 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   root: {
     flexGrow: 1,
+    // position: 'fixed',
+    // top: 0,
+    width: '100%'
   },
   flex: {
     flexGrow: 1,
@@ -32,7 +35,7 @@ class NavBar extends Component {
 
     const { redirectToReferrer } = this.state;
     const { classes } = this.props;
-    const { open } = this.state;
+
     if (redirectToReferrer) {
       this.setState({ redirectToReferrer: false })
       
@@ -41,7 +44,7 @@ class NavBar extends Component {
     
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="primary">
+        <AppBar position="static" color="primary" elevation={4}>
           <Toolbar>
             <Typography variant="title" color="inherit" className={classes.flex}>
               Potluck Planner
