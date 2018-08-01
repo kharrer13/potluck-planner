@@ -108,9 +108,20 @@ router.route('/potluck')
 
     db.Potluck.create(newPotluck)
       .then(dbPotluck => {
-        newOwner && (dbPotluck.setOwner(newOwner))
-        res.json(dbPotluck)
+        if (newOwner) {
+          return db.Sequelize.Promise.all([
+            dbPotluck.setOwner(newOwner),
+            dbPotluck.addAttendee(newOwner),
+            dbPotluck.addInvitee(newOwner)
+          ])
+        } else {
+          return dbPotluck;
+        }
+        
       })
+      .then(result =>
+        res.json(result[0])
+      )
   })
 
 // DRY this up and/or roll it into the query one above

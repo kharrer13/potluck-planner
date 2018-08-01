@@ -37,6 +37,7 @@ class CreateEvent extends Component {
     userData: [],
     potluckName: '',
     potluckDate: '',
+    potluckTime: '',
     potluckLocation: '',
     startDate: '',
     privateEvent: false
@@ -69,12 +70,13 @@ class CreateEvent extends Component {
     if (
       this.state.potluckName &&
       this.state.potluckDate &&
+      this.state.potluckTime &&
       this.state.potluckLocation
     ) {
       API.savePotluck({
         // API.echo({
         eventName: this.state.potluckName,
-        eventDate: this.state.potluckDate,
+        eventDate: this.state.potluckDate + 'T' + this.state.potluckTime,
         eventLocation: this.state.potluckLocation,
         privateEvent: this.state.privateEvent
       })
@@ -117,8 +119,20 @@ class CreateEvent extends Component {
                 id="potluckDate"
                 name="potluckDate"
                 label="Potluck Date"
-                type="datetime-local"
+                type="date"
                 value={this.state.potluckDate}
+                onChange={this.handleInputChange}
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
+              <TextField
+                id="potluckTime"
+                name="potluckTime"
+                label="Potluck Time"
+                type="time"
+                value={this.state.potluckTime}
                 onChange={this.handleInputChange}
                 className={classes.textField}
                 InputLabelProps={{
