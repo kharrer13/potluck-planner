@@ -55,8 +55,8 @@ class Signup extends Component {
       // validator.isAlpha(this.state.fullName)
     ];
 
-    console.log('isValid', isValid);
-    console.log('isValid.every', isValid.every(x => x));
+    // console.log('isValid', isValid);
+    // console.log('isValid.every', isValid.every(x => x));
 
     if (isValid.every(x => x)) {
       // API.login({
@@ -67,7 +67,7 @@ class Signup extends Component {
         fullName: this.state.fullName
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data.redirectTo) {
             console.log(res.data.redirectTo);
             this.setState({
@@ -114,9 +114,9 @@ class Signup extends Component {
                 fullWidth
                 margin="normal"
                 inputProps={{
-                  autocomplete: 'off',
-                  autocapitalize: 'words',
-                  spellcheck: 'false'
+                  autoComplete: 'off',
+                  autoCapitalize: 'words',
+                  spellCheck: 'false'
                 }}
               />
               <TextField
@@ -142,10 +142,10 @@ class Signup extends Component {
                 fullWidth
                 margin="normal"
                 inputProps={{
-                  autocomplete: 'off',
-                  autocorrect: 'off',
-                  autocapitalize: 'none',
-                  spellcheck: 'false'
+                  autoComplete: 'off',
+                  autoCorrect: 'off',
+                  autoCapitalize: 'none',
+                  spellCheck: 'false'
                 }}
               />
               <TextField

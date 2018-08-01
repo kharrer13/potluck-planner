@@ -102,10 +102,10 @@ class Login extends Component {
                 fullWidth
                 margin="normal"
                 inputProps={{
-                  autocomplete: 'off',
-                  autocorrect: 'off',
-                  autocapitalize: 'none',
-                  spellcheck: 'false'
+                  autoComplete: 'off',
+                  autoCorrect: 'off',
+                  autoCapitalize: 'none',
+                  spellCheck: 'false'
                 }}
               />
               <TextField
