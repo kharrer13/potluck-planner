@@ -10,23 +10,32 @@ import Profile from "./Pages/Profile";
 import CreateEvent from "./Pages/CreateEvent";
 import CreateItem from "./Pages/CreateItem";
 import Login from "./Pages/Login";
+import Home from "./Pages/Home";
 import Signup from "./Pages/Signup";
 import NavBar from './components/NavBar';
 import { Container } from './components/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import withRoot from './withRoot';
 import API from './Utils/API'
 
 const styles = theme => ({
   root: {
-    // textAlign: 'center'
-    // paddingTop: theme.spacing.unit * 20,
-  },
+		// paddingTop: theme.spacing.unit * 20,
+	},
+	mainsheet: {
+	...theme.mixins.gutters(),
+		paddingTop: theme.spacing.unit * 2,
+		paddingBottom: theme.spacing.unit * 2,
+		// textAlign: 'center'
+	}
 });
 
 class App extends Component {
 	state = {
 		currentUser: {
+			id: null,
+			username: null,
       isVegan: false,
       isVegetarian: false,
       isMilkFree: false,
@@ -69,7 +78,7 @@ class App extends Component {
 		const { classes } = this.props;
 		const { open } = this.state;
 		return (
-			<div className={classes.root}>
+			<Paper className={classes.root}>
 				<Router>
 					<div>
 						<NavBar
@@ -79,11 +88,11 @@ class App extends Component {
 						/>
 						<br />
 						<br />
-						<Container fluid>
+						<Paper className={classes.mainsheet}>
 
 							<div>
 								<Switch>
-									<Route exact path="/" component={Events} />
+									<Route exact path="/" component={Home} />
 									<Route exact path="/events" component={Events} />
 									<Route exact path="/events/:event_id"
 										render={(props) =>
@@ -135,10 +144,10 @@ class App extends Component {
 								</Switch>
 							</div>
 
-						</Container>
+						</Paper>
 					</div>
 				</Router>
-			</div>
+			</Paper>
 		);
 	}
 }
