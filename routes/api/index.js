@@ -29,7 +29,11 @@ router.route('/users')
 
     db.User.findAll({
       where: query,
-      include: [db.Potluck],
+      include: {
+        association: 'Potlucks',
+        attributes: ['id', 'eventName', 'eventLocation', 'eventDate', 'privateEvent'],
+        through: {attributes: []}
+      },
       attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
       // include: [{ all: true }]
     }).then(dbUsers => res.json(dbUsers));
@@ -59,11 +63,13 @@ router.route('/potluck')
         },
         {
           association: 'Invitee',
-          attributes: ['id', 'fullName', 'username']
+          attributes: ['id', 'fullName', 'username'],
+          through: {attributes: []}
         },
         {
           association: 'Items',
-          attributes: ['id', 'itemName']
+          attributes: ['id', 'itemName'],
+          through: {attributes: []}
         },
         {
           association: 'Owner',
