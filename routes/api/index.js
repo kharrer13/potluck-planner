@@ -137,15 +137,21 @@ router.get('/mypotlucks', function (req, res) {
   let include = [
     {
       association: 'Attendee',
-      attributes: ['id', 'fullName', 'username']
+      attributes: ['id', 'fullName', 'username'],
+      through: { attributes: [] }
+
     },
     {
       association: 'Invitee',
-      attributes: ['id', 'fullName', 'username']
+      attributes: ['id', 'fullName', 'username'],
+      through: { attributes: [] }
+
     },
     {
       association: 'Items',
-      attributes: ['id', 'itemName']
+      attributes: ['id', 'itemName'],
+      through: { attributes: [] }
+
     },
     {
       association: 'Owner',
@@ -157,7 +163,7 @@ router.get('/mypotlucks', function (req, res) {
   if (req.user) {
     query.OwnerId = req.user.id;
     // include = ['Attendee', 'Invitee', 'Items']
-  } 
+  }
   // else {
   //   // include = ['Attendee', 'Items']
   // }
