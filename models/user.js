@@ -24,7 +24,52 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate: { isEmail: true }
+    },
+    isVegan: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isVegetarian: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isMilkFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isEggFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isPeanutFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isTreenutFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isFishFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isShellfishFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isSoyFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isWheatFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isGlutenFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
       // timestamps: false,
@@ -36,6 +81,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     // associations can be defined here
     models.User.belongsToMany(models.Potluck, { through: models.PotluckAttendee });
+    models.User.belongsToMany(models.Potluck, { through: models.PotluckInvitee });
     models.User.hasMany(models.Item);
   };
   return User;

@@ -4,7 +4,7 @@ db.sequelize.sync()
   .then(function () {
 
     db.Potluck.findAll({
-      where: { OwnerId: 1 },
+      where: { id: 3 },
       include: [{ all: true }]
     })
       .then((dbPotluck) => console.log(JSON.stringify(dbPotluck, '', 2)))

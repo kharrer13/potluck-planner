@@ -54,12 +54,17 @@ class Profile extends Component {
   
   render(props) {
 		const { from } = this.props.location.state || { from: { pathname: "/login" } };
-    const { redirectToReferrer } = this.state;
-
+		const { redirectToReferrer } = this.state;
+		
     if (redirectToReferrer) {
 			console.log('redirecting to from:', from)
       return <Redirect to={from} />;
     }
+		
+		const restrictionList = Object.keys(this.props.currentUser).filter(e => e.startsWith("is"));
+		// const restrictionList = ["isVegan", "isVegetarian", "isMilkFree", "isEggFree", "isPeanutFree", "isTreenutFree", "isFishFree", "isShellfishFree", "isSoyFree", "isWheatFree", "isGlutenFree"]
+		// console.log(restrictionList);
+		
 
 
 		return (
@@ -96,7 +101,17 @@ class Profile extends Component {
 						) : (
 								<h3>No Results to Display</h3>
 							)}
-
+							
+							{restrictionList.length === 0 ?
+								<h5>No dietary restriction flags</h5>
+								// : 'has some'
+								: 
+									<List>
+										{restrictionList.map(thing => (
+                    this.props.currentUser[thing] && (<ListItem key={thing}>{thing} </ListItem>)
+									))}
+									</List>
+							}
 					</Col>
 				</Row>
 			</Container>

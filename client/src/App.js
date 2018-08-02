@@ -2,20 +2,52 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Events from "./Pages/Events";
+import Items from "./Pages/Items";
 import EventView from "./Pages/EventView";
+import ItemView from "./Pages/ItemView";
 import Profile from "./Pages/Profile";
 // import ClaimItem from "./Pages/ClaimItem";
 import CreateEvent from "./Pages/CreateEvent";
 import CreateItem from "./Pages/CreateItem";
 import Login from "./Pages/Login";
+import Home from "./Pages/Home";
 import Signup from "./Pages/Signup";
 import NavBar from './components/NavBar';
-import { Container } from './components/Grid';
+import BottomBar from './components/BottomBar';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import withRoot from './withRoot';
 import API from './Utils/API'
+
+const styles = theme => ({
+  root: {
+		// paddingTop: theme.spacing.unit * 20,
+	},
+	mainsheet: {
+	...theme.mixins.gutters(),
+		paddingTop: theme.spacing.unit * 2,
+		paddingBottom: theme.spacing.unit * 2,
+		// textAlign: 'center'
+	}
+});
 
 class App extends Component {
 	state = {
-		currentUser: {},
+		currentUser: {
+			id: null,
+			username: null,
+      isVegan: false,
+      isVegetarian: false,
+      isMilkFree: false,
+      isEggFree: false,
+      isPeanutFree: false,
+      isTreenutFree: false,
+      isFishFree: false,
+      isShellfishFree: false,
+      isSoyFree: false,
+      isWheatFree: false,
+      isGlutenFree: false
+		},
 		loggedIn: false
 	}
 	componentDidMount() {
@@ -42,8 +74,11 @@ class App extends Component {
 	}
 
 	render() {
+
+		const { classes } = this.props;
+		const { open } = this.state;
 		return (
-			<div>
+			<Paper className={classes.root}>
 				<Router>
 					<div>
 						<NavBar
@@ -53,15 +88,23 @@ class App extends Component {
 						/>
 						<br />
 						<br />
-						<Container fluid>
+						<Paper className={classes.mainsheet}>
 
 							<div>
 								<Switch>
-									<Route exact path="/" component={Events} />
+									<Route exact path="/" component={Home} />
 									<Route exact path="/events" component={Events} />
 									<Route exact path="/events/:event_id"
 										render={(props) =>
 											<EventView
+												{...props}
+												currentUser={this.state.currentUser}
+											/>}
+									/>
+									<Route exact path="/items" component={Items} />
+									<Route exact path="/item/:item_id"
+										render={(props) =>
+											<ItemView
 												{...props}
 												currentUser={this.state.currentUser}
 											/>}
@@ -101,12 +144,14 @@ class App extends Component {
 								</Switch>
 							</div>
 
-						</Container>
+						</Paper>
+						{this.state.loggedIn && <BottomBar /> }
 					</div>
 				</Router>
-			</div>
+			</Paper>
 		);
 	}
 }
 
-export default App;
+// export default App;
+export default withRoot(withStyles(styles)(App));

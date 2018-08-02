@@ -4,6 +4,50 @@ module.exports = (sequelize, DataTypes) => {
     itemName: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    isVegan: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isVegetarian: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isMilkFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isEggFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isPeanutFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isTreenutFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isFishFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isShellfishFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isSoyFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isWheatFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isGlutenFree: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
       // timestamps: false

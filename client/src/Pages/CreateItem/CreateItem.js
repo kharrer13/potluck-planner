@@ -6,12 +6,37 @@ import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import { Link as ClickyThing } from "react-router-dom";
 import API from '../../Utils/API'
 
+const dietary = ["isVegan",
+	"isVegetarian",
+	"isMilkFree",
+	"isEggFree",
+	"isPeanutFree",
+	"isTreenutFree",
+	"isFishFree",
+	"isShellfishFree",
+	"isSoyFree",
+	"isWheatFree",
+	"isGlutenFree"]
+
+
 class CreateItem extends Component {
 
 	state = {
 		events: [],
 		userData: [],
-		itemName: ""
+		itemName: "",
+		isVegan: false,
+		isVegetarian: false,
+		isMilkFree: false,
+		isEggFree: false,
+		isPeanutFree: false,
+		isTreenutFree: false,
+		isFishFree: false,
+		isShellfishFree: false,
+		isSoyFree: false,
+		isWheatFree: false,
+		isGlutenFree: false
+
 	};
 
 	handleInputChange = event => {
@@ -41,6 +66,17 @@ class CreateItem extends Component {
 			API.saveItem({
 				// API.echo({
 				itemName: this.state.itemName,
+				isVegan: this.state.isVegan,
+				isVegetarian: this.state.isVegetarian,
+				isMilkFree: this.state.isMilkFree,
+				isEggFree: this.state.isEggFree,
+				isPeanutFree: this.state.isPeanutFree,
+				isTreenutFree: this.state.isTreenutFree,
+				isFishFree: this.state.isFishFree,
+				isShellfishFree: this.state.isShellfishFree,
+				isSoyFree: this.state.isSoyFree,
+				isWheatFree: this.state.isWheatFree,
+				isGlutenFree: this.state.isGlutenFree,
 
 			})
 				.then(res => this.props.history.push('/events'))
@@ -67,6 +103,18 @@ class CreateItem extends Component {
 								name="itemName"
 								placeholder="Item name (required)"
 							/>
+							{dietary.map(e => (<label htmlFor={e} key={e}>
+								{e}
+						<input
+									id={e}
+									name={e}
+									type="checkbox"
+									checked={this.state.e}
+									onChange={this.handleInputChange}
+								/>
+							</label> )
+							)}
+							
 							<FormBtn
 								disabled={!(this.state.itemName)}
 								onClick={this.handleFormSubmit}

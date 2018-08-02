@@ -10,33 +10,25 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 
-import Moment from 'react-moment';
-
 const styles = theme => ({
   root: {
     width: '100%',
-    // maxWidth: 360,
+    maxWidth: 360,
     backgroundColor: theme.palette.background.paper
   }
 });
 
-class Events extends Component {
+class Items extends Component {
   state = {
-    events: []
+    items: []
   };
 
   componentDidMount() {
-    this.loadEvents();
+    this.loadItems();
   }
 
-  loadEvents = () => {
-    API.getPotlucks()
-      .then(res =>
-        this.setState({
-          events: res.data
-        })
-      )
-      .catch(err => console.log(err));
+  loadItems = () => {
+    API.getItems().then(res => this.setState({ items: res.data }));
   };
 
   handleInputChange = event => {
@@ -53,28 +45,19 @@ class Events extends Component {
       <div className={classes.root}>
         <Grid container spacing={8} alignItems="center">
           <Grid item md={12}>
-            <Typography variant="headline">Available Potlucks</Typography>
+            <Typography variant="headline">All Items</Typography>
           </Grid>
           <Grid item md={12}>
-            {this.state.events.length ? (
+            {this.state.items.length ? (
               <List>
-                {this.state.events.map(potluck => (
+                {this.state.items.map(item => (
                   <ListItem
                     button
                     component={Link}
-                    to={`/events/${potluck.id}`}
-                    key={potluck.id}
+                    to={`/item/${item.id}`}
+                    key={item.id}
                   >
-                    <ListItemText
-                      primary={potluck.eventName}
-                      secondary={
-                        potluck.eventDate && (
-                          <Moment format="LLL">{potluck.eventDate}</Moment>
-                        )
-                      }
-                    />
-
-                    {/* <ClickyThing to={`/events/${potluck.id}`}> */}
+                    <ListItemText primary={item.itemName} />
                   </ListItem>
                 ))}
               </List>
@@ -89,6 +72,7 @@ class Events extends Component {
     );
   }
 }
+// TODO: fix key in ListItem
 
-// export default Events;
-export default withStyles(styles)(Events);
+// export default Items;
+export default withStyles(styles)(Items);
