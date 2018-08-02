@@ -114,6 +114,15 @@ router.route('/potluck')
         res.json(result[0])
       )
   })
+  .put(function (req, res) {
+    // db.Potluck.findAll({ where: { id: req.params.potluckId }, include: [{ all: true }] })
+    // this actually returns the array of rows updated
+    db.Potluck.update(req.body, { where: { id: req.query.potluck_id } })
+      .then(result => {
+        return db.Potluck.findAll({ where: { id: req.query.potluck_id } })
+      })
+      .then(dbPotluck => res.json(dbPotluck))
+  })
 
 // DRY this up and/or roll it into the query one above
 router.route('/potluck/:potluckId')
@@ -132,33 +141,29 @@ router.route('/potluck/:potluckId')
     .then(dbPotluck => res.json(dbPotluck))
 })
 
-router.get('/mypotlucks', function (req, res) {
+router.get('/mypotlucks', function(req, res) {
   let query = {};
   let include = [
     {
       association: 'Attendee',
       attributes: ['id', 'fullName', 'username'],
       through: { attributes: [] }
-
     },
     {
       association: 'Invitee',
       attributes: ['id', 'fullName', 'username'],
       through: { attributes: [] }
-
     },
     {
       association: 'Items',
       attributes: ['id', 'itemName'],
       through: { attributes: [] }
-
     },
     {
       association: 'Owner',
       attributes: ['id', 'fullName', 'username']
     }
   ];
-
 
   if (req.user) {
     query.OwnerId = req.user.id;
@@ -171,9 +176,8 @@ router.get('/mypotlucks', function (req, res) {
   db.Potluck.findAll({
     where: query,
     include
-  })
-    .then(dbPotluck => res.json(dbPotluck))
-})
+  }).then(dbPotluck => res.json(dbPotluck));
+});
 
 router.route('/items')
   .get(function(req, res) {
