@@ -123,6 +123,7 @@ router.route('/potluck')
       })
       .then(dbPotluck => res.json(dbPotluck))
   })
+  // TODO: Check if above really follows PUT or PATCH, and decide how to design expected data
 
 // DRY this up and/or roll it into the query one above
 router.route('/potluck/:potluckId')
@@ -140,6 +141,7 @@ router.route('/potluck/:potluckId')
   db.Potluck.update(req.body, { where: { id: req.params.potluckId } })
     .then(dbPotluck => res.json(dbPotluck))
 })
+// TODO: Check if above really follows PUT or PATCH, and decide how to design expected data
 
 router.get('/mypotlucks', function(req, res) {
   let query = {};
@@ -189,21 +191,7 @@ router.route('/items')
     // need to validate req.query, e.g. copy just the parameters that make sense and make sure they are ok
     db.Item.findAll({
       where: query,
-      attributes: [
-        'id',
-        'itemName',
-        'isVegan',
-        'isVegetarian',
-        'isMilkFree',
-        'isEggFree',
-        'isPeanutFree',
-        'isTreenutFree',
-        'isFishFree',
-        'isShellfishFree',
-        'isSoyFree',
-        'isWheatFree',
-        'isGlutenFree'
-      ]
+      attributes: { exclude: ['createdAt', 'updatedAt', 'UserId'] }
     }).then(dbItem => {
       return res.json(dbItem);
     });

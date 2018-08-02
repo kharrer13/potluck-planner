@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import API from '../../Utils/API';
+import canEat from '../../Utils/canEat';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -77,7 +78,7 @@ class ItemView extends Component {
                   ))}
                 </List>
             }
-            
+            {canEat(this.props.currentUser, this.state.item) ? 'can eat' : 'cannot eat' }
             <br />
             </Grid>
         </Grid>

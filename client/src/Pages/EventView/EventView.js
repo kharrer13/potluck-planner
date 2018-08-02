@@ -15,6 +15,7 @@ class EventView extends Component {
     event: {
       Items: [],
       Attendee: [],
+      Invitee: [],
       Owner: {}
     },
     items: [],
@@ -109,6 +110,20 @@ class EventView extends Component {
             <h4>Attending</h4>
             {this.state.event.Attendee.length === 0 ?
               <h5>Nobody going yet</h5>
+              :
+              <List>
+                {this.state.event.Attendee.map(user => (
+                  <ListItem key={user.id}>
+                    {user.fullName}
+                    {user.id === this.props.currentUser.id && ' me'}
+                  </ListItem>
+                ))}
+              </List>
+            }
+
+            <h4>Invited</h4>
+            {this.state.event.Invitee.length === 0 ?
+              <h5>Nobody invited yet</h5>
               :
               <List>
                 {this.state.event.Attendee.map(user => (

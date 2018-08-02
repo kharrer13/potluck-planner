@@ -6,6 +6,8 @@ import EventIcon from '@material-ui/icons/Event';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+import { Link } from 'react-router-dom';
+
 const styles = {
   root: {
     width: '100%',
@@ -36,10 +38,11 @@ class BottomBar extends Component {
         showLabels
         className={classes.root}
         elevation={4}
+        {...this.props}
       >
-        <BottomNavigationAction label="Events" icon={<EventIcon />} />
-        <BottomNavigationAction label="Items" icon={<LocalDiningIcon />} />
-        <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
+        <BottomNavigationAction component={Link} value="events" to="/events" label="Events" icon={<EventIcon />} />
+        <BottomNavigationAction component={Link} value="items" to="/items" label="Items" icon={<LocalDiningIcon />} />
+        <BottomNavigationAction component={Link} value="profile" to="/profile" label="Profile" icon={<AccountCircleIcon />} />
       </BottomNavigation>
     );
   }
