@@ -76,7 +76,7 @@ class App extends Component {
 	render() {
 
 		const { classes } = this.props;
-		const { open } = this.state;
+
 		return (
 			<Paper className={classes.root}>
 				<Router>
