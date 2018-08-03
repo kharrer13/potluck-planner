@@ -37,7 +37,7 @@ class NavBar extends Component {
     const { classes } = this.props;
 
     if (redirectToReferrer) {
-      this.setState({ redirectToReferrer: false })
+      // this.setState({ redirectToReferrer: false })
       
       return <Redirect to="/login" />;
     }

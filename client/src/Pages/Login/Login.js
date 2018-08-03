@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link as ClickyThing, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import API from '../../Utils/API';
 
@@ -37,9 +37,11 @@ class Login extends Component {
 
   handleInputChange = event => {
     const { name, value } = event.target;
-    this.setState({
+    const newState = {
       [name]: value
-    });
+    }
+    if (this.state.loginFailed) newState.loginFailed = false;
+    this.setState(newState);
   };
 
   handleFormSubmit = event => {
@@ -107,7 +109,8 @@ class Login extends Component {
                   autoCapitalize: 'none',
                   spellCheck: 'false'
                 }}
-              />
+                error={this.state.loginFailed}
+                />
               <TextField
                 id="password"
                 label="Password"
@@ -120,6 +123,7 @@ class Login extends Component {
                 fullWidth
                 // autoComplete="current-password"
                 margin="normal"
+                error={this.state.loginFailed}
               />
               <Button
                 variant="contained"
@@ -131,8 +135,8 @@ class Login extends Component {
               >
                 Log in
               </Button>
-              {this.state.loginFailed && 'Login failed'}
             </form>
+              {this.state.loginFailed && 'Incorrect username or password'}
           </Grid>
         </Grid>
       </div>

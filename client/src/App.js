@@ -145,7 +145,7 @@ class App extends Component {
 							</div>
 
 						</Paper>
-						{this.state.loggedIn && <BottomBar /> }
+						{/* {this.state.loggedIn && <BottomBar /> } */}
 					</div>
 				</Router>
 			</Paper>

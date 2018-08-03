@@ -57,7 +57,7 @@ class Profile extends Component {
     event.preventDefault();
     API.logout()
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.props.handleUserChange(res.data);
         if (res.data.redirectTo) {
           console.log(res.data.redirectTo);
@@ -99,7 +99,7 @@ class Profile extends Component {
             ) : (
               <Link to="/login">Log in</Link>
             )}
-            <Typography variant="subheadline">Events you are hosting</Typography>
+            <Typography variant="subheading">Events you are hosting</Typography>
 
             {this.state.events.length ? (
               <List>
