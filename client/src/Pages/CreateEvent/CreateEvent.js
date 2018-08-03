@@ -9,11 +9,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import { withStyles } from '@material-ui/core/styles';
-
-import Moment from 'react-moment';
 
 const styles = theme => ({
   root: {
@@ -47,9 +43,7 @@ class CreateEvent extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    // if (name==='potluckDate') {
-    // 	console.log(target, value, name)
-    // }
+
     this.setState({
       [name]: value
     });

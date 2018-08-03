@@ -5,10 +5,16 @@ import API from '../../Utils/API';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+
 import { withStyles } from '@material-ui/core/styles';
+import isLabels from '../../Utils/isLabels.json';
 
 const styles = theme => ({
   root: {
@@ -41,6 +47,9 @@ class Items extends Component {
   render() {
     const { classes } = this.props;
 
+    const headerKeys = ['itemName', ...Object.keys(isLabels)];
+    const headerLabels = ['Name', ...Object.keys(isLabels)];
+
     return (
       <div className={classes.root}>
         <Grid container spacing={8} alignItems="center">
@@ -49,19 +58,59 @@ class Items extends Component {
           </Grid>
           <Grid item md={12}>
             {this.state.items.length ? (
-              <List>
-                {this.state.items.map(item => (
-                  <ListItem
-                    button
-                    component={Link}
-                    to={`/item/${item.id}`}
-                    key={item.id}
-                  >
-                    <ListItemText primary={item.itemName} />
-                  </ListItem>
-                ))}
-              </List>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Vegan</TableCell>
+                    <TableCell>Vegetarian</TableCell>
+                    <TableCell>Milk Free</TableCell>
+                    <TableCell>Egg Free</TableCell>
+                    <TableCell>Peanut Free</TableCell>
+                    <TableCell>Fish Free</TableCell>
+                    <TableCell>Shellfish Free</TableCell>
+                    <TableCell>Soy Free</TableCell>
+                    <TableCell>Wheat Free</TableCell>
+                    <TableCell>Gluten Free</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.state.items.map(n => {
+                    return (
+                      <TableRow key={n.id}>
+                        <TableCell component="th" scope="row">
+                          <Link
+                            to={`/item/${n.id}`}>
+                            {n.itemName}</Link>
+                        </TableCell>
+                        <TableCell>{n.isVegan && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isVegetarian && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isMilkFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isEggFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isTreenutFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isFishFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isShellfishFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isSoyFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isWheatFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isGlutenFree && <CheckCircle />}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
             ) : (
+              // <List>
+              //   {this.state.items.map(item => (
+              //     <ListItem
+              //       button
+              //       component={Link}
+              //       to={`/item/${item.id}`}
+              //       key={item.id}
+              //     >
+              //       <ListItemText primary={item.itemName} />
+              //     </ListItem>
+              //   ))}
+              // </List>
               <Typography variant="subheading">
                 No Results to Display
               </Typography>

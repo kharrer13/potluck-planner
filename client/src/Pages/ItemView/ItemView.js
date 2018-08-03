@@ -58,7 +58,8 @@ class ItemView extends Component {
   render() {
     const { classes } = this.props;
 
-    const restrictionList = Object.keys(this.state.item).filter(e => e.startsWith("is"));
+    // const restrictionList = Object.keys(this.state.item).filter(e => e.startsWith("is"));
+    const restrictionList = Object.keys(isLabels);
     
     return (
       <div className={classes.root}>
