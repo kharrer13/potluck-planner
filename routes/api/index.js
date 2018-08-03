@@ -21,7 +21,7 @@ router.all('/echo', function (req, res) {
 // end dummy routes for testing
 
 router.route('/users')
-  .get(function(req, res) {
+  .get(function (req, res) {
     let query = {};
     if (req.query.user_id) {
       query.id = req.query.user_id;
@@ -32,19 +32,30 @@ router.route('/users')
       include: {
         association: 'Potlucks',
         attributes: ['id', 'eventName', 'eventLocation', 'eventDate', 'privateEvent'],
-        through: {attributes: []}
+        through: { attributes: [] }
       },
       attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
       // include: [{ all: true }]
     }).then(dbUsers => res.json(dbUsers));
   })
-  .post(function(req, res) {
+  .post(function (req, res) {
     let newUser = { ...req.body };
-    db.User.create(newUser).then(dbUser => {
-      let { password, ...tempUser } = dbUser.get();
-      tempUser.redirectTo = '/login';
-      res.json(tempUser);
-    });
+    // validation goes here: double check username is a string, email is email, password sufficienly long?
+
+    const { username, email } = newUser;
+    db.User.findOrCreate({ where: { [Op.or]: { username, email } }, defaults: newUser })
+      .spread((dbUser, created) => {
+        if (!created) {
+          res.status(409).json({ created, username: dbUser.username, email: dbUser.email })
+        } else {
+          let { password, ...tempUser } = dbUser.get();
+          tempUser.redirectTo = '/login';
+          tempUser.created = created;
+          res.status(201).json(tempUser);
+        }
+      })
+      // TODO consolidate error handlers
+      .catch(e => res.status(500).json(e));
   });
 
 router.route('/potluck')

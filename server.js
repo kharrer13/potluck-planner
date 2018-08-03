@@ -78,9 +78,10 @@ app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-} else {
-  app.use(express.static("public"));
-}
+} 
+// else {
+//   app.use(express.static("public"));
+// }
 // TODO go back in history and see blame for the public line
 
 app.use(session({
