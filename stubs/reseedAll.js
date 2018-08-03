@@ -12,7 +12,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   },
   {
     itemName: "treacle tart",
@@ -25,7 +26,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   },
   {
     itemName: "sherbert lemon",
@@ -38,7 +40,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "Puking Pastilles",
@@ -51,7 +54,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "fainting fancies",
@@ -64,7 +68,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "chocolate",
@@ -77,7 +82,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "steak and kidney pie",
@@ -90,7 +96,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   },
   {
     itemName: "cauldron cakes",
@@ -103,7 +110,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   },
   {
     itemName: "bouillabaisse",
@@ -116,7 +124,8 @@ const newItems = [
     isFishFree: false,
     isShellfishFree: false,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "pumpkin pasties",
@@ -129,7 +138,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   },
   {
     itemName: "chocolate frogs",
@@ -142,7 +152,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "corned beef sandwich",
@@ -155,7 +166,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   },
   {
     itemName: "bertie bott's every flavor beans",
@@ -168,7 +180,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "rock cake",
@@ -181,7 +194,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   },
   {
     itemName: "radish salad",
@@ -194,7 +208,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "butterbeer",
@@ -207,7 +222,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: false
   },
   {
     itemName: "pumpkin beer",
@@ -220,7 +236,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: false
   },
   {
     itemName: "boiled potatoes",
@@ -233,7 +250,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "lamb chops",
@@ -246,7 +264,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: false
   },
   {
     itemName: "Yorkshire pudding",
@@ -259,7 +278,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   },
   {
     itemName: "bacon and steak",
@@ -272,7 +292,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "roast beef",
@@ -285,7 +306,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: false,
-    isWheatFree: true
+    isWheatFree: true,
+    isGlutenFree: true
   },
   {
     itemName: "bread",
@@ -298,7 +320,8 @@ const newItems = [
     isFishFree: true,
     isShellfishFree: true,
     isSoyFree: true,
-    isWheatFree: false
+    isWheatFree: false,
+    isGlutenFree: false
   }
 ];
 
@@ -447,7 +470,7 @@ const newUsers = [
 ];
 
 
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync().then(function () {
   db.Sequelize.Promise.all([
     db.Item.bulkCreate(newItems),
     db.Potluck.bulkCreate(newPotlucks),
