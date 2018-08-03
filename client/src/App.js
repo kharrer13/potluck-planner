@@ -102,7 +102,7 @@ class App extends Component {
 											/>}
 									/>
 									<Route exact path="/items" component={Items} />
-									<Route exact path="/item/:item_id"
+									<Route exact path="/items/:item_id"
 										render={(props) =>
 											<ItemView
 												{...props}

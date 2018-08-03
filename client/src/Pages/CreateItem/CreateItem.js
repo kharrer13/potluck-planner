@@ -96,7 +96,7 @@ class CreateItem extends Component {
         isWheatFree: this.state.isWheatFree,
         isGlutenFree: this.state.isGlutenFree
       })
-        .then(res => this.props.history.push('/items'))
+        .then(res => this.props.history.push('/items/' + res.data.id))
         .catch(err => console.log(err));
     }
   };

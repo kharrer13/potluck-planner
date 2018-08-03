@@ -80,7 +80,7 @@ class Items extends Component {
                       <TableRow key={n.id}>
                         <TableCell component="th" scope="row">
                           <Link
-                            to={`/item/${n.id}`}>
+                            to={`/items/${n.id}`}>
                             {n.itemName}</Link>
                         </TableCell>
                         <TableCell>{n.isVegan && <CheckCircle />}</TableCell>

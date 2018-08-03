@@ -74,10 +74,10 @@ class CreateEvent extends Component {
         eventLocation: this.state.potluckLocation,
         privateEvent: this.state.privateEvent
       })
-        .then(res => this.loadEvents())
+        .then(res => this.props.history.push('/events/' + res.data.id))
         .catch(err => console.log(err));
 
-      this.props.history.push('/events');
+      
     }
   };
 
@@ -178,11 +178,7 @@ class CreateEvent extends Component {
                 type="submit"
                 className={classes.button}
                 disabled={
-                  !(
-                    this.state.potluckName &&
-                    this.state.potluckDate &&
-                    this.state.potluckLocation
-                  )
+                  !(this.state.potluckName && this.state.potluckDate && this.state.potluckLocation)
                 }
                 onClick={this.handleFormSubmit}
               >
