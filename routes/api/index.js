@@ -73,6 +73,60 @@ router
       .catch(e => res.status(500).json(e));
   });
 
+router.route('/users/:userId')
+  .get(function (req, res) {
+
+    let query = {};
+    if (req.params.userId) {
+      query.id = req.params.userId;
+    }
+
+    db.User.findAll({
+      where: query,
+      include: {
+        association: 'Potlucks',
+        attributes: ['id', 'eventName', 'eventLocation', 'eventDate', 'privateEvent'],
+        through: { attributes: [] }
+      },
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+    })
+    .then(dbUsers => res.json(dbUsers))
+    .catch(e => res.status(500).json(e.message));
+  })
+  .put(function (req, res) {
+    // console.log(req.params);
+    // console.log(req.user);
+    // console.log(req.body);
+    
+
+    db.User.findOne({
+      where: {
+        id: req.params.userId
+      },
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+    })
+    .then(dbUser => {
+      dbUser.update(req.body);
+      return res.json(dbUser);
+    })
+    .catch(e => res.status(500).json(e));
+    })
+
+
+/*     let query = {};
+    if (req.params.userId) {
+      query.id = req.params.userId;
+    }
+
+    db.User.update({
+
+    })
+    .then(dbUsers => res.json(dbUsers)) 
+    .catch(e => res.status(500).json(e.message));
+
+  })*/
+
+
 router
   .route('/potluck')
   .get(function(req, res) {
@@ -141,7 +195,7 @@ router
       })
       .then(result => res.json(result[0]));
   })
-  .put(function(req, res) {
+/*   .put(function(req, res) {
     // db.Potluck.findAll({ where: { id: req.params.potluckId }, include: [{ all: true }] })
     // this actually returns the array of rows updated
     db.Potluck.update(req.body, { where: { id: req.query.potluck_id } })
@@ -149,7 +203,7 @@ router
         return db.Potluck.findAll({ where: { id: req.query.potluck_id } });
       })
       .then(dbPotluck => res.json(dbPotluck));
-  });
+  }); */
 // TODO: Check if above really follows PUT or PATCH, and decide how to design expected data
 
 // DRY this up and/or roll it into the query one above
@@ -165,9 +219,14 @@ router
   .put(function(req, res) {
     // db.Potluck.findAll({ where: { id: req.params.potluckId }, include: [{ all: true }] })
     // this actually returns the array of rows updated
-    db.Potluck.update(req.body, { where: { id: req.params.potluckId } }).then(dbPotluck =>
-      res.json(dbPotluck)
-    );
+    db.Potluck.findOne({ where: { id: req.params.potluckId } })
+      .then(dbPotluck => {
+        dbPotluck.update(req.body)
+        return res.json(dbPotluck)
+      });
+    // db.Potluck.update(req.body, { where: { id: req.params.potluckId } }).then(dbPotluck =>
+    //   res.json(dbPotluck)
+    // );
   });
 // TODO: Check if above really follows PUT or PATCH, and decide how to design expected data
 

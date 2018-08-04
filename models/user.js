@@ -4,8 +4,10 @@ const bcrypt = require('bcryptjs');
 const bcryptSaltRounds = 10;
 
 const hashPassword = (User, options) => {
-  return bcrypt.hash(User.password, bcryptSaltRounds)
+  if (User.password) {
+    return bcrypt.hash(User.password, bcryptSaltRounds)
     .then(hashedPassword => User.password = hashedPassword)
+  }
 }
 
 module.exports = (sequelize, DataTypes) => {

@@ -46,9 +46,10 @@ passport.use(
 // serializing, and querying the user record by ID from the database when
 // deserializing.
 passport.serializeUser(function (user, cb) {
-  console.log("serializeUser called for");
-  const { password, ...tempUser } = user.get();
-  console.log(tempUser);
+  console.log("serializeUser called for", user.get('username'));
+  // const { password, ...tempUser } = user.get();
+  // console.log(tempUser);
+  
   cb(null, user.id);
 });
 
