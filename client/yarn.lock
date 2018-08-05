@@ -47,7 +47,7 @@
     recompose "^0.28.0"
     warning "^4.0.1"
 
-"@material-ui/icons@^2.0.0":
+"@material-ui/icons@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-2.0.1.tgz#1151cc66a3d41099de3ddaac33488e399d3425f0"
   dependencies:
