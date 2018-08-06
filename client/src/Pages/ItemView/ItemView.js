@@ -23,6 +23,9 @@ const styles = theme => ({
     width: '100%',
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper
+  },
+  button: {
+    margin: theme.spacing.unit
   }
 });
 
@@ -55,7 +58,7 @@ class ItemView extends Component {
     isSoyFree: false,
     isWheatFree: false,
     isGlutenFree: false,
-    editing: true
+    editing: false
   };
 
   componentDidMount() {
@@ -76,6 +79,28 @@ class ItemView extends Component {
     this.setState({ [name]: event.target.checked });
   };
 
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.itemName) {
+      API.updateItem(this.state.id, {
+        // API.echo({
+        isVegan: this.state.isVegan,
+        isVegetarian: this.state.isVegetarian,
+        isMilkFree: this.state.isMilkFree,
+        isEggFree: this.state.isEggFree,
+        isPeanutFree: this.state.isPeanutFree,
+        isTreenutFree: this.state.isTreenutFree,
+        isFishFree: this.state.isFishFree,
+        isShellfishFree: this.state.isShellfishFree,
+        isSoyFree: this.state.isSoyFree,
+        isWheatFree: this.state.isWheatFree,
+        isGlutenFree: this.state.isGlutenFree
+      })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
+    }
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -93,7 +118,7 @@ class ItemView extends Component {
               <Checkbox
                 checked={this.state.editing}
                 onChange={this.handleCheckChange('editing')}
-                value={this.state.editing}
+                value="editing"
               />
             }
             label="Edit"
@@ -101,7 +126,7 @@ class ItemView extends Component {
           <Grid item md={12}>
             {this.state.editing && (
               <form>
-                <TextField
+                {/* <TextField
                   value={this.state.itemName}
                   onChange={this.handleInputChange}
                   className={classes.textField}
@@ -111,7 +136,7 @@ class ItemView extends Component {
                   placeholder="Item name (required)"
                   fullWidth
                   margin="normal"
-                />
+                /> */}
 
                 {dietary.map(e => (
                   <FormControlLabel
@@ -131,7 +156,7 @@ class ItemView extends Component {
                   color="primary"
                   type="submit"
                   className={classes.button}
-                  disabled={!this.state.itemName}
+                  // disabled={!this.state.itemName}
                   onClick={this.handleFormSubmit}
                 >
                   Submit Item

@@ -48,7 +48,7 @@ export default {
   },
   // Gets the item with the given id
   getItem: function(id) {
-    return axios.get('/api/items/?item_id=' + id);
+    return axios.get('/api/items/' + id);
   },
   // Saves a item to the database
   saveItem: function(itemData) {
@@ -56,7 +56,7 @@ export default {
   },
   // Updates an item in the database
   updateItem: function(id, itemData) {
-    return axios.get('/api/items/?item_id=' + id, itemData);
+    return axios.put('/api/items/' + id, itemData);
   },
 
   echo: function(whateverdata) {

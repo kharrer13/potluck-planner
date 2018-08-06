@@ -295,6 +295,23 @@ router
     });
   });
 
+  router.route('/items/:itemId')
+  .get(function(req, res) {
+    db.Item.findAll({
+      where: {id: req.params.itemId},
+      attributes: { exclude: ['createdAt', 'updatedAt', 'UserId'] }
+    }).then(dbItem => {
+      return res.json(dbItem);
+    });
+  })
+  .put(function(req, res) {
+    db.Item.findOne({ where: { id: req.params.itemId } })
+      .then(dbItem => {
+        dbItem.update(req.body)
+        return res.json(dbItem)
+      })
+  })
+
 router.post('/potluck-item', function(req, res) {
   db.Potluck.findById(req.body.PotluckId)
     .then(dbPotluck => {
