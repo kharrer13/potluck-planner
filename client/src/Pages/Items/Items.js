@@ -67,6 +67,7 @@ class Items extends Component {
                     <TableCell>Milk Free</TableCell>
                     <TableCell>Egg Free</TableCell>
                     <TableCell>Peanut Free</TableCell>
+                    <TableCell>Tree nut Free</TableCell>
                     <TableCell>Fish Free</TableCell>
                     <TableCell>Shellfish Free</TableCell>
                     <TableCell>Soy Free</TableCell>
@@ -87,6 +88,7 @@ class Items extends Component {
                         <TableCell>{n.isVegetarian && <CheckCircle />}</TableCell>
                         <TableCell>{n.isMilkFree && <CheckCircle />}</TableCell>
                         <TableCell>{n.isEggFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isPeanutFree && <CheckCircle />}</TableCell>
                         <TableCell>{n.isTreenutFree && <CheckCircle />}</TableCell>
                         <TableCell>{n.isFishFree && <CheckCircle />}</TableCell>
                         <TableCell>{n.isShellfishFree && <CheckCircle />}</TableCell>
