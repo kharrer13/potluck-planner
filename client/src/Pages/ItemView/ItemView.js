@@ -96,7 +96,11 @@ class ItemView extends Component {
         isWheatFree: this.state.isWheatFree,
         isGlutenFree: this.state.isGlutenFree
       })
-        .then(res => console.log(res.data))
+        .then(res => {
+          // console.log(res.data)
+          this.setState({editing: false})
+          
+        })
         .catch(err => console.log(err));
     }
   };

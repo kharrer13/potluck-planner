@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Events from "./Pages/Events";
-import Items from "./Pages/Items";
-import EventView from "./Pages/EventView";
-import ItemView from "./Pages/ItemView";
-import Profile from "./Pages/Profile";
+import Events from './Pages/Events';
+import Items from './Pages/Items';
+import EventView from './Pages/EventView';
+import ItemView from './Pages/ItemView';
+import Profile from './Pages/Profile';
 // import ClaimItem from "./Pages/ClaimItem";
-import CreateEvent from "./Pages/CreateEvent";
-import CreateItem from "./Pages/CreateItem";
-import Login from "./Pages/Login";
-import Home from "./Pages/Home";
-import Signup from "./Pages/Signup";
+import CreateEvent from './Pages/CreateEvent';
+import CreateItem from './Pages/CreateItem';
+import Login from './Pages/Login';
+import Home from './Pages/Home';
+import Signup from './Pages/Signup';
+import NotFound from './Pages/NotFound';
 import NavBar from './components/NavBar';
 import BottomBar from './components/BottomBar';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import withRoot from './withRoot';
-import API from './Utils/API'
+import API from './Utils/API';
 
 const styles = theme => ({
   root: {
@@ -141,6 +142,7 @@ class App extends Component {
 												currentUser={this.state.currentUser}
 											/>}
 									/>
+									<Route component={NotFound} />
 								</Switch>
 							</div>
 
