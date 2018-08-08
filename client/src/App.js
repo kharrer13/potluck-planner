@@ -100,6 +100,7 @@ class App extends Component {
 											<EventView
 												{...props}
 												currentUser={this.state.currentUser}
+												loggedIn={this.state.loggedIn}
 											/>}
 									/>
 									<Route exact path="/items" component={Items} />
@@ -108,6 +109,7 @@ class App extends Component {
 											<ItemView
 												{...props}
 												currentUser={this.state.currentUser}
+												loggedIn={this.state.loggedIn}
 											/>}
 									/>
 									{/* <Route exact path="/events/:item_id" component={ClaimItem} /> */}
@@ -116,6 +118,7 @@ class App extends Component {
 											<Profile
 												{...props}
 												currentUser={this.state.currentUser}
+												loggedIn={this.state.loggedIn}
 												handleUserChange={this.handleUserChange}
 											/>}
 									/>
@@ -124,6 +127,7 @@ class App extends Component {
 											<Login
 												{...props}
 												currentUser={this.state.currentUser}
+												loggedIn={this.state.loggedIn}
 												handleUserChange={this.handleUserChange}
 											/>}
 									/>
@@ -133,6 +137,7 @@ class App extends Component {
 											<CreateEvent
 												{...props}
 												currentUser={this.state.currentUser}
+												loggedIn={this.state.loggedIn}
 											/>}
 									/>
 									<Route exact path="/create_item"
@@ -140,6 +145,7 @@ class App extends Component {
 											<CreateItem
 												{...props}
 												currentUser={this.state.currentUser}
+												loggedIn={this.state.loggedIn}
 											/>}
 									/>
 									<Route component={NotFound} />

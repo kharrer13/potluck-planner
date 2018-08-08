@@ -149,7 +149,7 @@ router
         },
         {
           association: 'Items',
-          attributes: ['id', 'itemName'],
+          attributes: ['id', 'itemName', 'isVegan', 'isVegetarian', 'isMilkFree', 'isEggFree', 'isPeanutFree', 'isTreenutFree', 'isFishFree', 'isShellfishFree', 'isSoyFree', 'isWheatFree', 'isGlutenFree'],
           through: { attributes: [] }
         },
         {

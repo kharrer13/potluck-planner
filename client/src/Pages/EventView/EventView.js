@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import API from '../../Utils/API';
+import canEat from '../../Utils/canEat';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +11,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { withStyles } from '@material-ui/core/styles';
 
 import Input from '@material-ui/core/Input';
@@ -17,6 +19,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+
+import ErrorOutline from '@material-ui/icons/ErrorOutline';
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 
 import Moment from 'react-moment';
 
@@ -165,14 +170,17 @@ class EventView extends Component {
             {this.state.event.Items.length === 0 ? (
               <h5>No items yet</h5>
             ) : (
-              <List>
-                {this.state.event.Items.map(item => (
-                  <ListItem key={item.id}>
-                    <ListItemText primary={item.itemName} />
-                  </ListItem>
-                ))}
-              </List>
-            )}
+                <List>
+                  {this.state.event.Items.map(item => (
+                    <ListItem key={item.id}>
+                      {this.props.loggedIn && (<ListItemIcon>
+                        {canEat(this.props.currentUser, item) ? <CheckCircleOutline /> : <ErrorOutline />}
+                      </ListItemIcon>)}
+                      <ListItemText primary={item.itemName} />
+                    </ListItem>
+                  ))}
+                </List>
+              )}
           </Grid>
           <Grid item md={12}>
             <Typography variant="headline">Bring an Item</Typography>
