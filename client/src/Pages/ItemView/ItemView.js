@@ -15,6 +15,9 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import ErrorOutline from '@material-ui/icons/ErrorOutline';
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
+
 import { withStyles } from '@material-ui/core/styles';
 import isLabels from '../../Utils/isLabels.json';
 
@@ -115,7 +118,8 @@ class ItemView extends Component {
       <div className={classes.root}>
         <Grid container spacing={8} alignItems="center">
           <Grid item md={12}>
-            <Typography variant="headline">{this.state.itemName}</Typography>
+            <Typography variant="headline">{this.state.itemName} {canEat(this.props.currentUser, this.state) ? <CheckCircleOutline /> : <ErrorOutline />}
+            </Typography>
           </Grid>
           <FormControlLabel
             control={
