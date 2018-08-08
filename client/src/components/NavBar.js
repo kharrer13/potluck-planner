@@ -27,21 +27,11 @@ const styles = {
 
 // const NavBar = (props) => {
 class NavBar extends Component {
-  state = {
-    redirectToReferrer: false
-  }
 
   render() {
 
-    const { redirectToReferrer } = this.state;
     const { classes } = this.props;
 
-    if (redirectToReferrer) {
-      // this.setState({ redirectToReferrer: false })
-      
-      return <Redirect to="/login" />;
-    }
-    
     return (
       <div className={classes.root}>
         <AppBar position="static" color="primary" elevation={4}>
@@ -63,10 +53,6 @@ class NavBar extends Component {
                     .then(res => {
                       console.log(res)
                       this.props.handleUserChange(res.data)
-                      if (res.data.redirectTo) {
-                        console.log(res.data.redirectTo)
-                        this.setState({ redirectToReferrer: true })
-                      }
                     })
                     .catch(err => console.log(err));
                 }}>Log Out</Button>

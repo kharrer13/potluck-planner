@@ -179,6 +179,7 @@ class Profile extends Component {
             {this.props.currentUser.id ? (
               <div>
                 <Typography variant="title">Welcome, {this.props.currentUser.fullName}</Typography>
+                <Typography variant="subheading">{this.props.currentUser.email}</Typography>
                 <Button variant="outlined" color="secondary" onClick={this.handleLogout}>
                   Logout
                 </Button>
