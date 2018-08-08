@@ -120,6 +120,7 @@ class App extends Component {
 												currentUser={this.state.currentUser}
 												loggedIn={this.state.loggedIn}
 												handleUserChange={this.handleUserChange}
+												loadCurrentUser={this.loadCurrentUser}
 											/>}
 									/>
 									<Route exact path="/login"

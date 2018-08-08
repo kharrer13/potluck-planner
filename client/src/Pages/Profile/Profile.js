@@ -12,6 +12,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
 
 import isLabels from '../../Utils/isLabels.json';
 
@@ -25,32 +28,116 @@ const styles = theme => ({
   }
 });
 
+const dietary = [
+  'isVegan',
+  'isVegetarian',
+  'isMilkFree',
+  'isEggFree',
+  'isPeanutFree',
+  'isTreenutFree',
+  'isFishFree',
+  'isShellfishFree',
+  'isSoyFree',
+  'isWheatFree',
+  'isGlutenFree'
+];
+
 class Profile extends Component {
   state = {
-    userData: [],
     events: [],
+    isVegan: false,
+    isVegetarian: false,
+    isMilkFree: false,
+    isEggFree: false,
+    isPeanutFree: false,
+    isTreenutFree: false,
+    isFishFree: false,
+    isShellfishFree: false,
+    isSoyFree: false,
+    isWheatFree: false,
+    isGlutenFree: false,
+    editing: false,
     redirectToReferrer: false
   };
 
   componentDidMount() {
-    this.loadEvents();
-    this.loadUsers();
+    this.loadMyEvents();
+    this.loadDietary();
     // this.loadCurrentUser();
   }
 
-  loadUsers = () => {
-    API.getUsers().then(res => this.setState({ userData: res.data }));
-  };
 
-  loadEvents = () => {
+  loadMyEvents = () => {
     API.getMyPotlucks().then(res => this.setState({ events: res.data }));
   };
+
+  // TODO find more elegant way to do this
+  loadDietary = () => {
+    let { isVegan,
+      isVegetarian,
+      isMilkFree,
+      isEggFree,
+      isPeanutFree,
+      isTreenutFree,
+      isFishFree,
+      isShellfishFree,
+      isSoyFree,
+      isWheatFree,
+      isGlutenFree } = this.props.currentUser;
+
+    this.setState({
+      isVegan,
+      isVegetarian,
+      isMilkFree,
+      isEggFree,
+      isPeanutFree,
+      isTreenutFree,
+      isFishFree,
+      isShellfishFree,
+      isSoyFree,
+      isWheatFree,
+      isGlutenFree
+    })
+
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
+  };
+
+  // change this to a prevstate, props setState so that it can update state inside or something
+  handleCheckChange = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    
+      API.updateUser(this.props.currentUser.id, {
+      // API.echo({
+        isVegan: this.state.isVegan,
+        isVegetarian: this.state.isVegetarian,
+        isMilkFree: this.state.isMilkFree,
+        isEggFree: this.state.isEggFree,
+        isPeanutFree: this.state.isPeanutFree,
+        isTreenutFree: this.state.isTreenutFree,
+        isFishFree: this.state.isFishFree,
+        isShellfishFree: this.state.isShellfishFree,
+        isSoyFree: this.state.isSoyFree,
+        isWheatFree: this.state.isWheatFree,
+        isGlutenFree: this.state.isGlutenFree
+      })
+        .then(res => {
+          // console.log(res.data)
+          this.setState({editing: false})
+          this.props.loadCurrentUser()
+          
+        })
+        .catch(err => console.log(err));
+    
   };
 
   handleLogout = event => {
@@ -97,8 +184,10 @@ class Profile extends Component {
                 </Button>
               </div>
             ) : (
-              <Link to="/login">Log in</Link>
-            )}
+                <Link to="/login">Log in</Link>
+              )}
+
+
             <Typography variant="subheading">Events you are hosting</Typography>
 
             {this.state.events.length ? (
@@ -117,20 +206,64 @@ class Profile extends Component {
                 ))}
               </List>
             ) : (
-              <Typography variant="subheading">No Results to Display</Typography>
-            )}
+                <Typography variant="subheading">No Results to Display</Typography>
+              )}
 
             {restrictionList.length === 0 ? (
               <h5>No dietary restriction flags</h5>
             ) : (
-              // : 'has some'
-              <List>
-                {restrictionList.map(
-                  thing =>
-                    this.props.currentUser[thing] && <Chip key={thing} label={isLabels[thing]} />
-                )}
-              </List>
-            )}
+                // : 'has some'
+                <div>
+                  <List>
+                    {restrictionList.map(
+                      thing =>
+                        this.props.currentUser[thing] && <Chip key={thing} label={isLabels[thing]} />
+                    )}
+                  </List>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.editing}
+                        onChange={this.handleCheckChange('editing')}
+                        value="editing"
+                      />
+                    }
+                    label="Edit"
+                  />
+                  <Grid item md={12}>
+                    {this.state.editing && (
+                      <form>
+
+
+                        {dietary.map(e => (
+                          <FormControlLabel
+                            key={e}
+                            control={
+                              <Checkbox
+                                checked={this.state[e]}
+                                onChange={this.handleCheckChange(e)}
+                                value={e}
+                              />
+                            }
+                            label={isLabels[e]}
+                          />
+                        ))}
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          type="submit"
+                          className={classes.button}
+                          // disabled={!this.state.itemName}
+                          onClick={this.handleFormSubmit}
+                        >
+                          Submit
+                   </Button>
+                      </form>
+                    )}</Grid>
+
+                </div>
+
+              )}
           </Grid>
         </Grid>
       </div>

@@ -15,7 +15,7 @@ export default {
   },
   // Updates a user in the database
   updateUser: function(id, userData) {
-    return axios.put('/api/users/?user_id=' + id, userData);
+    return axios.put('/api/users/' + id, userData);
   },
 
   // Gets all potluck
