@@ -61,7 +61,12 @@ class ItemView extends Component {
     isSoyFree: false,
     isWheatFree: false,
     isGlutenFree: false,
-    editing: false
+    editing: false,
+    User: {
+      id: null,
+      username: null,
+      fullName: null
+    }
   };
 
   componentDidMount() {
@@ -120,6 +125,7 @@ class ItemView extends Component {
           <Grid item md={12}>
             <Typography variant="headline">{this.state.itemName} {canEat(this.props.currentUser, this.state) ? <CheckCircleOutline /> : <ErrorOutline />}
             </Typography>
+            {this.state.User && (<Typography variant="subheading">brought by {this.state.User.fullName}</Typography>)}
           </Grid>
           <FormControlLabel
             control={
@@ -174,10 +180,9 @@ class ItemView extends Component {
 
             {!this.state.editing && (
               <List>
-                {' '}
                 {restrictionList.map(
                   thing => this.state[thing] && <Chip key={thing} label={isLabels[thing]} />
-                )}{' '}
+                )}
               </List>
             )}
 

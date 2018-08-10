@@ -299,7 +299,11 @@ router
   .get(function(req, res) {
     db.Item.findAll({
       where: {id: req.params.itemId},
-      attributes: { exclude: ['createdAt', 'updatedAt', 'UserId'] }
+      attributes: { exclude: ['createdAt', 'updatedAt', 'UserId'] },
+      include: {
+        association: 'User',
+        attributes: ['id', 'username', 'fullName']
+      }
     }).then(dbItem => {
       return res.json(dbItem);
     });
