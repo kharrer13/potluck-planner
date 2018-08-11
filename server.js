@@ -73,6 +73,7 @@ if (process.env.NODE_ENV === "production") {
 
 
 app.use(require('cookie-parser')());
+// TODO clip out bodyparser with express built-in body parsers
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -85,6 +86,7 @@ if (process.env.NODE_ENV === "production") {
 // }
 // TODO go back in history and see blame for the public line
 
+// TODO move session secret and maxAge to environment variables
 app.use(session({
   secret: 'draco dormiens nunquam titillandus',
   cookie: { maxAge: 120000 },

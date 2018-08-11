@@ -50,10 +50,7 @@ class NavBar extends Component {
                   <Button color="default" onClick={event => {
                   event.preventDefault();
                   API.logout()
-                    .then(res => {
-                      console.log(res)
-                      this.props.handleUserChange(res.data)
-                    })
+                    .then(res => this.props.handleUserChange(res.data))
                     .catch(err => console.log(err));
                 }}>Log Out</Button>
 

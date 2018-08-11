@@ -74,7 +74,10 @@ class CreateEvent extends Component {
         eventLocation: this.state.potluckLocation,
         privateEvent: this.state.privateEvent
       })
-        .then(res => this.props.history.push('/events/' + res.data.id))
+        .then(res => {
+          console.log(res.data)
+          return this.props.history.push('/events/' + res.data.id)
+        })
         .catch(err => console.log(err));
 
       

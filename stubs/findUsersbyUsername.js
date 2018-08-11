@@ -6,7 +6,8 @@ db.sequelize.sync().then(function() {
   db.User.findAll({
     where: {
       // [Op.or]: [{ username: ['harry'] }, { username: ['ron'] }, { username: ['hermione'] }, { username: ['luna'] }, { username: ['ginny'] }]
-      [Op.or]: [{ username: ['harry', 'ron', 'hermione'] }]
+      // [Op.or]: [{ username: ['harry', 'ron', 'hermione'] }]
+      username: ['harry', 'ron', 'hermione']
     },
     attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
   })
