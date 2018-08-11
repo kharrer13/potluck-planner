@@ -8,7 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { withStyles } from '@material-ui/core/styles';
+
+import PublicIcon from '@material-ui/icons/Public';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import Moment from 'react-moment';
 
@@ -65,6 +69,9 @@ class Events extends Component {
                     to={`/events/${potluck.id}`}
                     key={potluck.id}
                   >
+                    <ListItemIcon>
+                      {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
+                    </ListItemIcon>
                     <ListItemText
                       primary={potluck.eventName}
                       secondary={
@@ -73,16 +80,14 @@ class Events extends Component {
                         )
                       }
                     />
-
-                    {/* <ClickyThing to={`/events/${potluck.id}`}> */}
                   </ListItem>
                 ))}
               </List>
             ) : (
-              <Typography variant="subheading">
-                No Results to Display
+                <Typography variant="subheading">
+                  No Results to Display
               </Typography>
-            )}
+              )}
           </Grid>
         </Grid>
       </div>

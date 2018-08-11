@@ -10,10 +10,14 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+
+import PublicIcon from '@material-ui/icons/Public';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 
 import isLabels from '../../Utils/isLabels.json';
@@ -195,6 +199,9 @@ class Profile extends Component {
               <List>
                 {this.state.events.map(potluck => (
                   <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
+                    <ListItemIcon>
+                      {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
+                    </ListItemIcon>
                     <ListItemText
                       primary={potluck.eventName}
                       secondary={
