@@ -136,23 +136,6 @@ class CreateEvent extends Component {
                   shrink: true
                 }}
               />
-
-              {/* <DatePicker
-									className="form-control"
-									selected={this.state.potluckDate}
-									onChange={this.handleChange}
-									name="potluckDate"
-									isClearable={true}
-									showTimeSelect
-									timeFormat="HH:mm"
-									timeIntervals={15}
-									dateFormat="LLL"
-									timeCaption="time"
-									todayButton={"Today"}
-									minDate={moment()}
-								/> */}
-              {/* </div> */}
-
               <TextField
                 value={this.state.potluckLocation}
                 onChange={this.handleInputChange}

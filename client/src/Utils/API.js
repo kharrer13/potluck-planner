@@ -5,6 +5,9 @@ export default {
   getUsers: function() {
     return axios.get('/api/users');
   },
+  getUsersShort: function() {
+    return axios.get('/api/users?short=true');
+  },
   // Gets the user with the given id
   getUser: function(id) {
     return axios.get('/api/users/?user_id=' + id);
@@ -80,5 +83,8 @@ export default {
   //Set status to attending
   attendPotluck: function(potluckData) {
     return axios.post('/api/attend', potluckData);
+  },
+  invite: function(inviteData) {
+    return axios.post('/api/invite', inviteData)
   }
 };
