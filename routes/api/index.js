@@ -18,6 +18,11 @@ router.all('/echo', function(req, res) {
   console.log(req.body);
   res.json(req.body);
 });
+
+router.all('/echouser', function(req, res) {
+  console.log(req.user);
+  res.json(req.user);
+});
 // end dummy routes for testing
 
 router
@@ -158,16 +163,29 @@ router
         }
       ];
     } else {
+      query.privateEvent = false;
       include = [
-        'Attendee',
-        'Items',
+        {
+          association: 'Attendee',
+          attributes: ['id', 'fullName', 'username'],
+          through: { attributes: [] }
+        },
         {
           association: 'Invitee',
+          attributes: ['id', 'fullName', 'username'],
+          through: { attributes: [] }
+        },
+        {
+          association: 'Items',
+          attributes: ['id', 'itemName'],
+          through: { attributes: [] }
+        },
+        {
+          association: 'Owner',
           attributes: ['id', 'fullName', 'username']
         }
       ];
     }
-    // db.Potluck.findAll({ include: [{ all: true }] })
     db.Potluck.findAll({
       where: query,
       include
