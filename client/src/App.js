@@ -14,7 +14,6 @@ import Home from './Pages/Home';
 import Signup from './Pages/Signup';
 import NotFound from './Pages/NotFound';
 import NavBar from './components/NavBar';
-import BottomBar from './components/BottomBar';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import withRoot from './withRoot';
@@ -155,7 +154,6 @@ class App extends Component {
               </div>
 
             </Paper>
-            {/* {this.state.loggedIn && <BottomBar /> } */}
           </div>
         </Router>
       </Paper>

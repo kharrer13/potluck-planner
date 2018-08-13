@@ -72,7 +72,8 @@ class Profile extends Component {
 
 
   loadMyEvents = () => {
-    API.getMyPotlucks().then(res => this.setState({ events: res.data }));
+    // API.getMyPotlucks().then(res => this.setState({ events: res.data }));
+    API.getAllMyPotlucks().then(res => this.setState({ events: res.data }));
   };
 
   // TODO find more elegant way to do this
@@ -197,7 +198,55 @@ class Profile extends Component {
 
             {this.state.events.length ? (
               <List>
-                {this.state.events.map(potluck => (
+                {this.state.events[0].map(potluck => (
+                  <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
+                    <ListItemIcon>
+                      {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={potluck.eventName}
+                      secondary={
+                        potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment>
+                      }
+                    />
+
+                    {/* <ClickyThing to={`/events/${potluck.id}`}> */}
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+                <Typography variant="subheading">No Results to Display</Typography>
+              )}
+
+            <Typography variant="subheading">Events you are attending</Typography>
+
+            {this.state.events.length ? (
+              <List>
+                {this.state.events[1].map(potluck => (
+                  <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
+                    <ListItemIcon>
+                      {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={potluck.eventName}
+                      secondary={
+                        potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment>
+                      }
+                    />
+
+                    {/* <ClickyThing to={`/events/${potluck.id}`}> */}
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+                <Typography variant="subheading">No Results to Display</Typography>
+              )}
+
+            <Typography variant="subheading">Events you are invited to</Typography>
+
+            {this.state.events.length ? (
+              <List>
+                {this.state.events[2].map(potluck => (
                   <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
                     <ListItemIcon>
                       {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
@@ -279,6 +328,7 @@ class Profile extends Component {
   }
 }
 // TODO: fix key in ListItem
+// TODO: DRY up lists?
 
 // export default Profile;
 export default withStyles(styles)(Profile);
