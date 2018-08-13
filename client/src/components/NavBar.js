@@ -69,5 +69,5 @@ class NavBar extends Component {
     )
   }
 }
-
+// TODO fix Logout link redirection
 export default withStyles(styles)(NavBar);

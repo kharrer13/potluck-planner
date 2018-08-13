@@ -19,7 +19,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import PublicIcon from '@material-ui/icons/Public';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-
 import isLabels from '../../Utils/isLabels.json';
 
 import Moment from 'react-moment';
@@ -70,7 +69,6 @@ class Profile extends Component {
     // this.loadCurrentUser();
   }
 
-
   loadMyEvents = () => {
     // API.getMyPotlucks().then(res => this.setState({ events: res.data }));
     API.getAllMyPotlucks().then(res => this.setState({ events: res.data }));
@@ -78,7 +76,8 @@ class Profile extends Component {
 
   // TODO find more elegant way to do this
   loadDietary = () => {
-    let { isVegan,
+    let {
+      isVegan,
       isVegetarian,
       isMilkFree,
       isEggFree,
@@ -88,7 +87,8 @@ class Profile extends Component {
       isShellfishFree,
       isSoyFree,
       isWheatFree,
-      isGlutenFree } = this.props.currentUser;
+      isGlutenFree
+    } = this.props.currentUser;
 
     this.setState({
       isVegan,
@@ -102,9 +102,8 @@ class Profile extends Component {
       isSoyFree,
       isWheatFree,
       isGlutenFree
-    })
-
-  }
+    });
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -120,29 +119,27 @@ class Profile extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    
-      API.updateUser(this.props.currentUser.id, {
+
+    API.updateUser(this.props.currentUser.id, {
       // API.echo({
-        isVegan: this.state.isVegan,
-        isVegetarian: this.state.isVegetarian,
-        isMilkFree: this.state.isMilkFree,
-        isEggFree: this.state.isEggFree,
-        isPeanutFree: this.state.isPeanutFree,
-        isTreenutFree: this.state.isTreenutFree,
-        isFishFree: this.state.isFishFree,
-        isShellfishFree: this.state.isShellfishFree,
-        isSoyFree: this.state.isSoyFree,
-        isWheatFree: this.state.isWheatFree,
-        isGlutenFree: this.state.isGlutenFree
+      isVegan: this.state.isVegan,
+      isVegetarian: this.state.isVegetarian,
+      isMilkFree: this.state.isMilkFree,
+      isEggFree: this.state.isEggFree,
+      isPeanutFree: this.state.isPeanutFree,
+      isTreenutFree: this.state.isTreenutFree,
+      isFishFree: this.state.isFishFree,
+      isShellfishFree: this.state.isShellfishFree,
+      isSoyFree: this.state.isSoyFree,
+      isWheatFree: this.state.isWheatFree,
+      isGlutenFree: this.state.isGlutenFree
+    })
+      .then(res => {
+        // console.log(res.data)
+        this.setState({ editing: false });
+        this.props.loadCurrentUser();
       })
-        .then(res => {
-          // console.log(res.data)
-          this.setState({editing: false})
-          this.props.loadCurrentUser()
-          
-        })
-        .catch(err => console.log(err));
-    
+      .catch(err => console.log(err));
   };
 
   handleLogout = event => {
@@ -188,139 +185,151 @@ class Profile extends Component {
                 <Button variant="outlined" color="secondary" onClick={this.handleLogout}>
                   Logout
                 </Button>
+                <Typography variant="subheading">Events you are hosting</Typography>
+
+                {this.state.events[0].length ? (
+                  <List>
+                    {this.state.events[0].map(potluck => (
+                      <ListItem
+                        button
+                        component={Link}
+                        to={`/events/${potluck.id}`}
+                        key={potluck.id}
+                      >
+                        <ListItemIcon>
+                          {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={potluck.eventName}
+                          secondary={
+                            potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment>
+                          }
+                        />
+
+                        {/* <ClickyThing to={`/events/${potluck.id}`}> */}
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <Typography variant="subheading">No Results to Display</Typography>
+                )}
+
+                <Typography variant="subheading">Events you are attending</Typography>
+
+                {this.state.events[1].length ? (
+                  <List>
+                    {this.state.events[1].map(potluck => (
+                      <ListItem
+                        button
+                        component={Link}
+                        to={`/events/${potluck.id}`}
+                        key={potluck.id}
+                      >
+                        <ListItemIcon>
+                          {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={potluck.eventName}
+                          secondary={
+                            potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment>
+                          }
+                        />
+
+                        {/* <ClickyThing to={`/events/${potluck.id}`}> */}
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <Typography variant="subheading">No Results to Display</Typography>
+                )}
+
+                <Typography variant="subheading">Events you are invited to</Typography>
+
+                {this.state.events[2].length ? (
+                  <List>
+                    {this.state.events[2].map(potluck => (
+                      <ListItem
+                        button
+                        component={Link}
+                        to={`/events/${potluck.id}`}
+                        key={potluck.id}
+                      >
+                        <ListItemIcon>
+                          {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={potluck.eventName}
+                          secondary={
+                            potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment>
+                          }
+                        />
+
+                        {/* <ClickyThing to={`/events/${potluck.id}`}> */}
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <Typography variant="subheading">No Results to Display</Typography>
+                )}
+
+                {restrictionList.length === 0 ? (
+                  <h5>No dietary restriction flags</h5>
+                ) : (
+                  // : 'has some'
+                  <div>
+                    <List>
+                      {restrictionList.map(
+                        thing =>
+                          this.props.currentUser[thing] && (
+                            <Chip key={thing} label={isLabels[thing]} />
+                          )
+                      )}
+                    </List>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={this.state.editing}
+                          onChange={this.handleCheckChange('editing')}
+                          value="editing"
+                        />
+                      }
+                      label="Edit"
+                    />
+                    <Grid item md={12}>
+                      {this.state.editing && (
+                        <form>
+                          {dietary.map(e => (
+                            <FormControlLabel
+                              key={e}
+                              control={
+                                <Checkbox
+                                  checked={this.state[e]}
+                                  onChange={this.handleCheckChange(e)}
+                                  value={e}
+                                />
+                              }
+                              label={isLabels[e]}
+                            />
+                          ))}
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            className={classes.button}
+                            // disabled={!this.state.itemName}
+                            onClick={this.handleFormSubmit}
+                          >
+                            Submit
+                          </Button>
+                        </form>
+                      )}
+                    </Grid>
+                  </div>
+                )}
               </div>
             ) : (
-                <Link to="/login">Log in</Link>
-              )}
-
-
-            <Typography variant="subheading">Events you are hosting</Typography>
-
-            {this.state.events[0].length ? (
-              <List>
-                {this.state.events[0].map(potluck => (
-                  <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
-                    <ListItemIcon>
-                      {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={potluck.eventName}
-                      secondary={
-                        potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment>
-                      }
-                    />
-
-                    {/* <ClickyThing to={`/events/${potluck.id}`}> */}
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-                <Typography variant="subheading">No Results to Display</Typography>
-              )}
-
-            <Typography variant="subheading">Events you are attending</Typography>
-
-            {this.state.events[1].length ? (
-              <List>
-                {this.state.events[1].map(potluck => (
-                  <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
-                    <ListItemIcon>
-                      {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={potluck.eventName}
-                      secondary={
-                        potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment>
-                      }
-                    />
-
-                    {/* <ClickyThing to={`/events/${potluck.id}`}> */}
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-                <Typography variant="subheading">No Results to Display</Typography>
-              )}
-
-            <Typography variant="subheading">Events you are invited to</Typography>
-
-            {this.state.events[2].length ? (
-              <List>
-                {this.state.events[2].map(potluck => (
-                  <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
-                    <ListItemIcon>
-                      {potluck.privateEvent ? <LockOutlinedIcon /> : <PublicIcon />}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={potluck.eventName}
-                      secondary={
-                        potluck.eventDate && <Moment format="LLL">{potluck.eventDate}</Moment>
-                      }
-                    />
-
-                    {/* <ClickyThing to={`/events/${potluck.id}`}> */}
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-                <Typography variant="subheading">No Results to Display</Typography>
-              )}
-
-            {restrictionList.length === 0 ? (
-              <h5>No dietary restriction flags</h5>
-            ) : (
-                // : 'has some'
-                <div>
-                  <List>
-                    {restrictionList.map(
-                      thing =>
-                        this.props.currentUser[thing] && <Chip key={thing} label={isLabels[thing]} />
-                    )}
-                  </List>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={this.state.editing}
-                        onChange={this.handleCheckChange('editing')}
-                        value="editing"
-                      />
-                    }
-                    label="Edit"
-                  />
-                  <Grid item md={12}>
-                    {this.state.editing && (
-                      <form>
-
-
-                        {dietary.map(e => (
-                          <FormControlLabel
-                            key={e}
-                            control={
-                              <Checkbox
-                                checked={this.state[e]}
-                                onChange={this.handleCheckChange(e)}
-                                value={e}
-                              />
-                            }
-                            label={isLabels[e]}
-                          />
-                        ))}
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                          className={classes.button}
-                          // disabled={!this.state.itemName}
-                          onClick={this.handleFormSubmit}
-                        >
-                          Submit
-                   </Button>
-                      </form>
-                    )}</Grid>
-
-                </div>
-
-              )}
+              <Link to="/login">Log in</Link>
+            )}
           </Grid>
         </Grid>
       </div>
