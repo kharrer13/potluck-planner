@@ -48,7 +48,7 @@ class EventView extends Component {
     potluckLocation: '',
     itemName: '',
     currentItem: '',
-    currentInvitee: ''
+    currentInvitee: []
   };
 
   componentDidMount() {
@@ -95,7 +95,7 @@ class EventView extends Component {
       invited: true
     })
       .then(res => {
-        this.setState({ currentInvitee: '' });
+        this.setState({ currentInvitee: [] });
         this.loadItems();
       })
       .catch(err => console.log(err));
@@ -228,11 +228,13 @@ class EventView extends Component {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {this.state.items.map(item => (
-                    <MenuItem value={item.id} key={item.id}>
-                      {item.itemName}
-                    </MenuItem>
-                  ))}
+                  {this.state.items
+                    .filter(item => (!this.state.event.Items.find(e => e.id === item.id)))
+                    .map(item => (
+                      <MenuItem value={item.id} key={item.id}>
+                        {item.itemName}
+                      </MenuItem>
+                    ))}
                 </Select>
                 <Button disabled={!this.state.currentItem} onClick={this.handleItemFormSubmit}>
                   Submit Item
@@ -252,6 +254,7 @@ class EventView extends Component {
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="currentInvitee">Person</InputLabel>
                 <Select
+                  multiple
                   value={this.state.currentInvitee}
                   onChange={this.handleInputChange}
                   inputProps={{
@@ -262,11 +265,13 @@ class EventView extends Component {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {this.state.users.map(user => (
-                    <MenuItem value={user.id} key={user.id}>
-                      {user.fullName}
-                    </MenuItem>
-                  ))}
+                  {this.state.users
+                    .filter(user => (!this.state.event.Invitee.find(e => e.id === user.id)))
+                    .map(user => (
+                      <MenuItem value={user.id} key={user.id}>
+                        {user.fullName}
+                      </MenuItem>
+                    ))}
                 </Select>
                 <Button disabled={!this.state.currentInvitee} onClick={this.handleInviteFormSubmit}>
                   Invite
