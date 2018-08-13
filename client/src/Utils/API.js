@@ -39,6 +39,9 @@ export default {
   getMyPotlucks: function() {
     return axios.get('/api/mypotlucks');
   },
+  getAllMyPotlucks: function() {
+    return axios.get('/api/allmypotlucks');
+  },
 
   // Saves a potluck to the database
   savePotluck: function(potluckData) {

@@ -89,7 +89,7 @@ if (process.env.NODE_ENV === "production") {
 // TODO move session secret and maxAge to environment variables
 app.use(session({
   secret: 'draco dormiens nunquam titillandus',
-  cookie: { maxAge: 120000 },
+  cookie: { maxAge: 300000 },
   store: new SequelizeStore({
     db: db.sequelize,
   }),

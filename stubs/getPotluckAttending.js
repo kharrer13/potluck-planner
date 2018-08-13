@@ -1,20 +1,34 @@
 const db = require('../models');
 
-const fakeId = 1;
+const fakeId = 6;
 
 db.sequelize.sync().then(function() {
-  db.Potluck.findAll({
-    // where: {privateEvent: true},
-    include: [
-      {
-        model: db.User,
-        as: 'Attendee',
-        where: { id: fakeId },
-        attributes: []
-      }
-    ]
-  })
-    .then(dbPotluck => console.log(JSON.stringify(dbPotluck, '', 2)))
+
+  db.Sequelize.Promise.all([
+
+    
+    db.Potluck.findAll({
+      // where: {privateEvent: true},
+      include: [
+        {
+          association: 'Attendee',
+          where: { id: fakeId },
+          attributes: []
+        }
+      ]
+    }),
+    db.Potluck.findAll({
+      // where: {privateEvent: true},
+      include: [
+        {
+          association: 'Invitee',
+          where: { id: fakeId },
+          attributes: []
+        }
+      ]
+    }),
+  ])
+    .then(result => console.log(JSON.stringify(result, '', 2)))
     .then(() => db.sequelize.close())
 
     .catch(err => {

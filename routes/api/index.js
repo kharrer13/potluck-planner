@@ -268,6 +268,43 @@ router.get('/mypotlucks', function(req, res) {
   }).then(dbPotluck => res.json(dbPotluck));
 });
 
+router.get('/allmypotlucks', function (req, res) {
+  let query = {};
+
+  if (!req.user) {
+    res.status(401).send('Unauthorized');
+  } else {
+    query.OwnerId = req.user.id;
+  }
+
+  db.Sequelize.Promise.all([
+    db.Potluck.findAll({
+      where: query
+      // include
+    }),
+    db.Potluck.findAll({
+      include: [
+        {
+          association: 'Attendee',
+          where: { id: req.user.id },
+          attributes: []
+        }
+      ]
+    }),
+    db.Potluck.findAll({
+      include: [
+        {
+          association: 'Invitee',
+          where: { id: req.user.id },
+          attributes: []
+        }
+      ]
+    })
+  ])
+    .then(dbPotluck => res.json(dbPotluck))
+    .catch(e => res.json(e));
+});
+
 router
   .route('/items')
   .get(function(req, res) {
