@@ -48,7 +48,7 @@ const dietary = [
 
 class Profile extends Component {
   state = {
-    events: [],
+    events: [[], [], []],
     isVegan: false,
     isVegetarian: false,
     isMilkFree: false,
@@ -196,7 +196,7 @@ class Profile extends Component {
 
             <Typography variant="subheading">Events you are hosting</Typography>
 
-            {this.state.events.length ? (
+            {this.state.events[0].length ? (
               <List>
                 {this.state.events[0].map(potluck => (
                   <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
@@ -220,7 +220,7 @@ class Profile extends Component {
 
             <Typography variant="subheading">Events you are attending</Typography>
 
-            {this.state.events.length ? (
+            {this.state.events[1].length ? (
               <List>
                 {this.state.events[1].map(potluck => (
                   <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
@@ -244,7 +244,7 @@ class Profile extends Component {
 
             <Typography variant="subheading">Events you are invited to</Typography>
 
-            {this.state.events.length ? (
+            {this.state.events[2].length ? (
               <List>
                 {this.state.events[2].map(potluck => (
                   <ListItem button component={Link} to={`/events/${potluck.id}`} key={potluck.id}>
