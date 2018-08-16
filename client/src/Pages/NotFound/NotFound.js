@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import API from '../../Utils/API';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
@@ -17,13 +16,6 @@ const styles = theme => ({
 class NotFound extends Component {
   render() {
     const { classes } = this.props;
-    // const { from } = this.props.location.state || { from: { pathname: "/profile" } };
-    // const { redirectToReferrer } = this.state;
-
-    // if (redirectToReferrer) {
-    // 	console.log('redirecting to from:', from)
-    // 	return <Redirect to={from} />;
-    // }
 
     return (
       <div className={classes.root}>

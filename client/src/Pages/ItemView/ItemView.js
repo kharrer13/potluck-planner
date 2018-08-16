@@ -123,7 +123,8 @@ class ItemView extends Component {
       <div className={classes.root}>
         <Grid container spacing={8} alignItems="center">
           <Grid item md={12}>
-            <Typography variant="headline">{this.state.itemName} {canEat(this.props.currentUser, this.state) ? <CheckCircleOutline /> : <ErrorOutline />}
+            <Typography variant="headline">{this.state.itemName}
+            {this.props.loggedIn && (canEat(this.props.currentUser, this.state) ? <CheckCircleOutline /> : <ErrorOutline />)}
             </Typography>
             {this.state.User && (<Typography variant="subheading">brought by {this.state.User.fullName}</Typography>)}
           </Grid>

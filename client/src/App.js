@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Events from './Pages/Events';
 import Items from './Pages/Items';
@@ -48,8 +48,11 @@ class App extends Component {
       isWheatFree: false,
       isGlutenFree: false
     },
-    loggedIn: false
+    loggedIn: false,
+    redirectToReferrer: false
   }
+  // TODO revisit necessity of redirectToReferrer logic
+
   componentDidMount() {
 
     this.loadCurrentUser();
@@ -60,7 +63,6 @@ class App extends Component {
         this.setState({ currentUser: res.data });
         (res.data.id) ? this.setState({ loggedIn: true }) : this.setState({ loggedIn: false })
       })
-
   };
 
   handleUserChange = (theUser) => {
@@ -74,9 +76,35 @@ class App extends Component {
     // console.log('app.setState called with ' + JSON.stringify({ loggedIn, ...tempUser }, '', 2))
   }
 
+  handleLogout = event => {
+    event.preventDefault();
+    API.logout()
+      .then(res => {
+        // console.log(res);
+        this.handleUserChange(res.data);
+        if (res.data.redirectTo) {
+          console.log(res.data.redirectTo);
+          this.setState({
+            // redirectToReferrer: true,
+            redirectTo: res.data.redirectTo
+          });
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
 
     const { classes } = this.props;
+    const { from } = { from: { pathname: '/login' } };
+    const { redirectToReferrer } = this.state;
+    if (redirectToReferrer) {
+      // this.setState({ redirectToReferrer: false })
+      // console.log('redirecting to from:', from);
+      return (<Router>
+        <Redirect to={from} />
+        </Router>);
+    }
 
     return (
       <Paper className={classes.root}>
@@ -85,7 +113,7 @@ class App extends Component {
             <NavBar
               currentUser={this.state.currentUser}
               loggedIn={this.state.loggedIn}
-              handleUserChange={this.handleUserChange}
+              handleLogout={this.handleLogout}
             />
             <br />
             <br />
@@ -119,7 +147,7 @@ class App extends Component {
                         {...props}
                         currentUser={this.state.currentUser}
                         loggedIn={this.state.loggedIn}
-                        handleUserChange={this.handleUserChange}
+                        handleLogout={this.handleLogout}
                         loadCurrentUser={this.loadCurrentUser}
                       />}
                   />

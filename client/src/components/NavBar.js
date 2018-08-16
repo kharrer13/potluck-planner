@@ -47,12 +47,7 @@ class NavBar extends Component {
                   <Button component={NavLink} to="/items" color="default">Item List</Button>
                   <Button component={NavLink} to="/create_item" color="default">Create Item</Button>
                   <Button component={NavLink} to="/profile"color="default">Profile for {this.props.currentUser.fullName}</Button>
-                  <Button color="default" onClick={event => {
-                  event.preventDefault();
-                  API.logout()
-                    .then(res => this.props.handleUserChange(res.data))
-                    .catch(err => console.log(err));
-                }}>Log Out</Button>
+                  <Button color="default" onClick={this.props.handleLogout}>Log Out</Button>
 
               </React.Fragment>
             ) : (

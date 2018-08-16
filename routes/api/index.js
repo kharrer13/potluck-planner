@@ -19,10 +19,6 @@ router.all('/echo', function(req, res) {
   res.json(req.body);
 });
 
-router.all('/echouser', function(req, res) {
-  console.log(req.user);
-  res.json(req.user);
-});
 // end dummy routes for testing
 
 router

@@ -142,20 +142,6 @@ class Profile extends Component {
       .catch(err => console.log(err));
   };
 
-  handleLogout = event => {
-    event.preventDefault();
-    API.logout()
-      .then(res => {
-        // console.log(res);
-        this.props.handleUserChange(res.data);
-        if (res.data.redirectTo) {
-          console.log(res.data.redirectTo);
-          this.setState({ redirectToReferrer: true });
-        }
-      })
-      .catch(err => console.log(err));
-  };
-
   render() {
     const { classes } = this.props;
 
@@ -182,7 +168,7 @@ class Profile extends Component {
               <div>
                 <Typography variant="title">Welcome, {this.props.currentUser.fullName}</Typography>
                 <Typography variant="subheading">{this.props.currentUser.email}</Typography>
-                <Button variant="outlined" color="secondary" onClick={this.handleLogout}>
+                <Button variant="outlined" color="secondary" onClick={this.props.handleLogout}>
                   Logout
                 </Button>
                 <Typography variant="subheading">Events you are hosting</Typography>
