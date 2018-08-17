@@ -7,11 +7,13 @@ const session = require("express-session");
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const bcrypt = require('bcryptjs');
-
+const helmet = require('helmet');
 
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+app.use(helmet());
 
 const db = require("./models");
 
