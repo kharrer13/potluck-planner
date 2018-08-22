@@ -27,15 +27,19 @@ class Home extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography variant="headline">This is the home landing page</Typography>
-        <Typography component="p">Body copy paragraph 1.</Typography>
-        <Typography component="p">Body copy paragraph 2.</Typography>
+        <Typography variant="headline">Welcome to Potluck Planner</Typography>
+        <Typography component="p">Potluck Planner helps you keep track of your potluck party attendees and items. You can keep track
+        of invitations, RSVPs, and dietary restrictions. </Typography>
+        <br />
         <Button component={Link} variant="contained" to="/login" color="primary">
           Log in
         </Button>
         <Button component={Link} variant="contained" to="/signup" color="primary">
           Sign up
         </Button>
+        <br />
+        <br />
+        <Typography component="p">Built for the GW Coding Boot Camp by <a href="https://github.com/kharrer13">Kyle Harrer</a> and <a href="https://github.com/cslin82">Chris Lin</a>. Uses Sequelize on MySQL, Express, React, Passport, and Node.js.</Typography>
       </div>
     );
   }
