@@ -1,7 +1,10 @@
 Front End
 
-Make UI/navigation more closely follow Material Design
+Make UI/navigation more closely follow Material Design (drawer for navigation, move things out of app bar)
 Display error messages
+More mobile responsive elements
+More grid layout
+Leverage updating lifecycle hooks
 
 
 Back End
@@ -9,6 +12,7 @@ Back End
 Emit error messages
 Password hints
 Resetting passwords
+Require authorization on endpoints
 
 Both
 
