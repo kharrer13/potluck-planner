@@ -5,6 +5,9 @@ export default {
   getUsers: function() {
     return axios.get('/api/users');
   },
+  getUsersShort: function() {
+    return axios.get('/api/users?short=true');
+  },
   // Gets the user with the given id
   getUser: function(id) {
     return axios.get('/api/users/?user_id=' + id);
@@ -15,7 +18,7 @@ export default {
   },
   // Updates a user in the database
   updateUser: function(id, userData) {
-    return axios.put('/api/users/?user_id=' + id, userData);
+    return axios.put('/api/users/' + id, userData);
   },
 
   // Gets all potluck
@@ -36,6 +39,9 @@ export default {
   getMyPotlucks: function() {
     return axios.get('/api/mypotlucks');
   },
+  getAllMyPotlucks: function() {
+    return axios.get('/api/allmypotlucks');
+  },
 
   // Saves a potluck to the database
   savePotluck: function(potluckData) {
@@ -48,7 +54,7 @@ export default {
   },
   // Gets the item with the given id
   getItem: function(id) {
-    return axios.get('/api/items/?item_id=' + id);
+    return axios.get('/api/items/' + id);
   },
   // Saves a item to the database
   saveItem: function(itemData) {
@@ -56,7 +62,7 @@ export default {
   },
   // Updates an item in the database
   updateItem: function(id, itemData) {
-    return axios.get('/api/items/?item_id=' + id, itemData);
+    return axios.put('/api/items/' + id, itemData);
   },
 
   echo: function(whateverdata) {
@@ -80,5 +86,8 @@ export default {
   //Set status to attending
   attendPotluck: function(potluckData) {
     return axios.post('/api/attend', potluckData);
+  },
+  invite: function(inviteData) {
+    return axios.post('/api/invite', inviteData)
   }
 };

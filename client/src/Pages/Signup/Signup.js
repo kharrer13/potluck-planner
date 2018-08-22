@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link as ClickyThing, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import validator from 'validator';
 import API from '../../Utils/API';
@@ -35,14 +35,17 @@ class Signup extends Component {
     email: '',
     fullName: '',
     redirectToReferrer: false,
-    redirectTo: false
+    redirectTo: false,
+    signUpFailed: false
   };
 
   handleInputChange = event => {
     const { name, value } = event.target;
-    this.setState({
+    const newState = {
       [name]: value
-    });
+    };
+    if (this.state.signUpFailed) newState.signUpFailed = false;
+    this.setState(newState);
   };
 
   handleFormSubmit = event => {
@@ -61,10 +64,10 @@ class Signup extends Component {
     if (isValid.every(x => x)) {
       // API.login({
       API.saveUser({
-        username: this.state.username,
+        username: this.state.username.toLocaleLowerCase().trim(),
         password: this.state.password,
-        email: this.state.email,
-        fullName: this.state.fullName
+        email: this.state.email.toLocaleLowerCase().trim(),
+        fullName: this.state.fullName.trim()
       })
         .then(res => {
           // console.log(res);
@@ -76,7 +79,10 @@ class Signup extends Component {
             });
           }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          // console.log(err.response.data);
+          this.setState({ signUpFailed: true });
+        });
     } else {
       console.log('validation error');
     }
@@ -102,7 +108,12 @@ class Signup extends Component {
             <Typography variant="headline">Sign up </Typography>
           </Grid>
           <Grid item md={12}>
-            <form className={classes.container} noValidate autoComplete="off">
+            <form
+              className={classes.container}
+              noValidate
+              autoComplete="off"
+              onSubmit={this.handleFormSubmit}
+            >
               <TextField
                 id="fullName"
                 label="Name"
@@ -130,6 +141,7 @@ class Signup extends Component {
                 placeholder="Email"
                 fullWidth
                 margin="normal"
+                error={this.state.signUpFailed}
               />
               <TextField
                 id="username"
@@ -147,6 +159,7 @@ class Signup extends Component {
                   autoCapitalize: 'none',
                   spellCheck: 'false'
                 }}
+                error={this.state.signUpFailed}
               />
               <TextField
                 id="password"
@@ -164,6 +177,7 @@ class Signup extends Component {
               <Button
                 variant="contained"
                 color="primary"
+                type="submit"
                 className={classes.button}
                 disabled={!(this.state.username && this.state.password)}
                 onClick={this.handleFormSubmit}
@@ -171,6 +185,7 @@ class Signup extends Component {
                 Sign up
               </Button>
             </form>
+            {this.state.signUpFailed && 'Sign up failed: username or email already in use'}
           </Grid>
         </Grid>
       </div>

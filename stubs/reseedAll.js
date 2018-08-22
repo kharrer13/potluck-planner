@@ -429,7 +429,13 @@ const newUsers = [
     username: "luna",
     password: "$2a$10$p24v8HAr5R7T2fMeaKLFxOqxnOMLyere2dc6pJeAmLe9PjPUIF9dC",
     email: "luna.lovegood@hogwarts.ac.uk",
-    fullName: "Luna Lovegood"
+    fullName: "Luna Lovegood",
+    isVegan: true,
+    isVegetarian: true,
+    isMilkFree: true,
+    isEggFree: true,
+    isFishFree: true,
+    isShellfishFree: true
   },
   {
     username: "bill",

@@ -11,7 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import CheckCircle from '@material-ui/icons/CheckCircle';
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 
 import { withStyles } from '@material-ui/core/styles';
 import isLabels from '../../Utils/isLabels.json';
@@ -67,6 +67,7 @@ class Items extends Component {
                     <TableCell>Milk Free</TableCell>
                     <TableCell>Egg Free</TableCell>
                     <TableCell>Peanut Free</TableCell>
+                    <TableCell>Tree nut Free</TableCell>
                     <TableCell>Fish Free</TableCell>
                     <TableCell>Shellfish Free</TableCell>
                     <TableCell>Soy Free</TableCell>
@@ -83,16 +84,17 @@ class Items extends Component {
                             to={`/items/${n.id}`}>
                             {n.itemName}</Link>
                         </TableCell>
-                        <TableCell>{n.isVegan && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isVegetarian && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isMilkFree && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isEggFree && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isTreenutFree && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isFishFree && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isShellfishFree && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isSoyFree && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isWheatFree && <CheckCircle />}</TableCell>
-                        <TableCell>{n.isGlutenFree && <CheckCircle />}</TableCell>
+                        <TableCell>{n.isVegan && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isVegetarian && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isMilkFree && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isEggFree && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isPeanutFree && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isTreenutFree && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isFishFree && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isShellfishFree && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isSoyFree && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isWheatFree && <CheckCircleOutline />}</TableCell>
+                        <TableCell>{n.isGlutenFree && <CheckCircleOutline />}</TableCell>
                       </TableRow>
                     );
                   })}

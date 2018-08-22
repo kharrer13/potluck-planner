@@ -74,7 +74,10 @@ class CreateEvent extends Component {
         eventLocation: this.state.potluckLocation,
         privateEvent: this.state.privateEvent
       })
-        .then(res => this.props.history.push('/events/' + res.data.id))
+        .then(res => {
+          console.log(res.data)
+          return this.props.history.push('/events/' + res.data.id)
+        })
         .catch(err => console.log(err));
 
       
@@ -133,23 +136,6 @@ class CreateEvent extends Component {
                   shrink: true
                 }}
               />
-
-              {/* <DatePicker
-									className="form-control"
-									selected={this.state.potluckDate}
-									onChange={this.handleChange}
-									name="potluckDate"
-									isClearable={true}
-									showTimeSelect
-									timeFormat="HH:mm"
-									timeIntervals={15}
-									dateFormat="LLL"
-									timeCaption="time"
-									todayButton={"Today"}
-									minDate={moment()}
-								/> */}
-              {/* </div> */}
-
               <TextField
                 value={this.state.potluckLocation}
                 onChange={this.handleInputChange}
@@ -185,7 +171,7 @@ class CreateEvent extends Component {
                 Submit Potluck
               </Button>
             </form>
-            <h4>Acting as {this.props.currentUser.username}</h4>
+            {/* <h4>Acting as {this.props.currentUser.username}</h4> */}
           </Grid>
         </Grid>
       </div>

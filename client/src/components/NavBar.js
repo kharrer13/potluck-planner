@@ -27,21 +27,11 @@ const styles = {
 
 // const NavBar = (props) => {
 class NavBar extends Component {
-  state = {
-    redirectToReferrer: false
-  }
 
   render() {
 
-    const { redirectToReferrer } = this.state;
     const { classes } = this.props;
 
-    if (redirectToReferrer) {
-      this.setState({ redirectToReferrer: false })
-      
-      return <Redirect to="/login" />;
-    }
-    
     return (
       <div className={classes.root}>
         <AppBar position="static" color="primary" elevation={4}>
@@ -57,19 +47,7 @@ class NavBar extends Component {
                   <Button component={NavLink} to="/items" color="default">Item List</Button>
                   <Button component={NavLink} to="/create_item" color="default">Create Item</Button>
                   <Button component={NavLink} to="/profile"color="default">Profile for {this.props.currentUser.fullName}</Button>
-                  <Button color="default" onClick={event => {
-                  event.preventDefault();
-                  API.logout()
-                    .then(res => {
-                      console.log(res)
-                      this.props.handleUserChange(res.data)
-                      if (res.data.redirectTo) {
-                        console.log(res.data.redirectTo)
-                        this.setState({ redirectToReferrer: true })
-                      }
-                    })
-                    .catch(err => console.log(err));
-                }}>Log Out</Button>
+                  <Button color="default" onClick={this.props.handleLogout}>Log Out</Button>
 
               </React.Fragment>
             ) : (
@@ -86,5 +64,5 @@ class NavBar extends Component {
     )
   }
 }
-
+// TODO fix Logout link redirection
 export default withStyles(styles)(NavBar);

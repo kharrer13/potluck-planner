@@ -19,7 +19,7 @@ router.post("/login", passport.authenticate("local", { /* failureRedirect: "/log
 
 router.get("/logout", function (req, res) {
   req.logout();
-  res.json({ id: null, username: null, loggedIn: false, redirectTo: '/' })
+  res.json({ id: null, username: null, loggedIn: false, redirectTo: '/login' })
 });
 
 // If no API routes are hit, send the React app

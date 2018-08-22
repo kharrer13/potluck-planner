@@ -7,11 +7,13 @@ const session = require("express-session");
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const bcrypt = require('bcryptjs');
-
+const helmet = require('helmet');
 
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+app.use(helmet());
 
 const db = require("./models");
 
@@ -46,9 +48,10 @@ passport.use(
 // serializing, and querying the user record by ID from the database when
 // deserializing.
 passport.serializeUser(function (user, cb) {
-  console.log("serializeUser called for");
-  const { password, ...tempUser } = user.get();
-  console.log(tempUser);
+  console.log("serializeUser called for", user.get('username'));
+  // const { password, ...tempUser } = user.get();
+  // console.log(tempUser);
+  
   cb(null, user.id);
 });
 
@@ -72,20 +75,23 @@ if (process.env.NODE_ENV === "production") {
 
 
 app.use(require('cookie-parser')());
+// TODO clip out bodyparser with express built-in body parsers
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-} else {
-  app.use(express.static("public"));
-}
+} 
+// else {
+//   app.use(express.static("public"));
+// }
 // TODO go back in history and see blame for the public line
 
+// TODO move session secret and maxAge to environment variables
 app.use(session({
   secret: 'draco dormiens nunquam titillandus',
-  cookie: { maxAge: 120000 },
+  cookie: { maxAge: 300000 },
   store: new SequelizeStore({
     db: db.sequelize,
   }),
