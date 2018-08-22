@@ -171,7 +171,7 @@ class CreateEvent extends Component {
                 Submit Potluck
               </Button>
             </form>
-            <h4>Acting as {this.props.currentUser.username}</h4>
+            {/* <h4>Acting as {this.props.currentUser.username}</h4> */}
           </Grid>
         </Grid>
       </div>

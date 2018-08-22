@@ -57,7 +57,7 @@ class Events extends Component {
       <div className={classes.root}>
         <Grid container spacing={8} alignItems="center">
           <Grid item md={12}>
-            <Typography variant="headline">Available Potlucks</Typography>
+            <Typography variant="headline">Available Public Potlucks</Typography>
           </Grid>
           <Grid item md={12}>
             {this.state.events.length ? (
